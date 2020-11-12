@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "del-cli --force ./build",
     "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m \" minor fixes   \" && npm version patch && npm run build && npm publish",
+    "pub": "git add . && git commit -m \" minor fixesss   \" && npm version patch && npm run build && npm publish",
     "pub-main": "git add . && git commit -m \" added User deleted event   \" && npm version patch && npm run build && npm publish"
   },
   "author": "",
