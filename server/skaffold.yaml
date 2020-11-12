@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta8
+kind: Config
+metadata:
+  name: server
+build:
+  artifacts:
+    - image: tsriramaraju/auth
+      context: auth
+deploy:
+  kubectl:
+    manifests:
+      - k8s/auth-depl.yaml
+      - k8s/ingress-srv.yaml
+      - k8s/nats-depl.yaml
