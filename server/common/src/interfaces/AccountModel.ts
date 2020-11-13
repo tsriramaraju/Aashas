@@ -11,7 +11,6 @@ interface emailAttrs {
   name: string;
   authType: authType.email;
   lastLogin: string;
-  emailVerified: verification.pending;
 }
 interface mobileAttrs {
   name: string;
