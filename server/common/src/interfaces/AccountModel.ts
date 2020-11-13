@@ -11,19 +11,19 @@ interface emailAttrs {
   name: string;
   authType: authType.email;
   lastLogin: string;
-  verified: verification.pending;
+  emailVerified: verification.pending;
 }
 interface mobileAttrs {
   name: string;
   mobile: number;
   authType: authType.mobile;
   lastLogin: string;
-  verified: verification.yes;
+  mobileVerified: verification.yes;
 }
 interface OAuthAttrs {
   authType: authType.facebook | authType.google;
   lastLogin: string;
-  verified: verification.yes;
+  emailVerified: verification.yes;
 }
 
 /**
@@ -48,7 +48,8 @@ interface AccountDoc extends mongoose.Document {
   mobile?: number;
   authType: authType;
   lastLogin: string;
-  verified: verification;
+  emailVerified: verification;
+  mobileVerified: verification;
   isAdmin: 'yes' | 'no';
 }
 
