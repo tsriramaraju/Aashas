@@ -24,29 +24,19 @@ router.post('/verify-login', async (req: Request, res: Response) => {
 
   if (mobile) {
     const user = await verifyOTP(otp, mobile);
-    //  TODO : check last login
+
     if (user) {
       user.lastLogin = Date.now().toString();
       await user.save();
       const payload: jwtPayload = {
         id: user.id,
         name: user.name!,
+        emailVerified: user.emailVerified,
+        mobileVerified: user.mobileVerified,
       };
       res.status(201).json(generateJWT(payload, 100));
-
-      //  TODO : test order of evetns
-      //Publish account created event
-      new AccountCreatedPublisher(natsWrapper.client).publish({
-        id: user.id,
-        data: {
-          authMode: authType.mobile,
-          id: user.id,
-          name: user.name!,
-          mobile: user.mobile,
-        },
-      });
     }
   }
 });
 
-export { router as verifyLoginRoute };
+export { router as verifyLogin };

@@ -25,6 +25,7 @@ interface jwtPayload {
   id: mongoose.Types.ObjectId;
   name: string;
   email?: string;
-  verified?: verification;
+  emailVerified: verification;
+  mobileVerified: verification;
 }
 export { emailPayload, mobilePayload, jwtPayload };

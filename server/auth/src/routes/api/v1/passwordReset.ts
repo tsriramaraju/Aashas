@@ -36,6 +36,8 @@ router.post(
         id: user.id,
         name: user.name,
         email: user.email,
+        emailVerified: user.emailVerified,
+        mobileVerified: user.mobileVerified,
       };
 
       res.status(201).json(generateJWT(payload, 100));
@@ -43,4 +45,4 @@ router.post(
   }
 );
 
-export { router as passwordResetRoute };
+export { router as passwordReset };

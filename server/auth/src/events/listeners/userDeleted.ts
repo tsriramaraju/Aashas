@@ -24,7 +24,7 @@ export class UserDeletedListener extends Listener<UserDeletedEvent> {
     try {
       await deleteAccount(userId);
       console.log('user deleted');
-      //  TODO : send notification later
+
       msg.ack();
     } catch (error) {
       throw new DatabaseConnectionError(error.message);

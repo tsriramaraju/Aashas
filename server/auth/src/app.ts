@@ -2,18 +2,7 @@ import express, { json } from 'express';
 import 'express-async-errors';
 import 'colors';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
-import {
-  emailRegistrationRouter,
-  mobileRegistrationRouter,
-  verifyRegistrationRoute,
-  emailLoginRoute,
-  getAccountsRouter,
-  forgotPasswordRoute,
-  mobileLoginRouter,
-  passwordResetRoute,
-  verifyLoginRoute,
-  resendOTPRouter,
-} from './routes/api/v1';
+import * as routes from './routes/api/v1';
 
 const app = express();
 app.set('trust proxy', true);
@@ -26,16 +15,17 @@ process.env.NODE_ENV !== 'test' && loggers(app);
 /**
  * Auth service routes
  */
-app.use('/api/v1/auth', emailRegistrationRouter);
-app.use('/api/v1/auth', mobileRegistrationRouter);
-app.use('/api/v1/auth', verifyRegistrationRoute);
-app.use('/api/v1/auth', emailLoginRoute);
-app.use('/api/v1/auth', getAccountsRouter);
-app.use('/api/v1/auth', forgotPasswordRoute);
-app.use('/api/v1/auth', mobileLoginRouter);
-app.use('/api/v1/auth', passwordResetRoute);
-app.use('/api/v1/auth', verifyLoginRoute);
-app.use('/api/v1/auth', resendOTPRouter);
+app.use('/api/v1/auth', routes.emailRegistration);
+app.use('/api/v1/auth', routes.mobileRegistration);
+app.use('/api/v1/auth', routes.verifyRegistration);
+app.use('/api/v1/auth', routes.emailLogin);
+app.use('/api/v1/auth', routes.getAccounts);
+app.use('/api/v1/auth', routes.forgotPassword);
+app.use('/api/v1/auth', routes.mobileLogin);
+app.use('/api/v1/auth', routes.passwordReset);
+app.use('/api/v1/auth', routes.verifyLogin);
+app.use('/api/v1/auth', routes.resendOTP);
+app.use('/api/v1/auth', routes.updateContact);
 
 /**
  * 404 route

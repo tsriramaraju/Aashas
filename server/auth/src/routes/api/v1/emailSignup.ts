@@ -43,13 +43,15 @@ router.post(
 
     //Makes sure user is created
     if (!user) throw new DatabaseConnectionError('Failed registering user');
+    const otpData = await initiateOTP(user.email!, user.name!);
 
     //Return payload  with registered user data
     const payload: jwtPayload = {
       id: user.id,
       name: user.name,
       email: user.email,
-      verified: user.verified,
+      emailVerified: user.emailVerified,
+      mobileVerified: user.mobileVerified,
     };
 
     res.status(201).json(generateJWT(payload, 100));
@@ -65,7 +67,6 @@ router.post(
       },
     });
 
-    const otpData = await initiateOTP(user.email!, user.name!);
     //Makes sure OTP is created
     if (!otpData)
       throw new DatabaseConnectionError(
@@ -86,4 +87,4 @@ router.post(
   }
 );
 
-export { router as emailRegistrationRouter };
+export { router as emailRegistration };

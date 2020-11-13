@@ -31,7 +31,7 @@ describe('Verify OTP service test group', () => {
     const data = await Account.findOne({ email: 'john@test.com' });
 
     expect(data?.email).toBe('john@test.com');
-    expect(data?.verified).toBe(verification.no);
+    expect(data?.emailVerified).toBe(verification.no);
     await OTP.build({
       name: 'john',
       otp: 1234,
@@ -41,7 +41,7 @@ describe('Verify OTP service test group', () => {
     const res = await Account.findOne({ email: 'john@test.com' });
 
     expect(res?.email).toBe('john@test.com');
-    expect(res?.verified).toBe(verification.yes);
+    expect(res?.emailVerified).toBe(verification.yes);
   });
 
   it('should Create  a user document if valid otp and mobile number is submitted', async () => {
@@ -55,7 +55,7 @@ describe('Verify OTP service test group', () => {
     const response = await Account.find({});
     expect(response.length).toBe(1);
 
-    expect(response[0].verified).toBe(verification.yes);
+    expect(response[0].mobileVerified).toBe(verification.yes);
   });
 
   it('should return existing user document if already exists', async () => {
@@ -65,7 +65,7 @@ describe('Verify OTP service test group', () => {
     const res = await verifyOTP(1234, 1234567891);
 
     expect(res?.mobile).toBe(1234567891);
-    expect(res?.verified).toBe(verification.no);
+    expect(res?.mobileVerified).toBe(verification.no);
     expect(JSON.stringify(account) == JSON.stringify(res)).toBe(true);
   });
 });

@@ -2,6 +2,7 @@ import {
   AccountDoc,
   AccountModel,
   authType,
+  DatabaseConnectionError,
   emailAttrs,
   mobileAttrs,
   OAuthAttrs,
@@ -11,7 +12,16 @@ import { Schema, model } from 'mongoose';
 const accountSchema = new Schema(
   {
     name: String,
-    verified: { type: String, enum: ['pending', 'yes', 'no'], default: 'no' },
+    emailVerified: {
+      type: String,
+      enum: ['pending', 'yes', 'no'],
+      default: 'no',
+    },
+    mobileVerified: {
+      type: String,
+      enum: ['pending', 'yes', 'no'],
+      default: 'no',
+    },
     email: { type: String, unique: true, sparse: true },
     mobile: { type: Number, unique: true, sparse: true },
     password: String,
@@ -55,9 +65,9 @@ accountSchema.statics.oauthBuild = (attrs: OAuthAttrs) => {
 const Account = model<AccountDoc, AccountModel>('account', accountSchema);
 
 Account.on('index', function (err) {
-  // if (err) {
-  //   console.error('User index error: %s', err);
-  // }
+  if (err) {
+    throw new DatabaseConnectionError(err.message);
+  }
 });
 
 export { Account };

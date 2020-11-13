@@ -5,7 +5,6 @@ import {
   BadRequestError,
   emailValidation,
   natsWrapper,
-  ServerError,
   validateRequest,
 } from '@aashas/common';
 
@@ -48,4 +47,4 @@ router.post(
   }
 );
 
-export { router as forgotPasswordRoute };
+export { router as forgotPassword };

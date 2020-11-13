@@ -27,7 +27,6 @@ export const registerByEmail = async (
       name: name,
       password: hashPass,
       lastLogin: Date.now().toString(),
-      verified: verification.pending,
     };
 
     const account = Account.emailBuild(data);

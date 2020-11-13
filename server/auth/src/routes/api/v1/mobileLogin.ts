@@ -48,4 +48,4 @@ router.post(
   }
 );
 
-export { router as mobileLoginRouter };
+export { router as mobileLogin };

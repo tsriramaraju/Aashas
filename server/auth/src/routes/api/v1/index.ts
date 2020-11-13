@@ -8,3 +8,4 @@ export * from './passwordReset';
 export * from './verifyLoginOtp';
 export * from './verifyRegistrationOTP';
 export * from './resendOTP';
+export * from './updateContact';

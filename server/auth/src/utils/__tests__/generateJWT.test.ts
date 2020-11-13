@@ -1,13 +1,16 @@
-import { BadRequestError } from '@aashas/common';
+import { BadRequestError, verification } from '@aashas/common';
 import { generateJWT, decodeJWT } from '../generateJWT';
 import mongoose from 'mongoose';
+import { jwtPayload } from '../../interfaces';
 
 describe('JSON web token  test group', () => {
   it('should create JWT token on valid parameters', () => {
-    const payload = {
+    const payload: jwtPayload = {
       id: mongoose.Types.ObjectId(),
       name: 'john doe',
       email: 'john@test.com',
+      emailVerified: verification.yes,
+      mobileVerified: verification.no,
     };
 
     const token = generateJWT(payload);
@@ -20,6 +23,8 @@ describe('JSON web token  test group', () => {
       id: mongoose.Types.ObjectId(),
       name: 'john doe',
       email: 'john@test.com',
+      emailVerified: verification.yes,
+      mobileVerified: verification.no,
     };
 
     const token = generateJWT(payload);

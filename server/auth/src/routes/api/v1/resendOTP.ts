@@ -48,4 +48,4 @@ router.post(
   }
 );
 
-export { router as resendOTPRouter };
+export { router as resendOTP };

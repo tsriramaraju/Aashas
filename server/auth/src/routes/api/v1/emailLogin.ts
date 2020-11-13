@@ -45,10 +45,11 @@ router.post(
         id: user.id,
         name: user.name!,
         email: user.email,
-        verified: user.verified,
+        emailVerified: user.emailVerified,
+        mobileVerified: user.mobileVerified,
       })
     );
   }
 );
 
-export { router as emailLoginRoute };
+export { router as emailLogin };

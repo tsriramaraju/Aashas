@@ -29,20 +29,28 @@ export const verifyOTP = async (otpValue: number, id: string | number) => {
     if (typeof id == 'string') {
       return await Account.findOneAndUpdate(
         { email: id },
-        { verified: verification.yes }
+        { emailVerified: verification.yes }
       );
     }
 
     const user = await Account.findOne({ mobile: id });
+
     //Return user, if the account already exists with the mobile no.
-    if (user) return user;
+    if (user) {
+      if (user.mobileVerified == verification.pending) {
+        user.mobileVerified = verification.yes;
+        return await user.save();
+      }
+      return user;
+    }
+
     //Create new user record if no record is found with verified status as "yes"
     return await Account.mobileBuild({
       authType: authType.mobile,
       lastLogin: Date.now().toString(),
       mobile: id,
       name: otpData.name!,
-      verified: verification.yes,
+      mobileVerified: verification.yes,
     }).save();
   } catch (error) {
     throw new DatabaseConnectionError(error.message);

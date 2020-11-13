@@ -26,7 +26,7 @@ describe('Verify Login OTP route test group', () => {
 
   it('should update account verification status on valid email id input and otp', async () => {
     const user = await global.register();
-    expect(user?.verified).toBe(verification.no);
+    expect(user?.emailVerified).toBe(verification.no);
 
     await OTP.build({
       name: user?.name!,
@@ -45,7 +45,7 @@ describe('Verify Login OTP route test group', () => {
     const user1 = await Account.findById(user?.id);
 
     expect(res.body.msg).toBe('successfully verified');
-    expect(user1?.verified).toBe(verification.yes);
+    expect(user1?.emailVerified).toBe(verification.yes);
   });
 
   it('should return valid JWT token and create user account  valid mobile number input and otp', async () => {
@@ -69,7 +69,7 @@ describe('Verify Login OTP route test group', () => {
     const user1 = await Account.findOne({ mobile: 1234567891 });
     const users = await Account.find({});
 
-    expect(user1?.verified).toBe(verification.yes);
+    expect(user1?.mobileVerified).toBe(verification.yes);
     expect(typeof res.body).toBe('string');
 
     const payload = decodeJWT(res.body) as jwtPayload;

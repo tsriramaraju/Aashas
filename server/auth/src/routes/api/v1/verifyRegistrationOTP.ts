@@ -2,7 +2,8 @@ import { Router, Request, Response } from 'express';
 import { jwtPayload } from '../../../interfaces';
 import { verifyOTP } from '../../../services';
 import { generateJWT } from '../../../utils';
-import { BadRequestError } from '@aashas/common';
+import { authType, BadRequestError, natsWrapper } from '@aashas/common';
+import { AccountCreatedPublisher } from '../../../events';
 
 const router = Router();
 
@@ -35,12 +36,25 @@ router.post('/verify-register', async (req: Request, res: Response) => {
       const payload: jwtPayload = {
         id: user.id,
         name: user.name,
-        verified: user.verified,
+        emailVerified: user.emailVerified,
+        mobileVerified: user.mobileVerified,
       };
 
       res.status(201).json(generateJWT(payload, 100));
+
+      //Publish account created event
+      if (!user.email)
+        new AccountCreatedPublisher(natsWrapper.client).publish({
+          id: user.id,
+          data: {
+            authMode: authType.mobile,
+            id: user.id,
+            name: user.name!,
+            mobile: user.mobile,
+          },
+        });
     }
   }
 });
 
-export { router as verifyRegistrationRoute };
+export { router as verifyRegistration };
