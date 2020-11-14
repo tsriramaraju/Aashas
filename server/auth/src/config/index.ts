@@ -16,4 +16,12 @@ export default {
   natsURL: process.env.NATS_URL,
 
   natsClientID: process.env.AUTH_NATS_CLIENT_ID,
+
+  googleClientID: process.env.GOOGLE_CLIENT_ID,
+
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+
+  facebookClientID: process.env.FACEBOOK_CLIENT_ID,
+
+  facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET,
 };

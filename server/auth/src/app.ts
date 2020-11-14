@@ -3,7 +3,7 @@ import 'express-async-errors';
 import 'colors';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
 import * as routes from './routes/api/v1';
-// import passport from 'passport';
+import { deserializeUser, initialize, serializeUser } from 'passport';
 
 const app = express();
 app.set('trust proxy', true);
@@ -16,8 +16,15 @@ process.env.NODE_ENV !== 'test' && loggers(app);
 /**
  * passport middlewares
  */
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(initialize());
+
+serializeUser(function (user, cb) {
+  cb(null, user);
+});
+
+deserializeUser(function (obj, cb) {
+  cb(null, obj);
+});
 
 /**
  * Auth service routes
@@ -33,6 +40,8 @@ app.use('/api/v1/auth', routes.passwordReset);
 app.use('/api/v1/auth', routes.verifyLogin);
 app.use('/api/v1/auth', routes.resendOTP);
 app.use('/api/v1/auth', routes.updateContact);
+app.use('/api/v1/auth', routes.GoogleRegister);
+app.use('/api/v1/auth', routes.FacebookRegister);
 
 /**
  * 404 route

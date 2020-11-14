@@ -40,7 +40,7 @@ jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
 
 let mongo: any;
 beforeAll(async () => {
-  config.jwtSecret = 'This almost had me ';
+  config.jwtSecret = 'secret';
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';
@@ -102,8 +102,10 @@ global.adminLogin = async () => {
 
   const token = generateJWT({
     id: user.id,
-    name: user.name!,
+    name: user.name,
     email: user.email,
+    emailVerified: user.emailVerified,
+    mobileVerified: user.mobileVerified,
   });
 
   return token;
