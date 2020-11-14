@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { findUser } from './../../../services';
+import { checkAvailability } from './../../../services';
 import { compareHash, generateJWT } from '../../../utils';
 import {
   emailValidation,
@@ -24,7 +24,7 @@ router.post(
     const { email, password } = req.body;
 
     //find existing user
-    const user = await findUser(email);
+    const user = await checkAvailability(email);
 
     //Makes sure user exists
     if (!user) {
@@ -43,7 +43,7 @@ router.post(
     return res.status(201).json(
       generateJWT({
         id: user.id,
-        name: user.name!,
+        name: user.name,
         email: user.email,
         emailVerified: user.emailVerified,
         mobileVerified: user.mobileVerified,

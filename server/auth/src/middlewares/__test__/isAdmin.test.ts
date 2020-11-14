@@ -1,4 +1,8 @@
-import { BadRequestError, NotAuthorizedError } from '@aashas/common';
+import {
+  BadRequestError,
+  NotAuthorizedError,
+  verification,
+} from '@aashas/common';
 import { NextFunction, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { Account } from '../../models';
@@ -8,7 +12,13 @@ import { isAdmin } from '../isAdmin';
 describe('Is admin middleware test group', () => {
   it('should throw Bad request error if user is not present', async () => {
     const id = Types.ObjectId();
-    const token = generateJWT({ id, name: 'john' });
+    const token = generateJWT({
+      id,
+      name: 'john',
+      emailVerified: verification.yes,
+      mobileVerified: verification.yes,
+      email: 'john@test.com',
+    });
 
     const mockRequest = {
       headers: {

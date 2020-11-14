@@ -3,10 +3,17 @@ import { Request, Response, NextFunction } from 'express';
 import { Types } from 'mongoose';
 
 import { Account } from '../models/Accounts';
-import { NotAuthorizedError } from '@aashas/common';
+import { BadRequestError, NotAuthorizedError } from '@aashas/common';
 
+declare global {
+  namespace Express {
+    interface Request {
+      user?: { name: string; id: Types.ObjectId; email?: string };
+    }
+  }
+}
 /**
- * Checks whether the incoming request has valid jwt token and also an admin
+ * Checks whether the incoming request has valid jwt token and also a registered user
  */
 export const isUser = async (
   req: Request,
@@ -14,6 +21,10 @@ export const isUser = async (
   next: NextFunction
 ) => {
   let token;
+
+  if (!req.headers) {
+    throw new BadRequestError('Invalid headers');
+  }
 
   if (
     req.headers.authorization &&
@@ -26,22 +37,22 @@ export const isUser = async (
 
   // Make sure token exists
   if (!token) {
-    throw new NotAuthorizedError();
+    throw new BadRequestError('Authentication token is not present');
   }
 
   // Verify token
   const decoded = decodeJWT(token);
   const user = await Account.findById(decoded!.id).select('-password');
 
-  //Make sure user exists
+  //make sure user exists
   if (!user) {
-    throw new NotAuthorizedError();
+    throw new BadRequestError('Authentication token is invalid');
   }
 
-  //Make sure that user is  admin
-  if (user.isAdmin == 'yes') {
-    throw new NotAuthorizedError();
-  }
+  //make sure that user is not admin
+  if (user.isAdmin == 'yes') throw new NotAuthorizedError();
 
+  //assign user id and user name to request
+  req.user = { id: user.id, name: user.name!, email: user.email };
   next();
 };

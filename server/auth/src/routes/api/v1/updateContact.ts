@@ -19,11 +19,11 @@ router.post('/update-contact', isUser, async (req: Request, res: Response) => {
   const { email } = req.body;
   const mobile = +req.body.mobile;
   const { id, name } = req.user!;
-  const exists = await checkAvailability(email || mobile);
+  const user = await checkAvailability(email || mobile);
   const mode = email == undefined ? 'mobile' : 'email';
 
   //Makes sure  contact info doesn't exists in Accounts database
-  if (!exists) {
+  if (!user) {
     throw new ResourceNotFoundError(`${mode} already exists`);
   }
 
@@ -42,13 +42,13 @@ router.post('/update-contact', isUser, async (req: Request, res: Response) => {
         mobile: otpData.mobile,
       },
     });
-    const user = await getAccounts(id);
+
     const jwt: jwtPayload = {
       id,
       name,
-      email: user[0].email,
-      emailVerified: user[0].emailVerified,
-      mobileVerified: user[0].mobileVerified,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      mobileVerified: user.mobileVerified,
     };
 
     res.status(201).json(generateJWT(jwt));

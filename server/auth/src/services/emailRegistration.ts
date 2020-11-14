@@ -3,8 +3,8 @@ import { hashPassword } from '../utils';
 import {
   emailAttrs,
   authType,
-  verification,
   ServerError,
+  verification,
 } from '@aashas/common';
 
 /**
@@ -27,6 +27,7 @@ export const registerByEmail = async (
       name: name,
       password: hashPass,
       lastLogin: Date.now().toString(),
+      emailVerified: verification.pending,
     };
 
     const account = Account.emailBuild(data);

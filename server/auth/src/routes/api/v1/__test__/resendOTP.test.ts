@@ -1,7 +1,6 @@
 import { natsWrapper, OTPDoc } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
-import { OTP } from '../../../../models/OTP';
 
 describe('Resend OTP route test group', () => {
   it('should return validation error on invalid email input', async () => {

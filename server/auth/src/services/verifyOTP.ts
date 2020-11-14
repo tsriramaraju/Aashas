@@ -13,10 +13,10 @@ import {
  * @param id email id or password
  */
 export const verifyOTP = async (otpValue: number, id: string | number) => {
-  const otpData =
-    typeof id == 'string'
-      ? await OTP.findOne({ email: id })
-      : await OTP.findOne({ mobile: id });
+  const otpData = await OTP.findOne(
+    typeof id == 'string' ? { email: id } : { mobile: id }
+  );
+
   //Makes sure that OTP is not expired
   if (!otpData)
     throw new ResourceNotFoundError('OTP expired, plz generate OTP again');

@@ -3,6 +3,7 @@ import 'express-async-errors';
 import 'colors';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
 import * as routes from './routes/api/v1';
+// import passport from 'passport';
 
 const app = express();
 app.set('trust proxy', true);
@@ -11,6 +12,12 @@ app.use(json());
 console.clear();
 security(app);
 process.env.NODE_ENV !== 'test' && loggers(app);
+
+/**
+ * passport middlewares
+ */
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 /**
  * Auth service routes
@@ -31,6 +38,8 @@ app.use('/api/v1/auth', routes.updateContact);
  * 404 route
  */
 app.all('*', async (req, res) => {
+  console.log(req.body);
+  res.json(req.body);
   throw new NotFoundError();
 });
 

@@ -9,3 +9,4 @@ export * from './verifyLoginOtp';
 export * from './verifyRegistrationOTP';
 export * from './resendOTP';
 export * from './updateContact';
+export * from './registerGoogle';

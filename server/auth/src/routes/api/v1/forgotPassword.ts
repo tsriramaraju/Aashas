@@ -22,11 +22,21 @@ router.post(
   async (req: Request, res: Response) => {
     const email = req.body.email;
 
-    const availability = await checkAvailability(email);
+    const user = await checkAvailability(email);
     //Makes sure that email exist in Accounts DB
-    if (!availability) {
+    if (!user) {
       throw new BadRequestError("Email doesn't exists");
     }
+
+    //makes sure email is not from oauth
+    if (user.googleID)
+      throw new BadRequestError(
+        'This email is registered with google oauth, please use google signIn'
+      );
+    else if (user.facebookID)
+      throw new BadRequestError(
+        'This email is registered with facebook oauth, please use facebook signIn'
+      );
 
     const resetData = await initiateReset(email);
 

@@ -1,7 +1,6 @@
 import { isAdmin } from './../../../middlewares/isAdmin';
 import { getAccounts } from './../../../services';
 import { Router, Request, Response } from 'express';
-import { DatabaseConnectionError } from '@aashas/common';
 
 const router = Router();
 

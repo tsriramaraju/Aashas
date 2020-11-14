@@ -23,7 +23,7 @@ export const isAdmin = async (
   let token;
 
   if (!req.headers) {
-    throw new BadRequestError('Authentication token is not present');
+    throw new BadRequestError('Invalid headers');
   }
 
   if (

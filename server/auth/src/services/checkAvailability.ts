@@ -7,9 +7,9 @@ import { DatabaseConnectionError } from '@aashas/common';
  */
 export const checkAvailability = async (value: string | number) => {
   try {
-    return typeof value == 'string'
-      ? await Account.exists({ email: value })
-      : await Account.exists({ mobile: value });
+    return await Account.findOne(
+      typeof value == 'string' ? { email: value } : { mobile: value }
+    );
   } catch (error) {
     throw new DatabaseConnectionError(error.message);
   }

@@ -1,6 +1,10 @@
 import { Account, OTP } from '../models';
 import { generateOTP } from '../utils';
-import { DatabaseConnectionError, verification } from '@aashas/common';
+import {
+  DatabaseConnectionError,
+  ResourceNotFoundError,
+  verification,
+} from '@aashas/common';
 import { Types } from 'mongoose';
 
 /**
@@ -20,10 +24,9 @@ export const initiateOTP = async (
      * check for existing document with given id
      */
 
-    const exists =
-      typeof id == 'string'
-        ? await OTP.findOne({ email: id })
-        : await OTP.findOne({ mobile: id });
+    const exists = await OTP.findOne(
+      typeof id == 'string' ? { email: id } : { mobile: id }
+    );
 
     /**
      *  if document already exists return the available OTP
@@ -41,8 +44,11 @@ export const initiateOTP = async (
       /**
        * updates verification status upon checking
        */
+      if (!user) {
+        throw new ResourceNotFoundError('requesting user not found');
+      }
       typeof id == 'string'
-        ? user?.emailVerified === verification.no &&
+        ? user.emailVerified === verification.no &&
           (await user.update({
             emailVerified: verification.pending,
             email: id,
@@ -53,10 +59,11 @@ export const initiateOTP = async (
             mobile: id,
           }));
     }
-    const otpDocument =
+    const otpDocument = await new OTP(
       typeof id == 'string'
-        ? await new OTP({ otp: otpValue, name, email: id }).save()
-        : await new OTP({ otp: otpValue, name, mobile: id }).save();
+        ? { otp: otpValue, name, email: id }
+        : { otp: otpValue, name, mobile: id }
+    ).save();
 
     return otpDocument;
   } catch (error) {

@@ -4,7 +4,7 @@
 export * from './checkAvailability';
 export * from './deleteAccount';
 export * from './emailRegistration';
-export * from './findUser';
+
 export * from './getAccounts';
 export * from './initiateOTP';
 export * from './initiateReset';

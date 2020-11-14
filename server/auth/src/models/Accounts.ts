@@ -4,14 +4,17 @@ import {
   authType,
   DatabaseConnectionError,
   emailAttrs,
+  facebookAttrs,
+  googleAttrs,
   mobileAttrs,
-  OAuthAttrs,
 } from '@aashas/common';
 import { Schema, model } from 'mongoose';
 
 const accountSchema = new Schema(
   {
     name: String,
+    googleID: { type: String, unique: true, sparse: true },
+    facebookID: { type: String, unique: true, sparse: true },
     emailVerified: {
       type: String,
       enum: ['pending', 'yes', 'no'],
@@ -58,7 +61,10 @@ accountSchema.statics.emailBuild = (attrs: emailAttrs) => {
 accountSchema.statics.mobileBuild = (attrs: mobileAttrs) => {
   return new Account(attrs);
 };
-accountSchema.statics.oauthBuild = (attrs: OAuthAttrs) => {
+accountSchema.statics.googleBuild = (attrs: googleAttrs) => {
+  return new Account(attrs);
+};
+accountSchema.statics.facebookBuild = (attrs: facebookAttrs) => {
   return new Account(attrs);
 };
 
