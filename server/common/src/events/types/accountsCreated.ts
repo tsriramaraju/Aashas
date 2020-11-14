@@ -7,10 +7,11 @@ export interface AccountCreatedEvent {
     id: Mongoose.Types.ObjectId;
     data: {
       id: Mongoose.Types.ObjectId;
-      authMode: authType.email | authType.mobile;
+      authMode: authType;
       name: string;
       email?: string;
       mobile?: number;
+      profilePIC?: number;
     };
   };
 }
