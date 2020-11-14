@@ -1,7 +1,10 @@
+import { AccountDoc } from '@aashas/common';
 import express, { Request, Response } from 'express';
 import { authenticate } from 'passport';
 
 import '../../../config/OAuth/google';
+import { jwtPayload } from '../../../interfaces';
+import { generateJWT } from '../../../utils';
 
 const router = express.Router();
 
@@ -18,7 +21,17 @@ router.get(
   '/google/callback/',
   authenticate('google', { failureRedirect: '/failure' }),
   (req, res) => {
-    res.json(req.user);
+    const user = req.user as AccountDoc;
+
+    const payload: jwtPayload = {
+      id: user.id,
+      emailVerified: user.emailVerified,
+      mobileVerified: user.mobileVerified,
+      name: user.name,
+      email: user.email,
+    };
+
+    res.json(generateJWT(payload));
   }
 );
 export { router as GoogleRegister };
