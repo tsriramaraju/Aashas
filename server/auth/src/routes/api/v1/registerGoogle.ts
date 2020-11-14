@@ -51,6 +51,5 @@ router.get('/failure', (req, res) => {
   //  TODO : change later to login client route
   res.redirect('https://www.google.com');
 });
-export { router as FacebookRegister };
 
 export { router as GoogleRegister };

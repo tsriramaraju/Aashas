@@ -41,7 +41,10 @@ jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
 let mongo: any;
 beforeAll(async () => {
   keys.jwtSecret = 'secret';
-
+  process.env.GOOGLE_CLIENT_ID = 'something ';
+  process.env.GOOGLE_CLIENT_SECRET = 'something ';
+  process.env.FACEBOOK_CLIENT_ID = 'something ';
+  process.env.FACEBOOK_CLIENT_SECRET = 'something ';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';
 
