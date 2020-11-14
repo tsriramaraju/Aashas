@@ -1,10 +1,10 @@
+import { Types } from 'mongoose';
 import { Subjects } from '../subjects';
-import Mongoose from 'mongoose';
 
 export interface GenerateResetEvent {
   subject: Subjects.GenerateReset;
   data: {
-    id?: Mongoose.Types.ObjectId;
+    id?: Types.ObjectId;
     mode: 'email' | 'mobile' | 'slack';
     group?: string;
     clientID?: string;
@@ -13,7 +13,7 @@ export interface GenerateResetEvent {
       name?: string;
       email?: string;
       mobile?: number;
-      uid: string;
+      uid: Types.ObjectId;
       message?: string;
       img?: string;
     };
