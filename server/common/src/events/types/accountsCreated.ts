@@ -11,7 +11,7 @@ export interface AccountCreatedEvent {
       name: string;
       email?: string;
       mobile?: number;
-      profilePIC?: number;
+      profilePic?: String;
     };
   };
 }
