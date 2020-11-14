@@ -11,6 +11,7 @@ interface emailAttrs {
   name: string;
   authType: authType.email;
   lastLogin: string;
+  emailVerified: verification.pending;
 }
 interface mobileAttrs {
   name: string;
@@ -19,10 +20,21 @@ interface mobileAttrs {
   lastLogin: string;
   mobileVerified: verification.yes;
 }
-interface OAuthAttrs {
-  authType: authType.facebook | authType.google;
+interface googleAttrs {
+  authType: authType.google;
   lastLogin: string;
   emailVerified: verification.yes;
+  googleID: string;
+  email: string;
+  name: string;
+}
+interface facebookAttrs {
+  authType: authType.facebook;
+  lastLogin: string;
+  emailVerified: verification.yes;
+  facebookID: string;
+  email: string;
+  name: string;
 }
 
 /**
@@ -32,7 +44,8 @@ interface OAuthAttrs {
 interface AccountModel extends mongoose.Model<AccountDoc> {
   emailBuild(attrs: emailAttrs): AccountDoc;
   mobileBuild(attrs: mobileAttrs): AccountDoc;
-  oauthBuild(attrs: OAuthAttrs): AccountDoc;
+  googleBuild(attrs: googleAttrs): AccountDoc;
+  facebookBuild(attrs: facebookAttrs): AccountDoc;
 }
 
 /**
@@ -41,16 +54,25 @@ interface AccountModel extends mongoose.Model<AccountDoc> {
  */
 interface AccountDoc extends mongoose.Document {
   id: mongoose.Types.ObjectId;
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
   name: string;
-  mobile?: number;
+  mobile: number;
   authType: authType;
   lastLogin: string;
   emailVerified: verification;
   mobileVerified: verification;
   isAdmin: 'yes' | 'no';
+  googleID: string;
+  facebookID: string;
 }
 
-export { emailAttrs, mobileAttrs, OAuthAttrs, AccountDoc, AccountModel };
+export {
+  emailAttrs,
+  mobileAttrs,
+  facebookAttrs,
+  googleAttrs,
+  AccountDoc,
+  AccountModel,
+};
 //
