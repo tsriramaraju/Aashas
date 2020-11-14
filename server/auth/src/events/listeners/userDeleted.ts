@@ -1,3 +1,7 @@
+import { Account } from '../../models';
+import { Message } from 'node-nats-streaming';
+import { deleteAccount } from '../../services';
+import { queueGroupName } from '../queueGroupName';
 import {
   DatabaseConnectionError,
   Listener,
@@ -5,11 +9,10 @@ import {
   Subjects,
   UserDeletedEvent,
 } from '@aashas/common';
-import { Message } from 'node-nats-streaming';
-import { Account } from '../../models';
-import { deleteAccount } from '../../services';
-import { queueGroupName } from '../queueGroupName';
 
+/**
+ * User deleted listener to delete user from database
+ */
 export class UserDeletedListener extends Listener<UserDeletedEvent> {
   queueGroupName = queueGroupName;
   subject: Subjects.UserDeleted = Subjects.UserDeleted;
@@ -18,13 +21,17 @@ export class UserDeletedListener extends Listener<UserDeletedEvent> {
     const userId = data.id;
 
     const user = await Account.findById(userId);
-
+    /**
+     * Makes sure user exists
+     */
     if (!user) throw new ResourceNotFoundError('Requesting user not found');
 
     try {
       await deleteAccount(userId);
-      console.log('user deleted');
 
+      /**
+       * Acknowledge the event bus only after successfully deleting the user
+       */
       msg.ack();
     } catch (error) {
       throw new DatabaseConnectionError(error.message);

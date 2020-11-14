@@ -1,10 +1,15 @@
-import { ResourceNotFoundError, natsWrapper } from '@aashas/common';
-import { Router, Request, Response } from 'express';
-import { GenerateOTPPublisher } from '../../../events';
-import { jwtPayload } from '../../../interfaces';
-import { isUser } from '../../../middlewares/isUser';
-import { checkAvailability, getAccounts, initiateOTP } from '../../../services';
 import { generateJWT } from '../../../utils';
+import { jwtPayload } from '../../../interfaces';
+import { Router, Request, Response } from 'express';
+import { isUser } from '../../../middlewares/isUser';
+import { GenerateOTPPublisher } from '../../../events';
+import { checkAvailability, getAccounts, initiateOTP } from '../../../services';
+import {
+  ResourceNotFoundError,
+  natsWrapper,
+  BadRequestError,
+  DatabaseConnectionError,
+} from '@aashas/common';
 
 const router = Router();
 
@@ -19,40 +24,57 @@ router.post('/update-contact', isUser, async (req: Request, res: Response) => {
   const { email } = req.body;
   const mobile = +req.body.mobile;
   const { id, name } = req.user!;
-  const user = await checkAvailability(email || mobile);
+
+  //Makes sure user submits at least one parameter
+  if (!email && !mobile)
+    throw new BadRequestError('invalid request, No valid parameters are found');
+
+  //Makes sure user submits only one parameter
+  if (email && mobile)
+    throw new BadRequestError('invalid request, use only one parameter');
+
+  const exists = await checkAvailability(email || mobile);
   const mode = email == undefined ? 'mobile' : 'email';
 
   //Makes sure  contact info doesn't exists in Accounts database
-  if (!user) {
-    throw new ResourceNotFoundError(`${mode} already exists`);
-  }
+  if (exists) throw new ResourceNotFoundError(`${mode} already exists`);
 
-  const otpData = await initiateOTP(mode == 'email' ? email : mobile, name, id);
+  const user = await getAccounts(id);
 
-  //Makes sure OTP data exists
-  if (otpData) {
-    // Publishes OTP event
-    new GenerateOTPPublisher(natsWrapper.client).publish({
-      mode,
-      data: {
-        name: otpData.name,
-        title: 'Please enter 4 digit OTP for verification',
-        otp: otpData.otp,
-        email: otpData.email,
-        mobile: otpData.mobile,
-      },
-    });
-
-    const jwt: jwtPayload = {
-      id,
+  if (user[0]) {
+    const otpData = await initiateOTP(
+      mode == 'email' ? email : mobile,
       name,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      mobileVerified: user.mobileVerified,
-    };
+      id
+    );
 
-    res.status(201).json(generateJWT(jwt));
+    //Makes sure OTP data exists
+    if (otpData) {
+      // Publishes OTP event
+      new GenerateOTPPublisher(natsWrapper.client).publish({
+        mode,
+        data: {
+          name: otpData.name,
+          title: 'Please enter 4 digit OTP for verification',
+          otp: otpData.otp,
+          email: otpData.email,
+          mobile: otpData.mobile,
+        },
+      });
+
+      const jwt: jwtPayload = {
+        id,
+        name,
+        email: user[0].email,
+        emailVerified: user[0].emailVerified,
+        mobileVerified: user[0].mobileVerified,
+      };
+
+      res.status(201).json(generateJWT(jwt));
+    }
+    throw new DatabaseConnectionError();
   }
+  throw new ResourceNotFoundError("User don't exist");
 });
 
 export { router as updateContact };

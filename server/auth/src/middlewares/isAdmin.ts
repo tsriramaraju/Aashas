@@ -1,19 +1,10 @@
+import { Account } from '../models/Accounts';
 import { decodeJWT } from './../utils/generateJWT';
 import { Request, Response, NextFunction } from 'express';
-import { Types } from 'mongoose';
-
-import { Account } from '../models/Accounts';
 import { BadRequestError, NotAuthorizedError } from '@aashas/common';
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: { name: string; id: Types.ObjectId; email?: string };
-    }
-  }
-}
 /**
- * Checks whether the incoming request has valid jwt token and also a registered user
+ * Checks whether the incoming request has valid jwt token and also a registered Admin
  */
 export const isAdmin = async (
   req: Request,
@@ -52,7 +43,5 @@ export const isAdmin = async (
   //make sure that user is not admin
   if (user.isAdmin == 'no') throw new NotAuthorizedError();
 
-  //assign user id and user name to request
-  req.user = { id: user.id, name: user.name!, email: user.email };
   next();
 };

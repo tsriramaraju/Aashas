@@ -5,7 +5,6 @@ import {
   mobileValidation,
   natsWrapper,
   ResourceNotFoundError,
-  ServerError,
   validateRequest,
 } from '@aashas/common';
 

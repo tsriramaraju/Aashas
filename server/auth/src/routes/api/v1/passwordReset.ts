@@ -1,13 +1,14 @@
-import { Router, Request, Response } from 'express';
-import { jwtPayload } from '../../../interfaces';
-import { verifyReset } from '../../../services';
 import { generateJWT } from '../../../utils';
+import { verifyReset } from '../../../services';
+import { jwtPayload } from '../../../interfaces';
+import { Router, Request, Response } from 'express';
 import {
-  BadRequestError,
   emailValidation,
   passwordValidation,
+  TamperedRequestError,
   validateRequest,
 } from '@aashas/common';
+import { Types } from 'mongoose';
 
 const router = Router();
 
@@ -25,11 +26,11 @@ router.post(
     const { email, password } = req.body;
 
     //Makes sure ID isn't tampered
-    if (!id) {
-      throw new BadRequestError('Please use valid reset link');
+    if (!id || !Types.ObjectId.isValid(id)) {
+      throw new TamperedRequestError('Please use valid reset link');
     }
 
-    const user = await verifyReset(id, password, email);
+    const user = await verifyReset(Types.ObjectId(id), password, email);
 
     if (user) {
       const payload: jwtPayload = {

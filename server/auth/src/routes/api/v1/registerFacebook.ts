@@ -1,25 +1,29 @@
-import { AccountDoc } from '@aashas/common';
-import express, { Request, Response } from 'express';
-import { userInfo } from 'os';
+import express from 'express';
 import { authenticate } from 'passport';
-
 import '../../../config/OAuth/facebook';
-import { jwtPayload } from '../../../interfaces';
+import { AccountDoc } from '@aashas/common';
 import { generateJWT } from '../../../utils';
+import { jwtPayload } from '../../../interfaces';
 
 const router = express.Router();
 
 /**
- *  @desc      Create new account with facebook oauth
- *  @route     POST /api/v1/auth/facebook
+ *  @desc      initiates facebook oauth
+ *  @route     GET /api/v1/auth/facebook
  *  @access    Public
- *  @returns   JWT token
+ *  @returns   redirects to callback from facebook
  */
-
 router.get(
   '/facebook',
   authenticate('facebook', { scope: ['public_profile', 'email'] })
 );
+
+/**
+ *  @desc      Call back route from facebook oauth
+ *  @route     GET /api/v1/auth/facebook/callback
+ *  @access    Public
+ *  @returns   JWT on success oauth
+ */
 
 router.get(
   '/facebook/callback/',
@@ -38,4 +42,16 @@ router.get(
     res.json(generateJWT(payload));
   }
 );
+
+/**
+ *  @desc      fall back route if oauth login fails
+ *  @route     GET /api/v1/auth/failure
+ *  @access    Public
+ *  @returns   redirect url to client login page
+ */
+
+router.get('/failure', (req, res) => {
+  //  TODO : change later to login client route
+  res.redirect('https://www.google.com');
+});
 export { router as FacebookRegister };

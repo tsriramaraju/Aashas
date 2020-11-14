@@ -1,10 +1,11 @@
+import { Types } from 'mongoose';
+import { hashPassword } from '../utils';
+import { Reset, Account } from '../models';
 import {
   BadRequestError,
   ResourceNotFoundError,
   ServerError,
 } from '@aashas/common';
-import { Reset, Account } from '../models';
-import { hashPassword } from '../utils';
 
 /**
  * Updates existing user's password by validating the reset link
@@ -12,7 +13,11 @@ import { hashPassword } from '../utils';
  * @param pass new password
  * @param email user email
  */
-export const verifyReset = async (id: string, pass: string, email: string) => {
+export const verifyReset = async (
+  id: Types.ObjectId,
+  pass: string,
+  email: string
+) => {
   const resetData = await Reset.findOne({ uid: id });
 
   //Makes sure reset id isn't expired

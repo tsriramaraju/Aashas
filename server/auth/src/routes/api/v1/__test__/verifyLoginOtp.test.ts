@@ -1,11 +1,11 @@
 import request from 'supertest';
 import { app } from '../../../../app';
-import { jwtPayload } from '../../../../interfaces';
 import { OTP } from '../../../../models/OTP';
+import { jwtPayload } from '../../../../interfaces';
 import { decodeJWT } from '../../../../utils/generateJWT';
 
 describe('Verify Login OTP route test group', () => {
-  it('should return invalid error when invalid otp is submitted', async () => {
+  it('should return Validation error when invalid otp is submitted', async () => {
     const otp = await OTP.build({
       name: 'john',
       otp: 1234,
@@ -18,8 +18,48 @@ describe('Verify Login OTP route test group', () => {
         otp: 112,
       })
       .expect('Content-Type', /json/)
-      .expect(400);
-    expect(res.body.msg).toBe('Enter valid otp');
+      .expect(418);
+    expect(res.body.msg).toBe('Validation error, please enter valid inputs');
+  });
+
+  it('should return validation error if no otp is submitted', async () => {
+    const res = await request(app)
+      .post(`/api/v1/auth/verify-login`)
+      .send({
+        mobile: 1234567891,
+      })
+      .expect('Content-Type', /json/)
+      .expect(418);
+    expect(res.body.msg).toBe('Validation error, please enter valid inputs');
+  });
+  it('should return validation error if invalid mobile number is submitted', async () => {
+    const res = await request(app)
+      .post(`/api/v1/auth/verify-login`)
+      .send({
+        mobile: 123456891,
+        otp: 1234,
+      })
+      .expect('Content-Type', /json/)
+      .expect(418);
+    expect(res.body.msg).toBe('Validation error, please enter valid inputs');
+  });
+  it('should return validation error if no mobile number is submitted', async () => {
+    const res = await request(app)
+      .post(`/api/v1/auth/verify-login`)
+      .send({
+        otp: 1234,
+      })
+      .expect('Content-Type', /json/)
+      .expect(418);
+    expect(res.body.msg).toBe('Validation error, please enter valid inputs');
+  });
+  it('should return validation error if no input is submitted', async () => {
+    const res = await request(app)
+      .post(`/api/v1/auth/verify-login`)
+
+      .expect('Content-Type', /json/)
+      .expect(418);
+    expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
   it('should return valid JWT token on successful OTP', async () => {

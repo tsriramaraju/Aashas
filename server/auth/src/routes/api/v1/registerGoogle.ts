@@ -1,21 +1,26 @@
-import { AccountDoc } from '@aashas/common';
-import express, { Request, Response } from 'express';
-import { authenticate } from 'passport';
-
+import express from 'express';
 import '../../../config/OAuth/google';
-import { jwtPayload } from '../../../interfaces';
+import { authenticate } from 'passport';
+import { AccountDoc } from '@aashas/common';
 import { generateJWT } from '../../../utils';
+import { jwtPayload } from '../../../interfaces';
 
 const router = express.Router();
 
 /**
- *  @desc      Create new account with google oauth
- *  @route     POST /api/v1/auth/google
+ *  @desc      initiates google oauth
+ *  @route     GET /api/v1/auth/google
  *  @access    Public
- *  @returns   JWT token
+ *  @returns   redirects to callback from google
  */
-
 router.get('/google', authenticate('google', { scope: ['profile', 'email'] }));
+
+/**
+ *  @desc      Call back route from google oauth
+ *  @route     GET /api/v1/auth/google/callback
+ *  @access    Public
+ *  @returns   JWT on success oauth
+ */
 
 router.get(
   '/google/callback/',
@@ -34,4 +39,18 @@ router.get(
     res.json(generateJWT(payload));
   }
 );
+
+/**
+ *  @desc      fall back route if oauth login fails
+ *  @route     GET /api/v1/auth/failure
+ *  @access    Public
+ *  @returns   redirect url to client login page
+ */
+
+router.get('/failure', (req, res) => {
+  //  TODO : change later to login client route
+  res.redirect('https://www.google.com');
+});
+export { router as FacebookRegister };
+
 export { router as GoogleRegister };

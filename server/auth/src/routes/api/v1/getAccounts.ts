@@ -1,6 +1,6 @@
-import { isAdmin } from './../../../middlewares/isAdmin';
 import { getAccounts } from './../../../services';
 import { Router, Request, Response } from 'express';
+import { isAdmin } from './../../../middlewares/isAdmin';
 
 const router = Router();
 

@@ -1,3 +1,7 @@
+/**
+ * exporting all routes from single file for less clutter import statement
+ */
+
 export * from './emailLogin';
 export * from './emailSignup';
 export * from './forgotPassword';

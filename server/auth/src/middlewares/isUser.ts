@@ -1,8 +1,7 @@
+import { Types } from 'mongoose';
+import { Account } from '../models/Accounts';
 import { decodeJWT } from './../utils/generateJWT';
 import { Request, Response, NextFunction } from 'express';
-import { Types } from 'mongoose';
-
-import { Account } from '../models/Accounts';
 import { BadRequestError, NotAuthorizedError } from '@aashas/common';
 
 declare global {

@@ -1,7 +1,7 @@
-import { natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
 import { OTP } from '../../../../models/OTP';
+import { natsWrapper } from '@aashas/common';
 
 describe('Mobile signup test groups', () => {
   it('should expect otp and a record in OTP db with valid inputs', async () => {
@@ -87,7 +87,7 @@ describe('Mobile signup test groups', () => {
     expect(res.body.msg).toBe('Mobile no. already exists');
   });
 
-  it('should publish an ACCOUNT_CREATED event after registering', async () => {
+  it('should publish an GENERATE_OTP event after registering', async () => {
     const preFetchOTP = await OTP.findOne({ mobile: 1234567891 });
 
     expect(preFetchOTP).toBe(null);

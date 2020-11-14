@@ -2,7 +2,7 @@ import { hashPassword } from './../utils/hashPassword';
 import { AccountDoc, authType, natsWrapper } from '@aashas/common';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import config from '../config';
+import { keys } from '../config';
 import { v4 } from 'uuid';
 import request from 'supertest';
 import { app } from '../app';
@@ -40,7 +40,7 @@ jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
 
 let mongo: any;
 beforeAll(async () => {
-  config.jwtSecret = 'secret';
+  keys.jwtSecret = 'secret';
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';

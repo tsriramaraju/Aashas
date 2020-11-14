@@ -1,7 +1,7 @@
-import { BadRequestError, verification } from '@aashas/common';
-import { generateJWT, decodeJWT } from '../generateJWT';
 import mongoose from 'mongoose';
 import { jwtPayload } from '../../interfaces';
+import { generateJWT, decodeJWT } from '../generateJWT';
+import { BadRequestError, verification } from '@aashas/common';
 
 describe('JSON web token  test group', () => {
   it('should create JWT token on valid parameters', () => {

@@ -1,6 +1,6 @@
-import { natsWrapper, OTPDoc } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
+import { natsWrapper, verification } from '@aashas/common';
 
 describe('Resend OTP route test group', () => {
   it('should return validation error on invalid email input', async () => {
@@ -36,7 +36,7 @@ describe('Resend OTP route test group', () => {
     expect(res.body.msg).toBe("Email doesn't exists");
   });
 
-  it('should return valid otp Document on valid inputs', async () => {
+  it('should return success message on valid inputs', async () => {
     const user = await global.register();
 
     const res = await request(app)
@@ -64,5 +64,21 @@ describe('Resend OTP route test group', () => {
     expect(res.body).toBe('OTP has been sent to your email');
 
     expect(natsWrapper.client.publish).toHaveBeenCalled();
+  });
+  it('should throw bad request error if email is already verified', async () => {
+    const user = await global.register();
+    if (user) {
+      user.emailVerified = verification.yes;
+      await user.save();
+
+      const res = await request(app)
+        .post('/api/v1/auth/resend-otp')
+        .send({
+          email: user.email,
+        })
+        .expect('Content-Type', /json/)
+        .expect(400);
+      expect(res.body.msg).toBe('Email already verified');
+    }
   });
 });

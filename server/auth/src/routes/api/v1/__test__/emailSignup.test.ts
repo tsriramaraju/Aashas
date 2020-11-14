@@ -1,6 +1,6 @@
-import { natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
+import { natsWrapper } from '@aashas/common';
 import { jwtPayload } from '../../../../interfaces';
 import { Account } from '../../../../models/Accounts';
 import { decodeJWT } from '../../../../utils/generateJWT';
@@ -37,6 +37,15 @@ describe('Email signup route tests group', () => {
         email: 'johndoetest.com',
         password: 'this is secret',
       })
+      .expect('Content-Type', /json/)
+      .expect(418);
+
+    expect(res.body.msg).toBe('Validation error, please enter valid inputs');
+  });
+  it('should return validation error if no input is submitted', async () => {
+    const res = await request(app)
+      .post('/api/v1/auth/new-email')
+
       .expect('Content-Type', /json/)
       .expect(418);
 
@@ -128,7 +137,7 @@ describe('Email signup route tests group', () => {
     expect(res.body.msg).toBe('Email already exists');
   });
 
-  it('should publish an ACCOUNT_CREATED event after registering', async () => {
+  it('should publish ACCOUNT_CREATED and GENERATE_OTP events after registering', async () => {
     const preFetchUser = await Account.findOne({ email: 'johndoe@test.com' });
     expect(preFetchUser).toBe(null);
     const response = await request(app)

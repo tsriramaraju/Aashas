@@ -30,9 +30,7 @@ export const registerByEmail = async (
       emailVerified: verification.pending,
     };
 
-    const account = Account.emailBuild(data);
-
-    return await account.save();
+    return await Account.emailBuild(data).save();
   } catch (error) {
     throw new ServerError(error);
   }

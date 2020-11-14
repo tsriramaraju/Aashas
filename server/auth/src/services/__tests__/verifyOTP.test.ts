@@ -1,11 +1,11 @@
+import { OTP } from '../../models/OTP';
+import { verifyOTP } from './../verifyOTP';
+import { Account } from '../../models/Accounts';
 import {
   verification,
   BadRequestError,
   ResourceNotFoundError,
 } from '@aashas/common';
-import { Account } from '../../models/Accounts';
-import { OTP } from '../../models/OTP';
-import { verifyOTP } from './../verifyOTP';
 
 describe('Verify OTP service test group', () => {
   it('should fail if an expired otp is used', async () => {

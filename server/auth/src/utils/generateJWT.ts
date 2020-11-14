@@ -1,6 +1,6 @@
 import { BadRequestError } from '@aashas/common';
 import { sign, verify } from 'jsonwebtoken';
-import config from '../config';
+import { keys } from '../config';
 import { jwtPayload } from '../interfaces';
 /**
  * Returns a valid jwt token
@@ -8,7 +8,7 @@ import { jwtPayload } from '../interfaces';
  * @param exp jwt expiry in seconds
  */
 export const generateJWT = (payload: jwtPayload, exp: number = 350000) => {
-  const token = sign({ payload: payload }, config.jwtSecret!, {
+  const token = sign({ payload: payload }, keys.jwtSecret!, {
     expiresIn: exp,
   });
   return token;
@@ -20,7 +20,7 @@ export const generateJWT = (payload: jwtPayload, exp: number = 350000) => {
  */
 export const decodeJWT = (token: string) => {
   try {
-    const decoded = verify(token, config.jwtSecret!) as
+    const decoded = verify(token, keys.jwtSecret!) as
       | string
       | { payload: jwtPayload };
 

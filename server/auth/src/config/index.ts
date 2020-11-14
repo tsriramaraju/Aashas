@@ -4,7 +4,7 @@
  * kubectl create secret generic server-secrets --from-env-file=./env.tx
  */
 
-export default {
+export const keys = {
   port: process.env.AUTH_PORT,
 
   mongoURL: process.env.AUTH_MONGO_URL,

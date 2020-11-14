@@ -1,9 +1,9 @@
-import { OTPDoc } from '@aashas/common';
-import { app } from '../../../../app';
 import request from 'supertest';
+import { app } from '../../../../app';
+import { natsWrapper } from '@aashas/common';
 
 describe('Mobile login route test group', () => {
-  it('should return otp Document on successful entry', async () => {
+  it('should return success status on successful entry', async () => {
     const user = await global.register(undefined, 1234567891);
 
     const res = await request(app)
@@ -43,5 +43,18 @@ describe('Mobile login route test group', () => {
       .expect(418);
 
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
+  });
+
+  it('should emit GENERATE_OTP event after successful submission', async () => {
+    const user = await global.register(undefined, 1234567891);
+
+    const res = await request(app)
+      .post('/api/v1/auth/login-mobile')
+      .send({ mobile: 1234567891 })
+      .expect('Content-Type', /json/)
+      .expect(201);
+
+    expect(res.body).toMatch('OTP has been sent to your mobile');
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });

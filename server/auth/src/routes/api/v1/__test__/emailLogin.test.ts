@@ -1,9 +1,9 @@
-import { decodeJWT } from './../../../../utils/generateJWT';
-
 import request from 'supertest';
 import { app } from '../../../../app';
-import { jwtPayload } from '../../../../interfaces';
 import { Account } from '../../../../models';
+import { jwtPayload } from '../../../../interfaces';
+import { authType, verification } from '@aashas/common';
+import { decodeJWT } from './../../../../utils/generateJWT';
 
 describe('Email login route test group', () => {
   it('should update last login and return jwt on valid email and password input', async () => {
@@ -35,7 +35,7 @@ describe('Email login route test group', () => {
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
-  it('should return validation error  on not entering any input', async () => {
+  it('should return validation error on not entering any input', async () => {
     const res = await request(app)
       .post('/api/v1/auth/login-email')
 
@@ -45,7 +45,7 @@ describe('Email login route test group', () => {
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
-  it('should return validation error  on entering invalid email input', async () => {
+  it('should return validation error on entering invalid email input', async () => {
     const res = await request(app)
       .post('/api/v1/auth/login-email')
       .send({ email: 'johndoetest.com', password: 'this is secret' })
@@ -55,7 +55,7 @@ describe('Email login route test group', () => {
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
-  it('should return validation error  on entering invalid  password input', async () => {
+  it('should return validation error on entering invalid  password input', async () => {
     const res = await request(app)
       .post('/api/v1/auth/login-email')
       .send({ email: 'johndoetest.com', password: 't' })
@@ -85,5 +85,43 @@ describe('Email login route test group', () => {
       .expect(400);
 
     expect(res.body.msg).toBe('Invalid password');
+  });
+
+  it('should return BadRequest error if user is already registered from google oauth', async () => {
+    const user = await Account.googleBuild({
+      authType: authType.google,
+      email: 'john@test.com',
+      emailVerified: verification.yes,
+      googleID: 'some random id',
+      lastLogin: Date.now().toString(),
+      name: 'john',
+    }).save();
+
+    const res = await request(app)
+      .post('/api/v1/auth/login-email')
+      .send({ email: user.email, password: 'this is secret' })
+      .expect('Content-Type', /json/)
+      .expect(400);
+
+    expect(res.body.msg).toBe('Please use google singIn');
+  });
+
+  it('should return BadRequest error if user is already registered from facebook oauth', async () => {
+    const user = await Account.facebookBuild({
+      authType: authType.facebook,
+      email: 'john@test.com',
+      emailVerified: verification.yes,
+      facebookID: 'some random id',
+      lastLogin: Date.now().toString(),
+      name: 'john',
+    }).save();
+
+    const res = await request(app)
+      .post('/api/v1/auth/login-email')
+      .send({ email: user.email, password: 'this is secret' })
+      .expect('Content-Type', /json/)
+      .expect(400);
+
+    expect(res.body.msg).toBe('Please use facebook singIn');
   });
 });

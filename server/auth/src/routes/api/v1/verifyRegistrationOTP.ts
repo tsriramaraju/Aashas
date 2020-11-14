@@ -1,9 +1,9 @@
-import { Router, Request, Response } from 'express';
-import { jwtPayload } from '../../../interfaces';
-import { verifyOTP } from '../../../services';
 import { generateJWT } from '../../../utils';
-import { authType, BadRequestError, natsWrapper } from '@aashas/common';
+import { verifyOTP } from '../../../services';
+import { jwtPayload } from '../../../interfaces';
+import { Router, Request, Response } from 'express';
 import { AccountCreatedPublisher } from '../../../events';
+import { authType, BadRequestError, natsWrapper } from '@aashas/common';
 
 const router = Router();
 
@@ -18,6 +18,13 @@ router.post('/verify-register', async (req: Request, res: Response) => {
   const mobile = +req.body.mobile;
   const otp = +req.body.otp;
 
+  //Makes sure user submits at least one parameter
+  if (!email && !mobile)
+    throw new BadRequestError('invalid request, No valid parameters are found');
+
+  //Makes sure user submits only one parameter
+  if (email && mobile)
+    throw new BadRequestError('invalid request, use only one parameter');
   //Makes sure otp is 4digit and submitted
   if (!otp || !otp.toString().match(/^[0-9]{4}$/)) {
     throw new BadRequestError('Enter valid otp');

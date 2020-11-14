@@ -7,9 +7,9 @@ import { NextFunction, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { Account } from '../../models';
 import { generateJWT } from '../../utils';
-import { isAdmin } from '../isAdmin';
+import { isUser } from '../isUser';
 
-describe('Admin authorization middleware test group', () => {
+describe('User authorization middleware test group', () => {
   it('should throw Bad request error if user is not present', async () => {
     const id = Types.ObjectId();
     const token = generateJWT({
@@ -29,12 +29,12 @@ describe('Admin authorization middleware test group', () => {
     let nextFunction: NextFunction = jest.fn();
 
     await expect(
-      isAdmin(mockRequest, mockResponse, nextFunction)
+      isUser(mockRequest, mockResponse, nextFunction)
     ).rejects.toThrowError(BadRequestError);
   });
 
-  it('should throw not authorized error if non admin accessed this route', async () => {
-    const user = await global.userLogin();
+  it('should throw not authorized error if  admin accessed this route', async () => {
+    const user = await global.adminLogin();
 
     const mockRequest = {
       headers: {
@@ -45,7 +45,7 @@ describe('Admin authorization middleware test group', () => {
     let nextFunction: NextFunction = jest.fn();
 
     await expect(
-      isAdmin(mockRequest, mockResponse, nextFunction)
+      isUser(mockRequest, mockResponse, nextFunction)
     ).rejects.toThrowError(NotAuthorizedError);
   });
 
@@ -59,7 +59,7 @@ describe('Admin authorization middleware test group', () => {
     const nextFunction: NextFunction = jest.fn();
 
     expect(
-      isAdmin(mockRequest, mockResponse, nextFunction)
+      isUser(mockRequest, mockResponse, nextFunction)
     ).rejects.toThrowError(BadRequestError);
   });
 
@@ -69,12 +69,12 @@ describe('Admin authorization middleware test group', () => {
     const nextFunction: NextFunction = jest.fn();
 
     expect(
-      isAdmin(mockRequest, mockResponse, nextFunction)
+      isUser(mockRequest, mockResponse, nextFunction)
     ).rejects.toThrowError(BadRequestError);
   });
 
-  it('should succeed if admin tries to access this middleware', async () => {
-    const token = await global.adminLogin();
+  it('should succeed if user tries to access this middleware', async () => {
+    const token = await global.userLogin();
     const user = await Account.find({});
     const mockRequest = {
       headers: {
@@ -85,10 +85,10 @@ describe('Admin authorization middleware test group', () => {
     let mockResponse = {} as Response;
     let nextFunction: NextFunction = jest.fn();
     expect(
-      isAdmin(mockRequest, mockResponse, nextFunction)
+      isUser(mockRequest, mockResponse, nextFunction)
     ).rejects.not.toThrowError(BadRequestError);
     expect(
-      isAdmin(mockRequest, mockResponse, nextFunction)
+      isUser(mockRequest, mockResponse, nextFunction)
     ).rejects.not.toThrowError(NotAuthorizedError);
   });
 });

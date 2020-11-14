@@ -1,5 +1,5 @@
-import { otpAttrs, OTPDoc, OTPModel } from '@aashas/common';
 import { Schema, model } from 'mongoose';
+import { otpAttrs, OTPDoc, OTPModel } from '@aashas/common';
 
 const otpSchema = new Schema(
   {

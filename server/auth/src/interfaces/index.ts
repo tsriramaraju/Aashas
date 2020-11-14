@@ -1,5 +1,5 @@
-import { verification } from '@aashas/common';
 import mongoose from 'mongoose';
+import { verification } from '@aashas/common';
 
 /**
  * Payload structure for requests body

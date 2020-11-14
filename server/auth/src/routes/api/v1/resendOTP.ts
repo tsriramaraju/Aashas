@@ -1,12 +1,14 @@
 import { Router, Request, Response } from 'express';
+import { GenerateOTPPublisher } from '../../../events';
+import { checkAvailability, initiateOTP } from '../../../services';
 import {
   emailValidation,
   validateRequest,
   ResourceNotFoundError,
   natsWrapper,
+  verification,
+  BadRequestError,
 } from '@aashas/common';
-import { GenerateOTPPublisher } from '../../../events';
-import { checkAvailability, initiateOTP } from '../../../services';
 
 const router = Router();
 
@@ -22,11 +24,13 @@ router.post(
   async (req: Request, res: Response) => {
     const { email } = req.body;
 
-    const exists = await checkAvailability(email);
+    const user = await checkAvailability(email);
     //Makes sure  email exists in Accounts database
-    if (!exists) {
-      throw new ResourceNotFoundError("Email doesn't exists");
-    }
+    if (!user) throw new ResourceNotFoundError("Email doesn't exists");
+
+    //Makes sure email is not verified yet
+    if (user.emailVerified == verification.yes)
+      throw new BadRequestError('Email already verified');
 
     const otpData = await initiateOTP(email, 'name');
 

@@ -1,3 +1,4 @@
+import { Schema, model } from 'mongoose';
 import {
   AccountDoc,
   AccountModel,
@@ -8,7 +9,6 @@ import {
   googleAttrs,
   mobileAttrs,
 } from '@aashas/common';
-import { Schema, model } from 'mongoose';
 
 const accountSchema = new Schema(
   {

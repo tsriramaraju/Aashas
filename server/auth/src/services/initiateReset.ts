@@ -1,5 +1,5 @@
-import { v4 } from 'uuid';
 import { Reset } from '../models';
+import { Types } from 'mongoose';
 import { DatabaseConnectionError } from '@aashas/common';
 
 /**
@@ -8,7 +8,7 @@ import { DatabaseConnectionError } from '@aashas/common';
  */
 export const initiateReset = async (email: string) => {
   try {
-    const resetID = v4();
+    const resetID = Types.ObjectId();
 
     /**
      * check for existing document with given email

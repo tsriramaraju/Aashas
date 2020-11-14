@@ -1,11 +1,11 @@
-import { Account, OTP } from '../models';
+import { Types } from 'mongoose';
 import { generateOTP } from '../utils';
+import { Account, OTP } from '../models';
 import {
   DatabaseConnectionError,
   ResourceNotFoundError,
   verification,
 } from '@aashas/common';
-import { Types } from 'mongoose';
 
 /**
  * Creates an OTP record if not exists

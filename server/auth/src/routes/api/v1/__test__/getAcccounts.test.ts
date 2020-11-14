@@ -1,5 +1,5 @@
-import { app } from '../../../../app';
 import request from 'supertest';
+import { app } from '../../../../app';
 
 it('should return number of accounts available', async () => {
   const token = await global.adminLogin();

@@ -1,7 +1,7 @@
+import { generateJWT } from '../../../utils';
 import express, { Request, Response } from 'express';
 import { emailPayload, jwtPayload } from '../../../interfaces';
 import { GenerateOTPPublisher, AccountCreatedPublisher } from '../../../events';
-import { generateJWT } from '../../../utils';
 import {
   checkAvailability,
   registerByEmail,

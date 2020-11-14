@@ -1,9 +1,9 @@
+import { Schema, model, Types } from 'mongoose';
 import { resetAttrs, ResetDoc, ResetModel } from '@aashas/common';
-import { Schema, model } from 'mongoose';
 
 const resetSchema = new Schema(
   {
-    uid: { type: String, required: true },
+    uid: { type: Types.ObjectId, required: true },
     email: { type: String, unique: true },
     date: { type: Date, default: Date.now(), expires: '15m' },
   },

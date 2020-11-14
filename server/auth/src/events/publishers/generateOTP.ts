@@ -1,7 +1,7 @@
 import { Publisher, GenerateOTPEvent, Subjects } from '@aashas/common';
 
 /**
- * Creates Generate OTP event publisher class.
+ * Generate OTP event publisher for notifications service to send otp to user
  */
 
 export class GenerateOTPPublisher extends Publisher<GenerateOTPEvent> {

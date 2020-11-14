@@ -1,16 +1,16 @@
 import request from 'supertest';
-import { v4 } from 'uuid';
+import { Types } from 'mongoose';
 import { app } from '../../../../app';
+import { Reset } from '../../../../models/Reset';
 import { jwtPayload } from '../../../../interfaces';
 import { Account } from '../../../../models/Accounts';
-import { Reset } from '../../../../models/Reset';
 import { decodeJWT } from '../../../../utils/generateJWT';
 
 describe('Password reset route test group', () => {
   it('should return jwt token on successful input ', async () => {
     const user = await global.register();
 
-    await Reset.build({ email: user?.email!, uid: user!.id.toString() }).save();
+    await Reset.build({ email: user?.email!, uid: user!.id }).save();
     const res = await request(app)
       .post(`/api/v1/auth/reset-password/${user!.id}`)
       .send({
@@ -80,7 +80,7 @@ describe('Password reset route test group', () => {
 
   it('should return error if reset id is expired ', async () => {
     const res = await request(app)
-      .post(`/api/v1/auth/reset-password/2121fg21`)
+      .post(`/api/v1/auth/reset-password/${Types.ObjectId()}`)
       .send({
         password: 'This is secret',
         email: 'john@test.com',
@@ -89,5 +89,18 @@ describe('Password reset route test group', () => {
       .expect(420);
 
     expect(res.body.msg).toBe('resetID expired, plz generate again');
+  });
+
+  it('should return tampered error if reset id is tampered', async () => {
+    const res = await request(app)
+      .post(`/api/v1/auth/reset-password/21231`)
+      .send({
+        password: 'This is secret',
+        email: 'john@test.com',
+      })
+      .expect('Content-Type', /json/)
+      .expect(419);
+
+    expect(res.body.msg).toBe('Please use valid reset link');
   });
 });

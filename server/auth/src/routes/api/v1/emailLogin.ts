@@ -31,6 +31,11 @@ router.post(
       throw new ResourceNotFoundError('User not found');
     }
 
+    //Makes sure that user isn't from oauth
+    if (user.googleID) throw new BadRequestError('Please use google singIn');
+    if (user.facebookID)
+      throw new BadRequestError('Please use facebook singIn');
+
     //updates last login time
     user.lastLogin = Date.now().toString();
     await user.save();
