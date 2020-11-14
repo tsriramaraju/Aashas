@@ -5,7 +5,7 @@ import { Model, Document, Types } from 'mongoose';
  * that are required to create a new reset Document
  */
 interface resetAttrs {
-  uid: string;
+  uid: Types.ObjectId;
   email: string;
 }
 
@@ -23,7 +23,7 @@ interface ResetModel extends Model<ResetDoc> {
  */
 interface ResetDoc extends Document {
   id: Types.ObjectId;
-  uid: string;
+  uid: Types.ObjectId;
   email: string;
 }
 
