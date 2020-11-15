@@ -11,6 +11,5 @@ export default async (): Promise<Config.InitialOptions> => {
     preset: 'ts-jest',
     setupFilesAfterEnv: ['./src/test/setup.ts'],
     testEnvironment: 'node',
-    testTimeout: 15000,
   };
 };
