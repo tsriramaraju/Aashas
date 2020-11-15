@@ -4,7 +4,7 @@ import express, { json } from 'express';
 import * as routes from './routes/api/v1';
 import { deserializeUser, initialize, serializeUser } from 'passport';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
-//cheking neewcode
+
 /**
  * initiate express app and body parser for json requests
  */
