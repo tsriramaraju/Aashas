@@ -15,7 +15,7 @@ export const keys = {
 
   natsURL: process.env.NATS_URL,
 
-  natsClientID: process.env.AUTH_NATS_CLIENT_ID,
+  natsClientID: process.env.NATS_CLIENT_ID,
 
   googleClientID: process.env.GOOGLE_CLIENT_ID,
 

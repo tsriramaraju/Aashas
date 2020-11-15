@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: auth-depl
 spec:
-  replicas: 1 
+  replicas: 1
   selector:
     matchLabels:
       app: auth
@@ -18,6 +18,11 @@ spec:
           envFrom:
             - secretRef:
                 name: server-secrets
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
 ---
 apiVersion: v1
 kind: Service

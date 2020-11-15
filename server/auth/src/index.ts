@@ -5,7 +5,7 @@ import { keys } from './config';
 
 const start = async () => {
   /**
-   * check for massndatory env variables and then start the server
+   * check for mandatory env variables and then start the server
    */
   if (!keys.jwtSecret) {
     throw new Error('JWT_KEY must be defined');
@@ -16,7 +16,7 @@ const start = async () => {
   if (!keys.natsClusterID || !keys.natsClientID || !keys.natsURL) {
     throw new Error('NATS keys variables must be defined');
   }
-  //  TODO : change client id env
+
   const options: ConnectionOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
