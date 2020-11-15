@@ -1,5 +1,5 @@
 import { hashPassword } from './../utils/hashPassword';
-import { AccountDoc, authType, natsWrapper } from '@aashas/common';
+import { AccountDoc, authType } from '@aashas/common';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { keys } from '../config';
