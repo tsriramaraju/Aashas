@@ -18,3 +18,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: cd server/auth && npm i && npm run test:ci
+        env:
+          CI: true
+          EXCHANGE_OMS_ID: 1
+          ISOLATE: true
