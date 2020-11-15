@@ -5,7 +5,7 @@ import { keys } from './config';
 
 const start = async () => {
   /**
-   * check for mandatory env variables and then start the server
+   * check for massndatory env variables and then start the server
    */
   if (!keys.jwtSecret) {
     throw new Error('JWT_KEY must be defined');
