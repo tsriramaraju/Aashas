@@ -1,7 +1,7 @@
 import { hashPassword } from './../utils/hashPassword';
 import { AccountDoc, authType } from '@aashas/common';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongoose from 'mongoose';
+import { connect, connection } from 'mongoose';
 import { keys } from '../config/keys';
 import { v4 } from 'uuid';
 import request from 'supertest';
@@ -51,7 +51,7 @@ beforeAll(async () => {
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
 
-  await mongoose.connect(mongoUri, {
+  await connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -60,7 +60,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  const collections = await mongoose.connection.db.collections();
+  const collections = await connection.db.collections();
 
   for (let collection of collections) {
     await collection.deleteMany({});
@@ -69,7 +69,7 @@ beforeEach(async () => {
 
 afterAll(async () => {
   await mongo.stop();
-  await mongoose.connection.close();
+  await connection.close();
 });
 
 global.userLogin = async () => {
