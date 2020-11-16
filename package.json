@@ -10,7 +10,8 @@
   },
   "jest": {
     "projects": [
-      "server/auth/jest.config.ts"
+      "server/auth/jest.config.ts",
+      "server/users/jest.config.ts"
     ]
   },
   "author": "tsriramaraju",

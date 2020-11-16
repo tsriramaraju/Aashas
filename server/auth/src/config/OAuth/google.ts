@@ -1,4 +1,4 @@
-import { keys } from '..';
+import { keys } from '../keys';
 import { use } from 'passport';
 import { Account } from '../../models';
 import { Strategy as googleStrategy } from 'passport-google-oauth20';

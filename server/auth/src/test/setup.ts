@@ -2,7 +2,7 @@ import { hashPassword } from './../utils/hashPassword';
 import { AccountDoc, authType } from '@aashas/common';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { keys } from '../config';
+import { keys } from '../config/keys';
 import { v4 } from 'uuid';
 import request from 'supertest';
 import { app } from '../app';
