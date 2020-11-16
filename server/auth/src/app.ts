@@ -52,7 +52,6 @@ app.use('/api/v1/auth', routes.FacebookRegister);
  * 404 route
  */
 app.all('*', async (req, res) => {
-  console.log(req.body);
   res.json(req.body);
   throw new NotFoundError();
 });

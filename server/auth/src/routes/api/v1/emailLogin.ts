@@ -13,12 +13,12 @@ const router = Router();
 
 /**
  *  @desc      Login with email and password
- *  @route     POST /api/v1/auth/login-email
+ *  @route     POST /api/v1/auth/email-login
  *  @access    Public
  *  @returns   Jwt payload
  */
 router.post(
-  '/login-email',
+  '/email-login',
   [emailValidation, passwordValidation, validateRequest],
   async (req: Request, res: Response) => {
     const { email, password } = req.body;

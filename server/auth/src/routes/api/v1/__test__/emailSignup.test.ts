@@ -10,7 +10,7 @@ describe('Email signup route tests group', () => {
     const preFetchUser = await Account.findOne({ email: 'johndoe@test.com' });
     expect(preFetchUser).toBe(null);
     const response = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'john doe',
         email: 'johndoe@test.com',
@@ -31,7 +31,7 @@ describe('Email signup route tests group', () => {
 
   it('should return validation error using invalid email input', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'john doe',
         email: 'johndoetest.com',
@@ -44,7 +44,7 @@ describe('Email signup route tests group', () => {
   });
   it('should return validation error if no input is submitted', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
 
       .expect('Content-Type', /json/)
       .expect(418);
@@ -54,7 +54,7 @@ describe('Email signup route tests group', () => {
 
   it('should return validation error using invalid password input', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'john doe',
         email: 'johndoetest.com',
@@ -68,7 +68,7 @@ describe('Email signup route tests group', () => {
 
   it('should return validation error using input without password', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'john doe',
         email: 'johndoetest.com',
@@ -81,7 +81,7 @@ describe('Email signup route tests group', () => {
 
   it('should return validation error using input without email', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'john doe',
         password: 'this is secret',
@@ -94,7 +94,7 @@ describe('Email signup route tests group', () => {
 
   it('should return validation error using input without name', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         email: 'johndoetest.com',
         password: 'this is secret',
@@ -106,7 +106,7 @@ describe('Email signup route tests group', () => {
 
   it('should return validation error using name less than 3 characters', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'do',
         email: 'johndoetest.com',
@@ -119,13 +119,13 @@ describe('Email signup route tests group', () => {
   });
 
   it('should return Bad request error if email already exists', async () => {
-    await request(app).post('/api/v1/auth/new-email').send({
+    await request(app).post('/api/v1/auth/email-register').send({
       name: 'john doe',
       email: 'johndoe@test.com',
       password: 'this is secret',
     });
     const res = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'john doe',
         email: 'johndoe@test.com',
@@ -141,7 +141,7 @@ describe('Email signup route tests group', () => {
     const preFetchUser = await Account.findOne({ email: 'johndoe@test.com' });
     expect(preFetchUser).toBe(null);
     const response = await request(app)
-      .post('/api/v1/auth/new-email')
+      .post('/api/v1/auth/email-register')
       .send({
         name: 'john doe',
         email: 'johndoe@test.com',

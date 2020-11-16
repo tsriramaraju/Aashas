@@ -10,7 +10,7 @@ describe('Email login route test group', () => {
     const user = await global.register();
 
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: user?.email, password: 'this is secret' })
       .expect('Content-Type', /json/)
       .expect(201);
@@ -27,7 +27,7 @@ describe('Email login route test group', () => {
 
   it('should return validation error on entering invalid email and password input', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: 'johndoetest.com', password: 't' })
       .expect('Content-Type', /json/)
       .expect(418);
@@ -37,7 +37,7 @@ describe('Email login route test group', () => {
 
   it('should return validation error on not entering any input', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
 
       .expect('Content-Type', /json/)
       .expect(418);
@@ -47,7 +47,7 @@ describe('Email login route test group', () => {
 
   it('should return validation error on entering invalid email input', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: 'johndoetest.com', password: 'this is secret' })
       .expect('Content-Type', /json/)
       .expect(418);
@@ -57,7 +57,7 @@ describe('Email login route test group', () => {
 
   it('should return validation error on entering invalid  password input', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: 'johndoetest.com', password: 't' })
       .expect('Content-Type', /json/)
       .expect(418);
@@ -67,7 +67,7 @@ describe('Email login route test group', () => {
 
   it('should return Not found error on entering non existing email', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: 'johndoe@test.com', password: 'this is secret' })
       .expect('Content-Type', /json/)
       .expect(420);
@@ -79,7 +79,7 @@ describe('Email login route test group', () => {
     const user = await global.register();
 
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: user?.email, password: 'this is secrets' })
       .expect('Content-Type', /json/)
       .expect(400);
@@ -98,7 +98,7 @@ describe('Email login route test group', () => {
     }).save();
 
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: user.email, password: 'this is secret' })
       .expect('Content-Type', /json/)
       .expect(400);
@@ -117,7 +117,7 @@ describe('Email login route test group', () => {
     }).save();
 
     const res = await request(app)
-      .post('/api/v1/auth/login-email')
+      .post('/api/v1/auth/email-login')
       .send({ email: user.email, password: 'this is secret' })
       .expect('Content-Type', /json/)
       .expect(400);

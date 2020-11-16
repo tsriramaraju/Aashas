@@ -14,12 +14,12 @@ const router = Router();
 
 /**
  *  @desc      creates a record in OTP for  further verification
- *  @route     POST /api/v1/auth/new-mobile
+ *  @route     POST /api/v1/auth/mobile-register
  *  @access    Public
  *  @returns   status
  */
 router.post(
-  '/new-mobile',
+  '/mobile-register',
   [nameValidation, mobileValidation, validateRequest],
   async (req: Request, res: Response) => {
     const { name, mobile } = req.body as mobilePayload;

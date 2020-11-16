@@ -13,7 +13,7 @@ const router = Router();
 
 /**
  *  @desc      verify mobile login otp
- *  @route     POST /api/v1/auth/login-mobile
+ *  @route     POST /api/v1/auth/verify-login
  *  @access    Public
  *  @returns   JWT
  */

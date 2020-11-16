@@ -10,7 +10,7 @@ describe('Mobile signup test groups', () => {
     expect(preFetchOTP).toBe(null);
 
     const res = await request(app)
-      .post('/api/v1/auth/new-mobile')
+      .post('/api/v1/auth/mobile-register')
       .send({
         name: 'john doe',
         mobile: '1234567891',
@@ -23,7 +23,7 @@ describe('Mobile signup test groups', () => {
 
   it('should fail using invalid mobile number input', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-mobile')
+      .post('/api/v1/auth/mobile-register')
       .send({
         name: 'john doe',
         mobile: '12345891',
@@ -36,7 +36,7 @@ describe('Mobile signup test groups', () => {
 
   it('should fail using input without mobile number', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-mobile')
+      .post('/api/v1/auth/mobile-register')
       .send({
         name: 'john doe',
         mobile: '',
@@ -49,7 +49,7 @@ describe('Mobile signup test groups', () => {
 
   it('should fail using input without name', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-mobile')
+      .post('/api/v1/auth/mobile-register')
       .send({
         name: '',
         mobile: '12345891',
@@ -62,7 +62,7 @@ describe('Mobile signup test groups', () => {
 
   it('should fail using name less than 3 characters', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/new-mobile')
+      .post('/api/v1/auth/mobile-register')
       .send({
         name: 'jo',
         mobile: '12345891',
@@ -77,7 +77,7 @@ describe('Mobile signup test groups', () => {
     await global.register(undefined, 1234567891);
 
     const res = await request(app)
-      .post('/api/v1/auth/new-mobile')
+      .post('/api/v1/auth/mobile-register')
       .send({
         name: 'john doe',
         mobile: '1234567891',
@@ -93,7 +93,7 @@ describe('Mobile signup test groups', () => {
     expect(preFetchOTP).toBe(null);
 
     const res = await request(app)
-      .post('/api/v1/auth/new-mobile')
+      .post('/api/v1/auth/mobile-register')
       .send({
         name: 'john doe',
         mobile: '1234567891',

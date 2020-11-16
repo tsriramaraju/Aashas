@@ -7,7 +7,7 @@ describe('Mobile login route test group', () => {
     const user = await global.register(undefined, 1234567891);
 
     const res = await request(app)
-      .post('/api/v1/auth/login-mobile')
+      .post('/api/v1/auth/mobile-login')
       .send({ mobile: 1234567891 })
       .expect('Content-Type', /json/)
       .expect(201);
@@ -17,7 +17,7 @@ describe('Mobile login route test group', () => {
 
   it('should return not found error on non existing number', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-mobile')
+      .post('/api/v1/auth/mobile-login')
       .send({ mobile: 1234567891 })
       .expect('Content-Type', /json/)
       .expect(420);
@@ -27,7 +27,7 @@ describe('Mobile login route test group', () => {
 
   it('should return validation error on invalid mobile no.', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-mobile')
+      .post('/api/v1/auth/mobile-login')
       .send({ mobile: 123457891 })
       .expect('Content-Type', /json/)
       .expect(418);
@@ -37,7 +37,7 @@ describe('Mobile login route test group', () => {
 
   it('should return validation error if no input is given', async () => {
     const res = await request(app)
-      .post('/api/v1/auth/login-mobile')
+      .post('/api/v1/auth/mobile-login')
 
       .expect('Content-Type', /json/)
       .expect(418);
@@ -49,7 +49,7 @@ describe('Mobile login route test group', () => {
     const user = await global.register(undefined, 1234567891);
 
     const res = await request(app)
-      .post('/api/v1/auth/login-mobile')
+      .post('/api/v1/auth/mobile-login')
       .send({ mobile: 1234567891 })
       .expect('Content-Type', /json/)
       .expect(201);

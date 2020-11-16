@@ -22,12 +22,12 @@ const router = express.Router();
 
 /**
  *  @desc      Create new account with email and password
- *  @route     POST /api/v1/auth/new-email
+ *  @route     POST /api/v1/auth/email-register
  *  @access    Public
  *  @returns   JWT token
  */
 router.post(
-  '/new-email',
+  '/email-register',
   [nameValidation, emailValidation, passwordValidation, validateRequest],
   async (req: Request, res: Response) => {
     const { name, email, password } = req.body as emailPayload;

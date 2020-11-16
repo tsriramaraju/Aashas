@@ -78,7 +78,7 @@ global.userLogin = async () => {
   const name = 'john doe';
 
   const response = await request(app)
-    .post('/api/v1/auth/new-email')
+    .post('/api/v1/auth/email-register')
     .send({
       email,
       password,

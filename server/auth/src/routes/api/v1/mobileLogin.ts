@@ -12,12 +12,12 @@ const router = Router();
 
 /**
  *  @desc      Generated OTP record
- *  @route     POST /api/v1/auth/login-mobile
+ *  @route     POST /api/v1/auth/mobile-login
  *  @access    Public
  *  @returns   Status
  */
 router.post(
-  '/login-mobile',
+  '/mobile-login',
   [mobileValidation, validateRequest],
   async (req: Request, res: Response) => {
     const mobile = +req.body.mobile;
