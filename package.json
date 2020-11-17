@@ -8,11 +8,6 @@
     "pub": "npm run pub --prefix server/common",
     "pub-main": "npm run pub-main --prefix server/common"
   },
-  "jest": {
-    "projects": [
-      "server/users/jest.config.ts"
-    ]
-  },
   "author": "tsriramaraju",
   "license": "ISC",
   "dependencies": {
