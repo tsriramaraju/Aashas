@@ -4,9 +4,10 @@
   "description": "Aasha’s is a vibrant Couture and ready-to-wear fashion clothing house specializing in women and children’s wear. Designed in Hyderabad.",
   "main": "index.js",
   "scripts": {
-    "update": "npm i @aashas/common@latest && npm run update --prefix server/auth ",
+    "update": "npm i @aashas/common@latest && npm run update --prefix server/auth && npm run update --prefix server/users ",
     "pub": "npm run pub --prefix server/common",
-    "pub-main": "npm run pub-main --prefix server/common"
+    "pub-main": "npm run pub-main --prefix server/common",
+    "test": "jest"
   },
   "author": "tsriramaraju",
   "license": "ISC",
