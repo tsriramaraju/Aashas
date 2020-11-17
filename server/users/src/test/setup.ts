@@ -2,21 +2,21 @@ import { keys } from '../config/keys';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connection, connect } from 'mongoose';
 
-jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
-  return {
-    natsWrapper: {
-      client: {
-        publish: jest
-          .fn()
-          .mockImplementation(
-            (subject: string, data: string, callback: () => void) => {
-              callback();
-            }
-          ),
-      },
-    },
-  };
-});
+// jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
+//   return {
+//     natsWrapper: {
+//       client: {
+//         publish: jest
+//           .fn()
+//           .mockImplementation(
+//             (subject: string, data: string, callback: () => void) => {
+//               callback();
+//             }
+//           ),
+//       },
+//     },
+//   };
+// });
 
 let mongo: any;
 beforeAll(async () => {

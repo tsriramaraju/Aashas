@@ -10,7 +10,6 @@
   },
   "jest": {
     "projects": [
-      "server/auth/jest.config.ts",
       "server/users/jest.config.ts"
     ]
   },
