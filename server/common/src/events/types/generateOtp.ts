@@ -1,6 +1,6 @@
 import { Subjects } from '../subjects';
 import Mongoose from 'mongoose';
-import { authType } from '../../interfaces/interfaces';
+import { authType } from '../../interfaces/enums';
 export interface GenerateOTPEvent {
   subject: Subjects.GenerateOTP;
   data: {

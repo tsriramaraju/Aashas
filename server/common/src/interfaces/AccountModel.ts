@@ -1,5 +1,5 @@
 import { Types, Model, Document } from 'mongoose';
-import { authType, verification } from './interfaces';
+import { authType, verification } from './enums';
 
 /**
  * An interface that describes the properties

@@ -1,5 +1,5 @@
-import { Types } from 'mongoose';
-import { authType } from './interfaces';
+import { Model, Types, Document } from 'mongoose';
+import { authType } from './enums';
 
 /**
  * Interface address
@@ -34,3 +34,33 @@ interface userAttrs {
   favourites?: Types.ObjectId[];
   customProducts?: Types.ObjectId[];
 }
+
+/**
+ * An interface that describes the properties
+ * that a User Model has
+ */
+interface UserModel extends Model<UserDoc> {
+  build(attrs: userAttrs): UserDoc;
+}
+
+/**
+ * An interface that describes the properties
+ * hat a User Document has
+ */
+interface UserDoc extends Document {
+  id: Types.ObjectId;
+  name: string;
+  email?: string;
+  mobile?: number;
+  image?: string;
+  isAdmin: boolean;
+  loginType: authType;
+  addresses?: address[];
+  defaultAddress?: address;
+  cart?: Types.ObjectId[];
+  orders?: Types.ObjectId[];
+  favourites?: Types.ObjectId[];
+  customProducts?: Types.ObjectId[];
+}
+
+export { userAttrs, UserDoc, UserModel, address };

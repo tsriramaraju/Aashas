@@ -29,11 +29,14 @@ export * from './events/types/accountsCreated';
 export * from './interfaces/AccountModel';
 export * from './interfaces/OTPModel';
 export * from './interfaces/ResetModel';
+export * from './interfaces/UsersModel';
+export * from './interfaces/OrdersModel';
+export * from './interfaces/CustomProductModel';
 
 /**
  * Exporting basic  types
  */
-export * from './interfaces/interfaces';
+export * from './interfaces/enums';
 
 /**
  * Exporting validators
