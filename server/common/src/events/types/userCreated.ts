@@ -1,8 +1,8 @@
 import { Subjects } from '../subjects';
 import Mongoose from 'mongoose';
 
-export interface UserDeletedEvent {
-  subject: Subjects.UserDeleted;
+export interface UserCreatedEvent {
+  subject: Subjects.UserCreated;
   data: {
     id: Mongoose.Types.ObjectId;
     clientID?: string;
