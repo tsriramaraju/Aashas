@@ -17,6 +17,8 @@ export * from './events/types/generateOtp';
 export * from './events/types/accountsCreated';
 export * from './events/types/generateReset';
 export * from './events/types/userDeleted';
+export * from './events/types/userCreated';
+export * from './events/types/userUpdated';
 
 /**
  * Exporting Event types
