@@ -26,7 +26,7 @@ interface userAttrs {
   mobile?: number;
   image?: string;
   isAdmin: boolean;
-  loginType: authType;
+  authType: authType;
   addresses?: address[];
   defaultAddress?: address;
   cart?: Types.ObjectId[];
@@ -54,7 +54,7 @@ interface UserDoc extends Document {
   mobile?: number;
   image?: string;
   isAdmin: boolean;
-  loginType: authType;
+  authType: authType;
   addresses?: address[];
   defaultAddress?: address;
   cart?: Types.ObjectId[];
