@@ -31,7 +31,8 @@ export * from './interfaces/OTPModel';
 export * from './interfaces/ResetModel';
 export * from './interfaces/UsersModel';
 export * from './interfaces/OrdersModel';
-export * from './interfaces/CustomProductModel';
+export * from './interfaces/CustomProductsModel';
+export * from './interfaces/ProductsModel';
 
 /**
  * Exporting basic  types
