@@ -25,7 +25,7 @@ interface userAttrs {
   email?: string;
   mobile?: number;
   image?: string;
-  check: string;
+
   isAdmin: boolean;
   authType: authType;
   addresses?: address[];
