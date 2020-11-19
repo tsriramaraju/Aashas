@@ -54,13 +54,12 @@ use(
            */
           new AccountCreatedPublisher(natsWrapper.client).publish({
             id: user.id,
-            data: {
-              authMode: authType.google,
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              profilePic: profile._json.picture,
-            },
+
+            authMode: authType.google,
+
+            name: user.name,
+            email: user.email,
+            profilePic: profile._json.picture,
           });
         }
       }

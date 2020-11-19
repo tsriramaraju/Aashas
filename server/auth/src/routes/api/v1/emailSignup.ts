@@ -34,6 +34,7 @@ router.post(
 
     const exists = await checkAvailability(email);
     //Makes sure email id doesn't exist
+
     if (exists) {
       throw new BadRequestError('Email already exists');
     }
@@ -54,17 +55,14 @@ router.post(
       mobileVerified: user.mobileVerified,
     };
 
-    res.status(201).json(generateJWT(payload, 100));
-
     //Publishes Account created event once the user is registered
     new AccountCreatedPublisher(natsWrapper.client).publish({
       id: user.id,
-      data: {
-        authMode: authType.email,
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
+
+      authMode: authType.email,
+
+      name: user.name,
+      email: user.email,
     });
 
     //Makes sure OTP is created
@@ -84,6 +82,7 @@ router.post(
         title: 'Please enter 4 digit OTP to verify the email',
       },
     });
+    res.status(201).json(generateJWT(payload, 100));
   }
 );
 

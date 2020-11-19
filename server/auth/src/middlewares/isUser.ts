@@ -49,7 +49,7 @@ export const isUser = async (
   }
 
   //make sure that user is not admin
-  if (user.isAdmin == 'yes') throw new NotAuthorizedError();
+  if (user.isAdmin === true) throw new NotAuthorizedError();
 
   //assign user id and user name to request
   req.user = { id: user.id, name: user.name!, email: user.email };

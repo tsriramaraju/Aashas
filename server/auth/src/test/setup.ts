@@ -98,7 +98,7 @@ global.adminLogin = async () => {
     email,
     password,
     name,
-    isAdmin: 'yes',
+    isAdmin: true,
     lastLogin: Date.now(),
     authType: authType.email,
   }).save();

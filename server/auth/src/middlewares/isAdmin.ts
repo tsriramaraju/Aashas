@@ -41,7 +41,7 @@ export const isAdmin = async (
   }
 
   //make sure that user is not admin
-  if (user.isAdmin == 'no') throw new NotAuthorizedError();
+  if (user.isAdmin === false) throw new NotAuthorizedError();
 
   next();
 };

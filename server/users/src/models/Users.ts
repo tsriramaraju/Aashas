@@ -6,7 +6,7 @@ const userSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     mobile: { type: String, unique: true, sparse: true },
-    isAdmin: { type: String, enum: ['yes', 'no'], default: 'no' },
+    isAdmin: { type: Boolean, default: false },
     authType: {
       type: Number,
       enum: [
