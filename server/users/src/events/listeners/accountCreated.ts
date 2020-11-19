@@ -11,7 +11,7 @@ export class AccountCreatedListener extends Listener<AccountCreatedEvent> {
     const user = User.build({
       id: data.id,
       isAdmin: false,
-      loginType: 0,
+      authType: data.authMode,
       name: data.name,
       email: data.email,
       mobile: data.mobile,
