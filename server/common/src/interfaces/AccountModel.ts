@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { authType, verification } from './interfaces';
+import { Types, Model, Document } from 'mongoose';
+import { authType, verification } from './enums';
 
 /**
  * An interface that describes the properties
@@ -41,7 +41,7 @@ interface facebookAttrs {
  * An interface that describes the properties
  * that a Account Model has
  */
-interface AccountModel extends mongoose.Model<AccountDoc> {
+interface AccountModel extends Model<AccountDoc> {
   emailBuild(attrs: emailAttrs): AccountDoc;
   mobileBuild(attrs: mobileAttrs): AccountDoc;
   googleBuild(attrs: googleAttrs): AccountDoc;
@@ -52,8 +52,8 @@ interface AccountModel extends mongoose.Model<AccountDoc> {
  * An interface that describes the properties
  * hat a Account Document has
  */
-interface AccountDoc extends mongoose.Document {
-  id: mongoose.Types.ObjectId;
+interface AccountDoc extends Document {
+  id: Types.ObjectId;
   email: string;
   password: string;
   name: string;
@@ -62,7 +62,7 @@ interface AccountDoc extends mongoose.Document {
   lastLogin: string;
   emailVerified: verification;
   mobileVerified: verification;
-  isAdmin: 'yes' | 'no';
+  isAdmin: boolean;
   googleID: string;
   facebookID: string;
 }

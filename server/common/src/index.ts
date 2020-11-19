@@ -17,6 +17,8 @@ export * from './events/types/generateOtp';
 export * from './events/types/accountsCreated';
 export * from './events/types/generateReset';
 export * from './events/types/userDeleted';
+export * from './events/types/userCreated';
+export * from './events/types/userUpdated';
 
 /**
  * Exporting Event types
@@ -29,11 +31,15 @@ export * from './events/types/accountsCreated';
 export * from './interfaces/AccountModel';
 export * from './interfaces/OTPModel';
 export * from './interfaces/ResetModel';
+export * from './interfaces/UsersModel';
+export * from './interfaces/OrdersModel';
+export * from './interfaces/CustomProductsModel';
+export * from './interfaces/ProductsModel';
 
 /**
  * Exporting basic  types
  */
-export * from './interfaces/interfaces';
+export * from './interfaces/enums';
 
 /**
  * Exporting validators

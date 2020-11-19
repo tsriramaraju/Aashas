@@ -1,6 +1,6 @@
 import { BadRequestError } from '@aashas/common';
 import { sign, verify } from 'jsonwebtoken';
-import { keys } from '../config';
+import { keys } from '../config/keys';
 import { jwtPayload } from '../interfaces';
 /**
  * Returns a valid jwt token

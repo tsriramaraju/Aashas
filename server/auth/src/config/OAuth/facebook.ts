@@ -1,4 +1,4 @@
-import { keys } from '..';
+import { keys } from '../keys';
 import { use } from 'passport';
 import { Account } from '../../models';
 import { AccountCreatedPublisher } from '../../events';
@@ -61,13 +61,12 @@ use(
            */
           new AccountCreatedPublisher(natsWrapper.client).publish({
             id: user.id,
-            data: {
-              authMode: authType.email,
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              profilePic: profile.photos![0].value,
-            },
+
+            authMode: authType.email,
+
+            name: user.name,
+            email: user.email,
+            profilePic: profile.photos![0].value,
           });
         }
       }

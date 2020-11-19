@@ -15,7 +15,7 @@ import {
  */
 export class UserDeletedListener extends Listener<UserDeletedEvent> {
   queueGroupName = queueGroupName;
-  subject: Subjects.UserDeleted = Subjects.UserDeleted;
+  readonly subject = Subjects.UserDeleted;
 
   async onMessage(data: UserDeletedEvent['data'], msg: Message) {
     const userId = data.id;

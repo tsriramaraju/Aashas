@@ -53,12 +53,11 @@ router.post('/verify-register', async (req: Request, res: Response) => {
       if (!user.email)
         new AccountCreatedPublisher(natsWrapper.client).publish({
           id: user.id,
-          data: {
-            authMode: authType.mobile,
-            id: user.id,
-            name: user.name!,
-            mobile: user.mobile,
-          },
+
+          authMode: authType.mobile,
+
+          name: user.name!,
+          mobile: user.mobile,
         });
     }
   }

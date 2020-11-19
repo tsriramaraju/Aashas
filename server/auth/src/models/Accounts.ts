@@ -28,7 +28,7 @@ const accountSchema = new Schema(
     email: { type: String, unique: true, sparse: true },
     mobile: { type: Number, unique: true, sparse: true },
     password: String,
-    isAdmin: { type: String, enum: ['yes', 'no'], default: 'no' },
+    isAdmin: { type: Boolean, default: false },
     authType: {
       type: Number,
       enum: [

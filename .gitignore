@@ -1,6 +1,7 @@
 node_modules
 coverage
 .vscode
+.vscodecounter
 commands.txt
 env.txt
 build
