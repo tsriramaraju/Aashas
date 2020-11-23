@@ -1,5 +1,5 @@
 import { UserDoc, UserModel, authType, userAttrs } from '@aashas/common';
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 
 const userSchema = new Schema(
   {
@@ -7,6 +7,7 @@ const userSchema = new Schema(
     email: { type: String, unique: true, sparse: true },
     mobile: { type: String, unique: true, sparse: true },
     isAdmin: { type: Boolean, default: false },
+    image: String,
     authType: {
       type: Number,
       enum: [
@@ -44,17 +45,18 @@ const userSchema = new Schema(
   },
   {
     autoIndex: true,
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
   }
 );
 
+userSchema.set('toJSON', {
+  transform: function (doc, ret, options) {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});
+
 userSchema.statics.build = (attrs: userAttrs) => {
-  return new User(attrs);
+  return new User({ _id: attrs.id, ...attrs });
 };
 
 const User = model<UserDoc, UserModel>('user', userSchema);

@@ -1,6 +1,7 @@
 import 'colors';
 import 'express-async-errors';
 import express, { json } from 'express';
+import * as routes from './routes/api/v1';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
 
 /**
@@ -15,6 +16,15 @@ app.set('trust proxy', true);
 console.clear();
 security(app);
 process.env.NODE_ENV !== 'test' && loggers(app);
+
+/**
+ * Users service routes
+ */
+app.use('/api/v1/users', routes.getUserFull);
+app.use('/api/v1/users', routes.getUserLean);
+app.use('/api/v1/users', routes.updateUser);
+app.use('/api/v1/users', routes.deleteUser);
+app.use('/api/v1/users', routes.addAddress);
 
 /**
  * 404 route
