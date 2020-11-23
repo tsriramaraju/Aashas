@@ -2,7 +2,6 @@ import { address } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { isUser } from '../../../middlewares/isUser';
 import { addAddress } from '../../../services/addAddress';
-import { getUser } from '../../../services/getUsers';
 
 const router = Router();
 

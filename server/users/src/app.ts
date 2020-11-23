@@ -26,6 +26,12 @@ app.use('/api/v1/users', routes.updateUser);
 app.use('/api/v1/users', routes.deleteUser);
 app.use('/api/v1/users', routes.addAddress);
 app.use('/api/v1/users', routes.removeAddress);
+app.use('/api/v1/users', routes.addFavourites);
+app.use('/api/v1/users', routes.addCart);
+app.use('/api/v1/users', routes.removeFavourites);
+app.use('/api/v1/users', routes.removeAllFavourites);
+app.use('/api/v1/users', routes.removeCart);
+app.use('/api/v1/users', routes.removeAllCart);
 
 /**
  * 404 route

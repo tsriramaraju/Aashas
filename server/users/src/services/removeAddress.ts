@@ -15,9 +15,9 @@ export const removeAddress = async (ids: {
 
     if (!user) throw new ResourceNotFoundError('User not found');
 
-    const updatedAddresses = user.addresses?.filter((value) => {
-      return value._id?.toHexString() !== ids.addressId.toHexString();
-    });
+    const updatedAddresses = user.addresses?.filter(
+      (value) => value._id?.toHexString() !== ids.addressId.toHexString()
+    );
     user.addresses = updatedAddresses;
 
     if (user.defaultAddress) {
