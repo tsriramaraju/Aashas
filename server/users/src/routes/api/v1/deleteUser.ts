@@ -3,7 +3,6 @@ import { Router, Request, Response } from 'express';
 import { UserDeletePublisher } from '../../../events';
 import { isUser } from '../../../middlewares/isUser';
 import { deleteUser } from '../../../services/deleteUser';
-import { getUser } from '../../../services/getUsers';
 
 const router = Router();
 

@@ -25,12 +25,12 @@ app.use('/api/v1/users', routes.getUserLean);
 app.use('/api/v1/users', routes.updateUser);
 app.use('/api/v1/users', routes.deleteUser);
 app.use('/api/v1/users', routes.addAddress);
+app.use('/api/v1/users', routes.removeAddress);
 
 /**
  * 404 route
  */
 app.all('*', async (req, res) => {
-  res.json(req.body);
   throw new NotFoundError();
 });
 

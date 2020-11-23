@@ -5,7 +5,7 @@ import { User } from '../models/Users';
 
 export const deleteUser = async (id: Types.ObjectId) => {
   try {
-    const user = await User.findOne({ id });
+    const user = await User.findById(id);
     //  TODO : populate orders later
 
     if (user?.orders?.length !== 0) return false;

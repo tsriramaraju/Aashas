@@ -30,6 +30,7 @@ const userSchema = new Schema(
       },
     ],
     defaultAddress: {
+      _id: { type: Types.ObjectId, unique: true },
       name: { type: String },
       house: { type: String },
       location: { type: String },

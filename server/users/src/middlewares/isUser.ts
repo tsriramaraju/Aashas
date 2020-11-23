@@ -42,7 +42,7 @@ export const isUser = async (
   // Verify token
   const decoded = decodeJWT(token);
 
-  const user = await User.findOne({ id: decoded?.id }).lean();
+  const user = await User.findById(decoded?.id).lean();
 
   //make sure user exists
   if (!user) {

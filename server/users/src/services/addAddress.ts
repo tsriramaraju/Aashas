@@ -8,14 +8,17 @@ export const addAddress = async (
   defaultAddress: boolean
 ) => {
   try {
-    const user = await User.findOne({ id });
-
+    const user = await User.findById(id);
+    const addressID = Types.ObjectId();
+    console.log(addressID);
     let addresses: address[] = [];
     if (user?.addresses) addresses = [...user.addresses];
-    addresses.unshift(address);
+    addresses.unshift({ _id: addressID, ...address });
 
     await user?.update(
-      defaultAddress ? { addresses, defaultAddress: address } : { addresses }
+      defaultAddress
+        ? { addresses, defaultAddress: { _id: addressID, ...address } }
+        : { addresses }
     );
     return 'Successfully added';
   } catch (error) {
