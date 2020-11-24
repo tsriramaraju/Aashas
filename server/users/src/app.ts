@@ -32,6 +32,7 @@ app.use('/api/v1/users', routes.removeFavourites);
 app.use('/api/v1/users', routes.removeAllFavourites);
 app.use('/api/v1/users', routes.removeCart);
 app.use('/api/v1/users', routes.removeAllCart);
+app.use('/api/v1/users', routes.getOrders);
 
 /**
  * 404 route

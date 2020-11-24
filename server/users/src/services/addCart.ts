@@ -12,6 +12,7 @@ export const addCart = async (ids: {
     const cartExists = user?.cart?.includes(ids.prodId);
 
     if (!cartExists) user?.cart?.unshift(ids.prodId);
+    await user?.save();
 
     return 'Cart items added successfully';
   } catch (error) {

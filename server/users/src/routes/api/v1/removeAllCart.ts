@@ -17,7 +17,8 @@ router.delete('/cart', isUser, async (req: Request, res: Response) => {
   const status = await removeCart({
     userId: req.user!.id,
   });
-  res.status(201).json(status);
+  res.status(201).json({ msg: status });
+  //  TODO : user updated event
 });
 
 export { router as removeAllCart };

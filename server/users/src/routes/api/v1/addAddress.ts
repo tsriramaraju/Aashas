@@ -36,7 +36,10 @@ router.post('/address', isUser, async (req: Request, res: Response) => {
   };
 
   const response = await addAddress(id, address, defaultAddress);
-  res.status(201).send(response);
+
+  res.status(201).json({ msg: response });
+
+  //  TODO : publish user updated event
 });
 
 export { router as addAddress };

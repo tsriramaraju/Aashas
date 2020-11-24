@@ -16,13 +16,12 @@ export class AccountCreatedListener extends Listener<AccountCreatedEvent> {
       email: data.email,
       mobile: data.mobile,
     });
-    console.log(data.name + 'user saved');
+    process.env.NODE_ENV !== 'test' && console.log(data.name + 'user saved');
     try {
       await user.save();
-
       msg.ack();
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   }
 }

@@ -18,6 +18,7 @@ export const removeFavourites = async (ids: {
     }
 
     user!.favourites = updatesFavourites;
+    await user?.save();
     return 'Favourite removed successfully';
   } catch (error) {
     throw new DatabaseConnectionError(error.message);

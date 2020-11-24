@@ -18,6 +18,7 @@ export const removeCart = async (ids: {
     }
 
     user!.cart = updatesCart;
+    await user?.save();
     return 'Cart items removed successfully';
   } catch (error) {
     throw new DatabaseConnectionError(error.message);

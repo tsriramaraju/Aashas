@@ -1,4 +1,4 @@
-import { DatabaseConnectionError, natsWrapper } from '@aashas/common';
+import { natsWrapper, ResourceNotFoundError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserDeletePublisher } from '../../../events';
 import { isUser } from '../../../middlewares/isUser';
@@ -19,7 +19,7 @@ router.delete('/', isUser, async (req: Request, res: Response) => {
   const isDeleted = await deleteUser(id!);
 
   if (!isDeleted)
-    throw new DatabaseConnectionError(
+    throw new ResourceNotFoundError(
       "Makes sure the user don't have any pending orders"
     );
 
@@ -32,7 +32,8 @@ router.delete('/', isUser, async (req: Request, res: Response) => {
       email: req.user?.email,
     },
   });
-  res.status(201).json('deleted');
+  res.status(201).json({ msg: 'User deleted successfully' });
+  //  TODO : user deleted event
 });
 
 export { router as deleteUser };

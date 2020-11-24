@@ -24,8 +24,8 @@ router.delete('/address/:id', isUser, async (req: Request, res: Response) => {
     addressId: Types.ObjectId(addressId),
     userId,
   });
-
-  res.status(201).json(status);
+  //  TODO : user updated event
+  res.status(201).json({ msg: status });
 });
 
 export { router as removeAddress };

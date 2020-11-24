@@ -10,3 +10,4 @@ export * from './removeAllFavourites';
 export * from './addCart';
 export * from './removeCart';
 export * from './removeAllCart';
+export * from './getOrders';
