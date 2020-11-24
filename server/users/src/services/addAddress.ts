@@ -2,22 +2,22 @@ import { DatabaseConnectionError, address } from '@aashas/common';
 import { Types } from 'mongoose';
 import { User } from '../models/Users';
 
-export const addAddress = async (
-  id: Types.ObjectId,
-  address: address,
-  defaultAddress: boolean
-) => {
+export const addAddress = async (data: {
+  id: Types.ObjectId;
+  address: address;
+  defaultAddress: boolean;
+}) => {
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(data.id);
     const addressID = Types.ObjectId();
 
     let addresses: address[] = [];
     if (user?.addresses) addresses = [...user.addresses];
-    addresses.unshift({ _id: addressID, ...address });
+    addresses.unshift({ _id: addressID, ...data.address });
 
     await user?.updateOne(
-      defaultAddress
-        ? { addresses, defaultAddress: { _id: addressID, ...address } }
+      data.defaultAddress
+        ? { addresses, defaultAddress: { _id: addressID, ...data.address } }
         : { addresses }
     );
     return 'Successfully added';

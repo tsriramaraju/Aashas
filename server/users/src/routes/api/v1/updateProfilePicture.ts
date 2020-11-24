@@ -1,3 +1,4 @@
+import { BadRequestError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { isUser } from '../../../middlewares/isUser';
 import { updateProfilePic } from '../../../services/udpateProfilePic';
@@ -16,7 +17,7 @@ router.put('/image', isUser, async (req: Request, res: Response) => {
 
   const status = await updateProfilePic({ id: req.user!.id, pic: image });
 
-  res.status(201).json(status);
+  res.status(201).json({ msg: status });
 });
 
 export { router as updateUser };

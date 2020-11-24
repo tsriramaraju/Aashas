@@ -35,7 +35,7 @@ router.post('/address', isUser, async (req: Request, res: Response) => {
     street,
   };
 
-  const response = await addAddress(id, address, defaultAddress);
+  const response = await addAddress({ id, address, defaultAddress });
 
   res.status(201).json({ msg: response });
 
