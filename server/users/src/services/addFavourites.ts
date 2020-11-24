@@ -1,6 +1,5 @@
 import { DatabaseConnectionError } from '@aashas/common';
 import { Types } from 'mongoose';
-import { updateExpressionWithTypeArguments } from 'typescript';
 import { User } from '../models/Users';
 
 export const addFavourite = async (ids: {

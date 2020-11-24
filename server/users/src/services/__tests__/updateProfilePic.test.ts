@@ -1,5 +1,31 @@
-describe('Update profile picture service test group', () => {
-  it('should update profile picture with valid input', async () => {});
+import e from 'express';
+import { User } from '../../models/Users';
+import { updateProfilePic } from '../udpateProfilePic';
 
-  it('should remove profile pic if no input is given', async () => {});
+describe('Update profile picture service test group', () => {
+  it('should update profile picture with valid input', async () => {
+    await global.userLogin();
+    const user = await User.findOne();
+
+    await updateProfilePic({ id: user?.id!, pic: 'this is image' });
+
+    const user1 = await User.findOne().lean();
+
+    expect(user1?.image).toBe('this is image');
+  });
+
+  it('should remove profile pic if no input is given', async () => {
+    await global.userLogin();
+    const user = await User.findOne();
+    user!.image = 'this is image';
+    await user?.save();
+    const user2 = await User.findOne().lean();
+    expect(user2?.image).toBe('this is image');
+
+    await updateProfilePic({ id: user?.id! });
+
+    const user1 = await User.findOne().lean();
+
+    expect(user1?.image).toBe(null);
+  });
 });

@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import { User } from '../models/Users';
 
 export const updateProfilePic = async (data: {
-  pic: string | undefined;
+  pic?: string | undefined;
   id: Types.ObjectId;
 }) => {
   try {

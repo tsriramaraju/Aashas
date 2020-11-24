@@ -5,7 +5,7 @@ import { User } from '../models/Users';
 export const addAddress = async (data: {
   id: Types.ObjectId;
   address: address;
-  defaultAddress: boolean;
+  defaultAddress?: boolean;
 }) => {
   try {
     const user = await User.findById(data.id);
