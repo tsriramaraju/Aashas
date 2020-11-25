@@ -53,22 +53,11 @@ const customProductSchema = new Schema(
   }
 );
 
-customProductSchema.statics.maleBuild = (
-  attrs: customProductsAttrs<maleType>
+customProductSchema.statics.build = (
+  attrs: customProductsAttrs<kidsType | femaleType | maleType>
 ) => {
   return new CustomProduct(attrs);
 };
-customProductSchema.statics.femaleBuild = (
-  attrs: customProductsAttrs<femaleType>
-) => {
-  return new CustomProduct(attrs);
-};
-customProductSchema.statics.kidsBuild = (
-  attrs: customProductsAttrs<kidsType>
-) => {
-  return new CustomProduct(attrs);
-};
-
 const CustomProduct = model<
   CustomProductDoc<maleType | femaleType | kidsType>,
   CustomProductModel<maleType | femaleType | kidsType>

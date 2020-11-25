@@ -52,15 +52,6 @@ const productSchema = new Schema(
   }
 );
 
-productSchema.statics.maleBuild = (attrs: productAttrs<maleType>) => {
-  return new Product(attrs);
-};
-productSchema.statics.femaleBuild = (attrs: productAttrs<femaleType>) => {
-  return new Product(attrs);
-};
-productSchema.statics.kidsBuild = (attrs: productAttrs<kidsType>) => {
-  return new Product(attrs);
-};
 productSchema.statics.build = (
   attrs: productAttrs<kidsType | femaleType | maleType>
 ) => {
