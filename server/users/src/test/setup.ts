@@ -1,6 +1,6 @@
 import { keys } from '../config/keys';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { connection, connect } from 'mongoose';
+import { connection, connect, Types } from 'mongoose';
 import { User } from '../models/Users';
 import {
   authType,
@@ -8,6 +8,9 @@ import {
   femaleType,
   kidsType,
   maleType,
+  OrderDoc,
+  paymentModes,
+  paymentStatus,
   ProductDoc,
   size,
   verification,
@@ -16,6 +19,7 @@ import { generateJWT } from '../utils';
 import { Product } from '../models/Products';
 import { CustomProduct } from '../models/CustomProducts';
 import { Order } from '../models/Orders';
+import { v4 } from 'uuid';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -42,6 +46,7 @@ declare global {
       createCustomProduct(): Promise<
         CustomProductDoc<maleType | femaleType | kidsType>
       >;
+      createOrder(userId: Types.ObjectId): Promise<OrderDoc>;
     }
   }
 }
@@ -78,17 +83,19 @@ afterAll(async () => {
 });
 
 global.userLogin = async () => {
-  const email = 'john@doe.com';
+  const email = `${v4()}@test.com`;
   const password = 'This is secret';
   const name = 'john doe';
 
-  const user = await new User({
-    email,
-    password,
+  const mobile = Math.random();
+
+  const user = await User.build({
+    id: Types.ObjectId(),
     name,
     isAdmin: false,
-
     authType: authType.email,
+    email,
+    mobile,
   }).save();
 
   const token = generateJWT({
@@ -190,8 +197,8 @@ global.createCustomProduct = async () => {
   return product;
 };
 
-global.createOrder = async () => {
-  const product = await Order.build({
+global.createOrder = async (userId: Types.ObjectId) => {
+  const order = await Order.build({
     address: {
       name: 'office 23',
       house: 'FF-012, PentHouse',
@@ -223,6 +230,21 @@ global.createOrder = async () => {
         inOffer: true,
       },
     ],
+    orderDate: Date.now().toString(),
+    payment: {
+      status: paymentStatus.pending,
+      method: paymentModes.UPI,
+    },
+    price: {
+      discountPrice: 12,
+      productTotal: 23,
+      shippingCharges: 41,
+      tax: 12,
+      totalAfterDiscount: 52,
+      totalAmount: 12,
+    },
+    status: 'working on it',
+    userId: userId,
   }).save();
-  return product;
+  return order;
 };

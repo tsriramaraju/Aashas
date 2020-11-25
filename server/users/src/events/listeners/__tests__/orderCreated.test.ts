@@ -1,27 +1,28 @@
 import { natsWrapper } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
-import { CustomProduct } from '../../../models/CustomProducts';
-import { CustomProductCreatedListener } from '../customProductCreated';
+import { Order } from '../../../models/Orders';
+import { User } from '../../../models/Users';
+import { OrderCreatedListener } from '../orderCreated';
 
 describe('Order created listener test group', () => {
   it('should create Order on receiving Order created event', async () => {
-    const product = await global.createCustomProduct();
+    await global.userLogin();
+    const user = await User.findOne().lean();
+    const order = await global.createOrder(user!._id);
+    const ordersPreFetch = await Order.find();
+    expect(ordersPreFetch!.length).toBe(1);
 
-    const prodPreFetch = await CustomProduct.find();
-    expect(prodPreFetch!.length).toBe(1);
+    await ordersPreFetch[0].deleteOne();
+    const ordersPostFetch = await Order.find();
+    expect(ordersPostFetch!.length).toBe(0);
 
-    await prodPreFetch[0].deleteOne();
-    const prodPostFetch = await CustomProduct.find();
-    expect(prodPostFetch!.length).toBe(0);
-
-    const listener = new CustomProductCreatedListener(natsWrapper.client);
+    const listener = new OrderCreatedListener(natsWrapper.client);
     const msg = { ack: () => {} } as Message;
 
     await listener.onMessage(
       {
-        product,
+        order,
         mode: 'email',
-
         data: {
           body: '',
           message: '',
@@ -29,8 +30,7 @@ describe('Order created listener test group', () => {
       },
       msg
     );
-
-    const prodPostFetch1 = await CustomProduct.find();
-    expect(prodPostFetch1!.length).toBe(1);
+    const ordersPostFetch1 = await Order.find();
+    expect(ordersPostFetch1!.length).toBe(1);
   });
 });

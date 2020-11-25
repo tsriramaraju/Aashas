@@ -51,7 +51,7 @@ const ordersSchema = new Schema(
     ],
     note: String,
     status: String,
-    estDelivery: { type: Date, required: true },
+    estDelivery: { type: Date },
     address: {
       name: { type: String, required: true },
       house: { type: String, required: true },

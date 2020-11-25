@@ -30,7 +30,7 @@ const userSchema = new Schema(
       },
     ],
     defaultAddress: {
-      _id: { type: Types.ObjectId, unique: true },
+      _id: { type: Types.ObjectId, unique: true, sparse: true },
       name: { type: String },
       house: { type: String },
       location: { type: String },
