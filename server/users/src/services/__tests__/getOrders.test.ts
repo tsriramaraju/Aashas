@@ -22,7 +22,7 @@ describe('Get orders service test group', () => {
 
     const res = await getOrder(user!.id);
 
-    console.log(res);
+    // console.log(res);
 
     // expect(res!.orders!.length).toBe(4);
     //  FIXME : orders populate

@@ -15,14 +15,14 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       await Order.build({
         address: order.address,
         items: order.items,
-        orderDate: order.orderDate,
+        orderDate: order.orderDate.toISOString(),
         payment: order.payment,
         price: order.price,
         status: order.status,
         userId: order.userId,
-        deliveryDate: order.deliveryDate,
+        deliveryDate: order.deliveryDate?.toISOString(),
         email: order.email,
-        estDelivery: order.estDelivery,
+        estDelivery: order.estDelivery?.toISOString(),
         mobile: order.mobile,
         note: order.note,
       }).save();
