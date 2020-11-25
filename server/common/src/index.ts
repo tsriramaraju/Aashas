@@ -19,6 +19,12 @@ export * from './events/types/generateReset';
 export * from './events/types/userDeleted';
 export * from './events/types/userCreated';
 export * from './events/types/userUpdated';
+export * from './events/types/productUpdated';
+export * from './events/types/productDeleted';
+export * from './events/types/productCreated';
+export * from './events/types/offerDeleted';
+export * from './events/types/offerCreated';
+export * from './events/types/offerUpdated';
 
 /**
  * Exporting Event types
