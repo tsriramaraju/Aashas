@@ -1,6 +1,10 @@
-import { CustomProductDoc } from '../../interfaces/CustomProductsModel';
-import { femaleType, kidsType, maleType } from '../../interfaces/ProductsModel';
-import { Subjects } from '../subjects';
+import { CustomProductDoc } from '../../../interfaces/CustomProductsModel';
+import {
+  femaleType,
+  kidsType,
+  maleType,
+} from '../../../interfaces/ProductsModel';
+import { Subjects } from '../../subjects';
 
 export interface CustomProductUpdatedEvent {
   subject: Subjects.CustomProductUpdated;

@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import { paymentStatus } from '../../interfaces/enums';
-import { Subjects } from '../subjects';
+import { paymentStatus } from '../../../interfaces/enums';
+import { Subjects } from '../../subjects';
 
 export interface OrderPaymentUpdatedEvent {
   subject: Subjects.OrderPaymentUpdated;

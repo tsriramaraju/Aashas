@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { Subjects } from '../subjects';
+import { Subjects } from '../../subjects';
 
 export interface OrderDeletedEvent {
   subject: Subjects.OrderDeleted;

@@ -1,4 +1,4 @@
-import { Subjects } from '../subjects';
+import { Subjects } from '../../subjects';
 import Mongoose from 'mongoose';
 
 export interface UserUpdatedEvent {
