@@ -7,7 +7,7 @@
     "update": "npm i @aashas/common@latest && npm run update --prefix server/auth && npm run update --prefix server/users ",
     "pub": "npm run pub --prefix server/common",
     "pub-main": "npm run pub-main --prefix server/common",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "author": "tsriramaraju",
   "license": "ISC",
