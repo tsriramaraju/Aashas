@@ -4,6 +4,7 @@ import { connection, connect } from 'mongoose';
 import { User } from '../models/Users';
 import {
   authType,
+  CustomProductDoc,
   femaleType,
   kidsType,
   maleType,
@@ -13,6 +14,8 @@ import {
 } from '@aashas/common';
 import { generateJWT } from '../utils';
 import { Product } from '../models/Products';
+import { CustomProduct } from '../models/CustomProducts';
+import { Order } from '../models/Orders';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -36,6 +39,9 @@ declare global {
       userLogin(): Promise<string>;
       adminLogin(): Promise<string>;
       createProduct(): Promise<ProductDoc<maleType | femaleType | kidsType>>;
+      createCustomProduct(): Promise<
+        CustomProductDoc<maleType | femaleType | kidsType>
+      >;
     }
   }
 }
@@ -146,6 +152,77 @@ global.createProduct = async () => {
       },
       type: 1,
     },
+  }).save();
+  return product;
+};
+global.createCustomProduct = async () => {
+  const product = await CustomProduct.build({
+    title: 'kids casuals',
+    description:
+      "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+    size: [size.L, size.M, size.S],
+    price: 98.15,
+    color: 'green red blue',
+    images: [
+      'https://5.imimg.com/data5/XY/CL/MY-2/fgfgg-jpg-500x500.jpg',
+      'https://5.imimg.com/data5/QT/NY/MY-42821634/designer-new-style-garara-wedding-wear-suit-500x500.jpg',
+      'https://img2.exportersindia.com/product_images/bc-full/dir_112/3354894/stylish-wedding-wear-lehenga-1497779736-3071612.jpeg',
+    ],
+    refImages: [
+      'https://5.imimg.com/data5/XY/CL/MY-2/fgfgg-jpg-500x500.jpg',
+      'https://5.imimg.com/data5/QT/NY/MY-42821634/designer-new-style-garara-wedding-wear-suit-500x500.jpg',
+      'https://img2.exportersindia.com/product_images/bc-full/dir_112/3354894/stylish-wedding-wear-lehenga-1497779736-3071612.jpeg',
+    ],
+    designerCollection: false,
+    isNewProduct: false,
+    gender: 'female',
+    keywords: ['dress'],
+    quantity: 120,
+    trending: false,
+    outfit: {
+      occasion: {
+        birthday: 'Kurtas',
+        bridesmaid: 'Kurtas',
+      },
+      type: 1,
+    },
+  }).save();
+  return product;
+};
+
+global.createOrder = async () => {
+  const product = await Order.build({
+    address: {
+      name: 'office 23',
+      house: 'FF-012, PentHouse',
+      location: 'Sparks Ville',
+      street: 'NEw hamster Road',
+      pin: 530013,
+      city: 'vizag',
+      state: 'AP',
+    },
+    items: [
+      {
+        category: {
+          main: 'asd',
+          sub: 'sad',
+        },
+
+        tile: 'kids casuals',
+        description:
+          "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+        size: size.L,
+        price: 98.15,
+        color: 'green red blue',
+        images: [
+          'https://5.imimg.com/data5/XY/CL/MY-2/fgfgg-jpg-500x500.jpg',
+          'https://5.imimg.com/data5/QT/NY/MY-42821634/designer-new-style-garara-wedding-wear-suit-500x500.jpg',
+          'https://img2.exportersindia.com/product_images/bc-full/dir_112/3354894/stylish-wedding-wear-lehenga-1497779736-3071612.jpeg',
+        ],
+        discount: 12,
+        inOffer: true,
+      },
+    ],
   }).save();
   return product;
 };

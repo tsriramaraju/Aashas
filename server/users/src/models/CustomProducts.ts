@@ -36,7 +36,7 @@ const customProductSchema = new Schema(
     },
     images: [{ type: String, required: true }],
     refImages: [{ type: String, required: true }],
-    discount: { type: Number, required: true },
+    discount: { type: Number },
     inOffer: Boolean,
     isNewProduct: Boolean,
     designerCollection: Boolean,

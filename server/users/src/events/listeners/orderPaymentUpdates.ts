@@ -10,10 +10,10 @@ export class OrderPaymentUpdatedListener extends Listener<OrderPaymentUpdatedEve
 
   async onMessage(data: OrderPaymentUpdatedEvent['data'], msg: Message) {
     try {
-      const { orderID, paymentStatus } = data;
+      const { orderID, payment } = data;
 
       await Order.findByIdAndUpdate(orderID, {
-        payment: { status: paymentStatus },
+        payment,
       });
       console.log('Order Payment Status updated');
 
