@@ -2,8 +2,17 @@ import { keys } from '../config/keys';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connection, connect } from 'mongoose';
 import { User } from '../models/Users';
-import { authType, verification } from '@aashas/common';
+import {
+  authType,
+  femaleType,
+  kidsType,
+  maleType,
+  ProductDoc,
+  size,
+  verification,
+} from '@aashas/common';
 import { generateJWT } from '../utils';
+import { Product } from '../models/Products';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -26,6 +35,7 @@ declare global {
     interface Global {
       userLogin(): Promise<string>;
       adminLogin(): Promise<string>;
+      createProduct(): Promise<ProductDoc<maleType | femaleType | kidsType>>;
     }
   }
 }
@@ -108,4 +118,34 @@ global.adminLogin = async () => {
   });
 
   return token;
+};
+
+global.createProduct = async () => {
+  const product = await Product.build({
+    title: 'kids casuals',
+    description:
+      "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+    size: [size.L, size.M, size.S],
+    price: 98.15,
+    color: 'green red blue',
+    images: [
+      'https://5.imimg.com/data5/XY/CL/MY-2/fgfgg-jpg-500x500.jpg',
+      'https://5.imimg.com/data5/QT/NY/MY-42821634/designer-new-style-garara-wedding-wear-suit-500x500.jpg',
+      'https://img2.exportersindia.com/product_images/bc-full/dir_112/3354894/stylish-wedding-wear-lehenga-1497779736-3071612.jpeg',
+    ],
+    designerCollection: false,
+    isNewProduct: false,
+    gender: 'female',
+    keywords: ['dress'],
+    quantity: 120,
+    trending: false,
+    outfit: {
+      occasion: {
+        birthday: 'Kurtas',
+        bridesmaid: 'Kurtas',
+      },
+      type: 1,
+    },
+  }).save();
+  return product;
 };
