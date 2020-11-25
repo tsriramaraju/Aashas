@@ -1,6 +1,6 @@
 {
   "name": "@aashas/common",
-  "version": "1.2.51",
+  "version": "1.2.52",
   "description": "Shared library between microservices for code reuse",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
