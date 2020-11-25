@@ -1,15 +1,10 @@
-import { CustomProductDoc } from '../../../interfaces/CustomProductsModel';
-import {
-  femaleType,
-  kidsType,
-  maleType,
-} from '../../../interfaces/ProductsModel';
+import { Types } from 'mongoose';
 import { Subjects } from '../../subjects';
 
 export interface CustomProductDeletedEvent {
   subject: Subjects.CustomProductDeleted;
   data: {
-    product: CustomProductDoc<maleType | femaleType | kidsType>;
+    productID: Types.ObjectId;
     version?: number;
     clientID?: string;
     group?: string;

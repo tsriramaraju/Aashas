@@ -1,12 +1,15 @@
 import { Types } from 'mongoose';
-import { paymentStatus } from '../../../interfaces/enums';
+import { paymentModes, paymentStatus } from '../../../interfaces/enums';
 import { Subjects } from '../../subjects';
 
 export interface OrderPaymentUpdatedEvent {
   subject: Subjects.OrderPaymentUpdated;
   data: {
     orderID: Types.ObjectId;
-    paymentStatus: paymentStatus;
+    payment: {
+      status: paymentStatus;
+      method?: paymentModes;
+    };
     version?: number;
     clientID?: string;
     group?: string;
