@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 15.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -16,4 +16,5 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: cd server/users && npm i && npm run test:ci
+      - run: cd server/users && npm i
+      - run: cd server/users && npm run test:ci

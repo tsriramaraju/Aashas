@@ -6,6 +6,7 @@ import { authType } from './enums';
  */
 
 interface address {
+  _id?: Types.ObjectId;
   name: string;
   house: string;
   location: string;

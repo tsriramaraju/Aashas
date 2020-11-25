@@ -7,12 +7,12 @@
     "update": "npm i @aashas/common@latest && npm run update --prefix server/auth && npm run update --prefix server/users ",
     "pub": "npm run pub --prefix server/common",
     "pub-main": "npm run pub-main --prefix server/common",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "author": "tsriramaraju",
   "license": "ISC",
   "dependencies": {
-    "@aashas/common": "^1.2.44",
+    "@aashas/common": "^1.2.52",
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.8",

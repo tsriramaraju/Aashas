@@ -20,21 +20,22 @@ export class UserDeletedListener extends Listener<UserDeletedEvent> {
   async onMessage(data: UserDeletedEvent['data'], msg: Message) {
     const userId = data.id;
 
-    const user = await Account.findById(userId);
-    /**
-     * Makes sure user exists
-     */
-    if (!user) throw new ResourceNotFoundError('Requesting user not found');
-
     try {
-      await deleteAccount(userId);
+      const user = await Account.findById(userId);
+      /**
+       * Makes sure user exists
+       */
+      if (!user) throw new ResourceNotFoundError('Requesting user not found');
+
+      await deleteAccount(user.id);
 
       /**
        * Acknowledge the event bus only after successfully deleting the user
        */
       msg.ack();
     } catch (error) {
-      throw new DatabaseConnectionError(error.message);
+      // throw new DatabaseConnectionError(error.message);
+      console.log(error.message);
     }
   }
 }

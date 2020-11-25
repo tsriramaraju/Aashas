@@ -1,6 +1,7 @@
 import 'colors';
 import 'express-async-errors';
 import express, { json } from 'express';
+import * as routes from './routes/api/v1';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
 
 /**
@@ -17,10 +18,26 @@ security(app);
 process.env.NODE_ENV !== 'test' && loggers(app);
 
 /**
+ * Users service routes
+ */
+app.use('/api/v1/users', routes.getUserFull);
+app.use('/api/v1/users', routes.getUserLean);
+app.use('/api/v1/users', routes.updateUser);
+app.use('/api/v1/users', routes.deleteUser);
+app.use('/api/v1/users', routes.addAddress);
+app.use('/api/v1/users', routes.removeAddress);
+app.use('/api/v1/users', routes.addFavourites);
+app.use('/api/v1/users', routes.addCart);
+app.use('/api/v1/users', routes.removeFavourites);
+app.use('/api/v1/users', routes.removeAllFavourites);
+app.use('/api/v1/users', routes.removeCart);
+app.use('/api/v1/users', routes.removeAllCart);
+app.use('/api/v1/users', routes.getOrders);
+
+/**
  * 404 route
  */
 app.all('*', async (req, res) => {
-  res.json(req.body);
   throw new NotFoundError();
 });
 

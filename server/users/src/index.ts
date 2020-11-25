@@ -2,7 +2,7 @@ import { ConnectionOptions } from 'mongoose';
 import { app } from './app';
 import { connectDB, natsWrapper } from '@aashas/common';
 import { keys } from './config/keys';
-import { AccountCreatedListener } from './events/listeners/accountCreated';
+import { AccountCreatedListener } from './events';
 
 const start = async () => {
   /**

@@ -5,5 +5,5 @@ import { Publisher, Subjects, AccountCreatedEvent } from '@aashas/common';
  */
 
 export class AccountCreatedPublisher extends Publisher<AccountCreatedEvent> {
-  subject: Subjects.AccountCreated = Subjects.AccountCreated;
+  readonly subject = Subjects.AccountCreated;
 }

@@ -7,9 +7,9 @@ import { jwtPayload } from '../interfaces';
  * @param payload user details
  * @param exp jwt expiry in seconds
  */
-export const generateJWT = (payload: jwtPayload, exp: number = 350000) => {
+export const generateJWT = (payload: jwtPayload, exp = 350000000) => {
   const token = sign({ payload: payload }, keys.jwtSecret!, {
-    expiresIn: exp,
+    expiresIn: '1d',
   });
   return token;
 };

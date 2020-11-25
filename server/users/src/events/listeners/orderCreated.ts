@@ -1,0 +1,36 @@
+import { Listener, OrderCreatedEvent, Subjects } from '@aashas/common';
+import { Message } from 'node-nats-streaming';
+
+import { Order } from '../../models/Orders';
+import { queueGroupName } from '../queueGroupName';
+
+export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
+  queueGroupName = queueGroupName;
+  readonly subject = Subjects.OrderCreated;
+
+  async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
+    try {
+      const { order } = data;
+
+      await Order.build({
+        address: order.address,
+        items: order.items,
+        orderDate: order.orderDate.toISOString(),
+        payment: order.payment,
+        price: order.price,
+        status: order.status,
+        userId: order.userId,
+        deliveryDate: order.deliveryDate?.toISOString(),
+        email: order.email,
+        estDelivery: order.estDelivery?.toISOString(),
+        mobile: order.mobile,
+        note: order.note,
+      }).save();
+      console.log('Order created');
+
+      msg.ack();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}

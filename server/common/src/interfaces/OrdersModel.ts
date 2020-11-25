@@ -31,10 +31,10 @@ interface orderAttrs {
   }[];
   note?: string;
   status: string;
-  estDelivery?: Date;
+  estDelivery?: string;
   address: address;
-  orderDate: Date;
-  deliveryDate?: Date;
+  orderDate: string;
+  deliveryDate?: string;
   price: {
     productTotal: number;
     discountPrice: number;

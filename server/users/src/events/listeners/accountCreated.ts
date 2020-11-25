@@ -1,6 +1,12 @@
-import { AccountCreatedEvent, Listener, Subjects } from '@aashas/common';
+import {
+  AccountCreatedEvent,
+  Listener,
+  natsWrapper,
+  Subjects,
+} from '@aashas/common';
 import { Message } from 'node-nats-streaming';
 import { User } from '../../models/Users';
+import { UserCreatedPublisher } from '../publishers/userCreated';
 import { queueGroupName } from '../queueGroupName';
 
 export class AccountCreatedListener extends Listener<AccountCreatedEvent> {
@@ -16,13 +22,26 @@ export class AccountCreatedListener extends Listener<AccountCreatedEvent> {
       email: data.email,
       mobile: data.mobile,
     });
-    console.log(data.name + 'user saved');
+    process.env.NODE_ENV !== 'test' && console.log(data.name + 'user saved');
     try {
       await user.save();
 
+      new UserCreatedPublisher(natsWrapper.client).publish({
+        id: user.id,
+        mode: 'email',
+        group: queueGroupName,
+        data: {
+          body: 'User created',
+          message: `${user.name} is created`,
+          email: user.email,
+          name: user.name,
+          title: 'User created event',
+        },
+      });
+
       msg.ack();
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   }
 }

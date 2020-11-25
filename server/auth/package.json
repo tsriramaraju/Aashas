@@ -6,13 +6,13 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "test": "jest --watchAll --no-cache  ",
-    "test:ci": "jest --forceExit",
+    "test:ci": "jest --detectOpenHandles --forceExit",
     "update": "npm i @aashas/common@latest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aashas/common": "^1.2.44",
+    "@aashas/common": "^1.2.52",
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.8",

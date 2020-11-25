@@ -35,7 +35,7 @@ const productSchema = new Schema(
       enum: ['male', 'female'],
     },
     images: [{ type: String, required: true }],
-    discount: { type: Number, required: true },
+    discount: { type: Number },
     inOffer: Boolean,
     isNewProduct: Boolean,
     designerCollection: Boolean,
@@ -52,13 +52,9 @@ const productSchema = new Schema(
   }
 );
 
-productSchema.statics.maleBuild = (attrs: productAttrs<maleType>) => {
-  return new Product(attrs);
-};
-productSchema.statics.femaleBuild = (attrs: productAttrs<femaleType>) => {
-  return new Product(attrs);
-};
-productSchema.statics.kidsBuild = (attrs: productAttrs<kidsType>) => {
+productSchema.statics.build = (
+  attrs: productAttrs<kidsType | femaleType | maleType>
+) => {
   return new Product(attrs);
 };
 

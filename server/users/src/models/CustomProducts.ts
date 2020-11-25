@@ -36,7 +36,7 @@ const customProductSchema = new Schema(
     },
     images: [{ type: String, required: true }],
     refImages: [{ type: String, required: true }],
-    discount: { type: Number, required: true },
+    discount: { type: Number },
     inOffer: Boolean,
     isNewProduct: Boolean,
     designerCollection: Boolean,
@@ -53,22 +53,11 @@ const customProductSchema = new Schema(
   }
 );
 
-customProductSchema.statics.maleBuild = (
-  attrs: customProductsAttrs<maleType>
+customProductSchema.statics.build = (
+  attrs: customProductsAttrs<kidsType | femaleType | maleType>
 ) => {
   return new CustomProduct(attrs);
 };
-customProductSchema.statics.femaleBuild = (
-  attrs: customProductsAttrs<femaleType>
-) => {
-  return new CustomProduct(attrs);
-};
-customProductSchema.statics.kidsBuild = (
-  attrs: customProductsAttrs<kidsType>
-) => {
-  return new CustomProduct(attrs);
-};
-
 const CustomProduct = model<
   CustomProductDoc<maleType | femaleType | kidsType>,
   CustomProductModel<maleType | femaleType | kidsType>
