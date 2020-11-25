@@ -24,6 +24,7 @@ describe('Orders Payment status Updated listener test group', () => {
     await listener.onMessage(
       {
         orderID: order._id,
+        version: 1,
         payment: {
           status: paymentStatus.paid,
           method: paymentModes.creditCard,

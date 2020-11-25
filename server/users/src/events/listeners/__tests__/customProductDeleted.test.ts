@@ -16,6 +16,7 @@ describe('Custom Product Deleted listener test group', () => {
     await listener.onMessage(
       {
         productID: product.id,
+        version: 1,
         mode: 'email',
         data: {
           body: '',

@@ -7,7 +7,8 @@ import {
   ProductModel,
   size,
 } from '@aashas/common';
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const productSchema = new Schema(
   {
@@ -52,10 +53,23 @@ const productSchema = new Schema(
   }
 );
 
+productSchema.set('versionKey', 'version');
+productSchema.plugin(updateIfCurrentPlugin);
+
 productSchema.statics.build = (
   attrs: productAttrs<kidsType | femaleType | maleType>
 ) => {
   return new Product(attrs);
+};
+
+productSchema.statics.findByEvent = (event: {
+  id: Types.ObjectId;
+  version: number;
+}) => {
+  return Product.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
 };
 
 const Product = model<

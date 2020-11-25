@@ -26,6 +26,7 @@ describe('Offer Deleted listener test group', () => {
     await listener.onMessage(
       {
         product: prodPreFetch[0],
+        version: 1,
       },
       msg
     );

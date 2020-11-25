@@ -17,7 +17,7 @@ describe('Product created listener test group', () => {
     const listener = new ProductCreatedListener(natsWrapper.client);
     const msg = { ack: () => {} } as Message;
 
-    await listener.onMessage({ product }, msg);
+    await listener.onMessage({ product, version: 1 }, msg);
 
     const prodPostFetch1 = await Product.find();
     expect(prodPostFetch1!.length).toBe(1);

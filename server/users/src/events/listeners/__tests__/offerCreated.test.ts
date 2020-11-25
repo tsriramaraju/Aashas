@@ -21,6 +21,7 @@ describe('Offer created listener test group', () => {
 
     await listener.onMessage(
       {
+        version: 1,
         product: prodPreFetch[0],
         mode: 'email',
         data: {

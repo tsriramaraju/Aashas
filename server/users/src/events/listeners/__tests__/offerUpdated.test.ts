@@ -28,6 +28,7 @@ describe('Offer Updated listener test group', () => {
       {
         product: prodPreFetch[0],
         mode: 'email',
+        version: 1,
         data: {
           body: '',
           message: '',

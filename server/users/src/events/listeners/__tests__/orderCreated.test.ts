@@ -23,6 +23,7 @@ describe('Order created listener test group', () => {
       {
         order,
         mode: 'email',
+        version: 1,
         data: {
           body: '',
           message: '',

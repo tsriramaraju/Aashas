@@ -1,5 +1,6 @@
 import { UserDoc, UserModel, authType, userAttrs } from '@aashas/common';
 import { model, Schema, Types } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const userSchema = new Schema(
   {
@@ -48,6 +49,8 @@ const userSchema = new Schema(
     autoIndex: true,
   }
 );
+userSchema.set('versionKey', 'version');
+userSchema.plugin(updateIfCurrentPlugin);
 
 userSchema.set('toJSON', {
   transform: function (doc, ret, options) {
@@ -58,6 +61,15 @@ userSchema.set('toJSON', {
 
 userSchema.statics.build = (attrs: userAttrs) => {
   return new User({ _id: attrs.id, ...attrs });
+};
+userSchema.statics.findByEvent = (event: {
+  id: Types.ObjectId;
+  version: number;
+}) => {
+  return User.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
 };
 
 const User = model<UserDoc, UserModel>('user', userSchema);
