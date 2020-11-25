@@ -22,8 +22,6 @@ router.post('/cart', isUser, async (req: Request, res: Response) => {
 
   const status = await addCart({ prodId: product, userId: req.user!.id });
   res.status(201).json({ msg: status });
-
-  //  TODO : user updated event
 });
 
 export { router as addCart };

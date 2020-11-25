@@ -1,6 +1,7 @@
 import { natsWrapper, ResourceNotFoundError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserDeletePublisher } from '../../../events';
+import { queueGroupName } from '../../../events/queueGroupName';
 import { isUser } from '../../../middlewares/isUser';
 import { deleteUser } from '../../../services/deleteUser';
 
@@ -14,7 +15,7 @@ const router = Router();
  */
 
 router.delete('/', isUser, async (req: Request, res: Response) => {
-  const id = req.user?.id;
+  const { id } = req.user!;
 
   const isDeleted = await deleteUser(id!);
 
@@ -33,7 +34,6 @@ router.delete('/', isUser, async (req: Request, res: Response) => {
     },
   });
   res.status(201).json({ msg: 'User deleted successfully' });
-  //  TODO : user deleted event
 });
 
 export { router as deleteUser };

@@ -26,7 +26,6 @@ router.delete(
       userId: req.user!.id,
     });
     res.status(201).json({ msg: status });
-    //  TODO : user updated event
   }
 );
 

@@ -11,8 +11,6 @@ describe('Remove single Favourite items route test group', () => {
       .expect(400);
     expect(res.body.msg).toBe('Authentication token is not present');
   });
-  //  TODO : events test
-  it('should publish event after the process completed successfully', async () => {});
 
   it('should remove selected item from the Favourite', async () => {
     const token = await global.userLogin();

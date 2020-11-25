@@ -83,7 +83,4 @@ describe('Add Cart items route test group', () => {
     expect(postUser1!.cart![0].toHexString()).toBe('5fbb538e83f2340019cc44e1');
     expect(res2.body.msg).toBe('Cart items added successfully');
   });
-
-  //  TODO : events tests
-  it('should publish event after the process completed successfully', async () => {});
 });

@@ -1,5 +1,8 @@
-import { address } from '@aashas/common';
+import { address, natsWrapper } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { userInfo } from 'os';
+import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
+import { queueGroupName } from '../../../events/queueGroupName';
 import { isUser } from '../../../middlewares/isUser';
 import { addAddress } from '../../../services/addAddress';
 
@@ -13,7 +16,7 @@ const router = Router();
  */
 
 router.post('/address', isUser, async (req: Request, res: Response) => {
-  const { id } = req.user!;
+  const { id, name: userName, email } = req.user!;
   const {
     city,
     house,
@@ -39,7 +42,17 @@ router.post('/address', isUser, async (req: Request, res: Response) => {
 
   res.status(201).json({ msg: response });
 
-  //  TODO : publish user updated event
+  new UserUpdatedPublisher(natsWrapper.client).publish({
+    id,
+    mode: 'email',
+    group: queueGroupName,
+    data: {
+      body: `${name} added to the address book`,
+      message: 'Address added successfully',
+      email,
+      title: 'Address added ',
+    },
+  });
 });
 
 export { router as addAddress };

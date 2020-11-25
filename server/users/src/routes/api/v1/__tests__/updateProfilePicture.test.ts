@@ -1,3 +1,4 @@
+import { natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
 import { User } from '../../../../models/Users';
@@ -10,8 +11,28 @@ describe('Update profile picture route test group', () => {
       .expect(400);
     expect(res.body.msg).toBe('Authentication token is not present');
   });
-  //  TODO : events test
-  it('should publish event after the process completed successfully', async () => {});
+
+  it('should publish event after the process completed successfully', async () => {
+    const token = await global.userLogin();
+
+    const res = await request(app)
+      .put('/api/v1/users/image')
+      .send({
+        image:
+          'https://avatars2.githubusercontent.com/u/13117711?s=460&u=380dbcf3b070c32863b79fd4596678b2440ba78b&v=4',
+      })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(201);
+    expect(res.body.msg).toBe('Image updated');
+
+    const user = await User.findOne();
+
+    expect(user?.image).toBe(
+      'https://avatars2.githubusercontent.com/u/13117711?s=460&u=380dbcf3b070c32863b79fd4596678b2440ba78b&v=4'
+    );
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+  });
 
   it('should update profile picture with valid input', async () => {
     const token = await global.userLogin();

@@ -16,7 +16,6 @@ router.delete('/favourites', isUser, async (req: Request, res: Response) => {
     userId: req.user!.id,
   });
   res.status(201).json({ msg: status });
-  //  TODO : updated user event
 });
 
 export { router as removeAllFavourites };

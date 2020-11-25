@@ -11,8 +11,6 @@ describe('Remove All Cart items route test group', () => {
       .expect(400);
     expect(res.body.msg).toBe('Authentication token is not present');
   });
-  //  TODO : events tests
-  it('should publish event after the process completed successfully', async () => {});
 
   it('should remove all cart items', async () => {
     const token = await global.userLogin();

@@ -89,7 +89,4 @@ describe('Add Favourites items route test group', () => {
     );
     expect(res2.body.msg).toBe('Favourite added successfully');
   });
-
-  //  TODO : events tests
-  it('should publish event after the process completed successfully', async () => {});
 });

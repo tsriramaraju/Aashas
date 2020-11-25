@@ -1,3 +1,4 @@
+import { natsWrapper } from '@aashas/common';
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../../../app';
@@ -46,6 +47,22 @@ describe('Delete user route test group', () => {
 
     expect(postUser).toBe(null);
   });
-  //  TODO : events tests
-  it('should publish event after the process completed successfully', async () => {});
+
+  it('should publish event after the process completed successfully', async () => {
+    const token = await global.userLogin();
+    const preUser = await User.findOne({}).lean();
+
+    expect(preUser!.orders!.length).toBe(0);
+
+    const res = await request(app)
+      .delete('/api/v1/users')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(201);
+    expect(res.body.msg).toBe('User deleted successfully');
+    const postUser = await User.findOne({}).lean();
+
+    expect(postUser).toBe(null);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+  });
 });

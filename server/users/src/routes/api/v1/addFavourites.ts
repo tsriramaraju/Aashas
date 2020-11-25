@@ -22,7 +22,6 @@ router.post('/favourites', isUser, async (req: Request, res: Response) => {
 
   const status = await addFavourite({ prodId: product, userId: req.user!.id });
   res.status(201).json({ msg: status });
-  //  TODO : user updated event
 });
 
 export { router as addFavourites };

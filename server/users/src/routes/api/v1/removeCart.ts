@@ -24,7 +24,6 @@ router.delete('/cart/:id', isUser, async (req: Request, res: Response) => {
     userId: req.user!.id,
   });
   res.status(201).json({ msg: status });
-  //  TODO : user updated
 });
 
 export { router as removeCart };
