@@ -2,11 +2,11 @@ import { DatabaseConnectionError } from '@aashas/common';
 import { Types } from 'mongoose';
 import { User } from '../models/Users';
 
-export const getOrder = async (id: Types.ObjectId) => {
+export const getCustomProducts = async (id: Types.ObjectId) => {
   try {
-    const orders = await User.findById(id).select('orders').populate('orders');
+    const products = await User.findById(id).select('customProducts');
     //  TODO : populate later
-    return orders;
+    return products;
   } catch (error) {
     throw new DatabaseConnectionError(error.message);
   }
