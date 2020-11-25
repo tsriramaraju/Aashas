@@ -1,11 +1,11 @@
-import { ProductDoc } from '../..';
+import { CustomProductDoc } from '../../interfaces/CustomProductsModel';
 import { femaleType, kidsType, maleType } from '../../interfaces/ProductsModel';
 import { Subjects } from '../subjects';
 
-export interface OfferCreatedEvent {
-  subject: Subjects.OfferCreated;
+export interface CustomProductDeletedEvent {
+  subject: Subjects.CustomProductDeleted;
   data: {
-    product: ProductDoc<maleType | femaleType | kidsType>;
+    product: CustomProductDoc<maleType | femaleType | kidsType>;
     version?: number;
     clientID?: string;
     group?: string;

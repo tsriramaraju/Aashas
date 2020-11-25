@@ -1,10 +1,11 @@
-import { Subjects } from '../subjects';
-import Mongoose from 'mongoose';
+import { OrderDoc } from '../../../interfaces/OrdersModel';
+import { Subjects } from '../../subjects';
 
-export interface UserCreatedEvent {
-  subject: Subjects.UserCreated;
+export interface OrderCreatedEvent {
+  subject: Subjects.OrderCreated;
   data: {
-    id: Mongoose.Types.ObjectId;
+    order: OrderDoc;
+    version?: number;
     clientID?: string;
     group?: string;
     mode: 'message' | 'email' | 'push notification';

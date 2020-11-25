@@ -16,15 +16,27 @@ export * from './events/subjects';
 export * from './events/types/generateOtp';
 export * from './events/types/accountsCreated';
 export * from './events/types/generateReset';
-export * from './events/types/userDeleted';
-export * from './events/types/userCreated';
-export * from './events/types/userUpdated';
-export * from './events/types/productUpdated';
-export * from './events/types/productDeleted';
-export * from './events/types/productCreated';
-export * from './events/types/offerDeleted';
-export * from './events/types/offerCreated';
-export * from './events/types/offerUpdated';
+
+export * from './events/types/users/userDeleted';
+export * from './events/types/users/userCreated';
+export * from './events/types/users/userUpdated';
+
+export * from './events/types/products/productUpdated';
+export * from './events/types/products/productDeleted';
+export * from './events/types/products/productCreated';
+
+export * from './events/types/customProducts/customProductUpdated';
+export * from './events/types/customProducts/customProductDeleted';
+export * from './events/types/customProducts/customProductCreated';
+
+export * from './events/types/offers/offerDeleted';
+export * from './events/types/offers/offerCreated';
+export * from './events/types/offers/offerUpdated';
+
+export * from './events/types/orders/orderDeleted';
+export * from './events/types/orders/orderCreated';
+export * from './events/types/orders/orderPaymentUpdated';
+export * from './events/types/orders/orderStatusUpdated';
 
 /**
  * Exporting Event types

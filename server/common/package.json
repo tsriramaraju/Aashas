@@ -1,6 +1,6 @@
 {
   "name": "@aashas/common",
-  "version": "1.2.47",
+  "version": "1.2.48",
   "description": "Shared library between microservices for code reuse",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -11,7 +11,7 @@
     "clean": "del-cli --force ./build",
     "build": "npm run clean && tsc",
     "pub": " npm version patch && git add . && git commit -m \" minor fixes  \"  && npm run build && npm publish",
-    "pub-main": "npm version patch &&  git add . && git commit -m \" added product related event types   \"  && npm run build && npm publish"
+    "pub-main": "npm version patch &&  git add . && git commit -m \" added custom products & orders related event types   \"  && npm run build && npm publish"
   },
   "author": "",
   "license": "ISC",
