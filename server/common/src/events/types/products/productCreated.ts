@@ -10,6 +10,6 @@ export interface ProductCreatedEvent {
   subject: Subjects.ProductCreated;
   data: {
     product: ProductDoc<maleType | femaleType | kidsType>;
-    version?: number;
+    version: number;
   };
 }

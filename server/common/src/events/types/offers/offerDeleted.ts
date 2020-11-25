@@ -10,6 +10,6 @@ export interface OfferDeletedEvent {
   subject: Subjects.OfferDeleted;
   data: {
     product: ProductDoc<maleType | femaleType | kidsType>;
-    version?: number;
+    version: number;
   };
 }

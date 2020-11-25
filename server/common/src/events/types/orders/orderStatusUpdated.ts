@@ -6,7 +6,7 @@ export interface OrderStatusUpdatedEvent {
   data: {
     orderID: Types.ObjectId;
     orderStatus: string;
-    version?: number;
+    version: number;
     clientID?: string;
     group?: string;
     mode: 'message' | 'email' | 'push notification';

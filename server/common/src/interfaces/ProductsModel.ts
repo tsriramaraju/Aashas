@@ -77,6 +77,10 @@ interface CategoryOffer {
  */
 interface ProductModel<T extends outfit> extends Model<ProductDoc<T>> {
   build(attrs: productAttrs<T>): ProductDoc<T>;
+  findByEvent(event: {
+    id: string;
+    version: number;
+  }): Promise<ProductDoc<T> | null>;
 }
 
 /**
@@ -91,7 +95,7 @@ interface ProductDoc<T extends outfit> extends Document {
   price: number;
   color: string;
   quantity: number;
-
+  version: number;
   outfit: T;
   keywords: string[];
   gender: 'male' | 'female';

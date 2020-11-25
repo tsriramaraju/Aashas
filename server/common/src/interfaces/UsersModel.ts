@@ -43,6 +43,7 @@ interface userAttrs {
  */
 interface UserModel extends Model<UserDoc> {
   build(attrs: userAttrs): UserDoc;
+  findByEvent(event: { id: string; version: number }): Promise<UserDoc | null>;
 }
 
 /**
@@ -56,6 +57,7 @@ interface UserDoc extends Document {
   mobile?: number;
   image?: string;
   isAdmin: boolean;
+  version: number;
   authType: authType;
   addresses?: address[];
   defaultAddress?: address;

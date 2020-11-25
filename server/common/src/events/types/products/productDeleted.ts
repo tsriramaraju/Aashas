@@ -5,6 +5,6 @@ export interface ProductDeletedEvent {
   subject: Subjects.ProductDeleted;
   data: {
     productID: Types.ObjectId;
-    version?: number;
+    version: number;
   };
 }
