@@ -43,7 +43,10 @@ interface userAttrs {
  */
 interface UserModel extends Model<UserDoc> {
   build(attrs: userAttrs): UserDoc;
-  findByEvent(event: { id: string; version: number }): Promise<UserDoc | null>;
+  findByEvent(event: {
+    id: Types.ObjectId;
+    version: number;
+  }): Promise<UserDoc | null>;
 }
 
 /**

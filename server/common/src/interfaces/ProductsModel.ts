@@ -78,7 +78,7 @@ interface CategoryOffer {
 interface ProductModel<T extends outfit> extends Model<ProductDoc<T>> {
   build(attrs: productAttrs<T>): ProductDoc<T>;
   findByEvent(event: {
-    id: string;
+    id: Types.ObjectId;
     version: number;
   }): Promise<ProductDoc<T> | null>;
 }

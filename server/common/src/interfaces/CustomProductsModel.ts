@@ -18,7 +18,7 @@ interface CustomProductModel<T extends outfit>
   extends Model<CustomProductDoc<T>> {
   build(attrs: customProductsAttrs<T>): CustomProductDoc<T>;
   findByEvent(event: {
-    id: string;
+    id: Types.ObjectId;
     version: number;
   }): Promise<CustomProductDoc<T> | null>;
 }
