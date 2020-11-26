@@ -2,6 +2,7 @@ import 'colors';
 import 'express-async-errors';
 import express, { json } from 'express';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
+import * as routes from './routes/api/v1';
 
 /**
  * initiate express app and body parser for json requests
@@ -19,6 +20,16 @@ process.env.NODE_ENV !== 'test' && loggers(app);
 /**
  * Products service routes
  */
+app.use('/api/v1/products', routes.createProductRouter);
+app.use('/api/v1/products', routes.getProductsRouter);
+app.use('/api/v1/products', routes.deleteProductRouter);
+app.use('/api/v1/products', routes.updateProductRouter);
+app.use('/api/v1/products', routes.getDesignerProductsRouter);
+app.use('/api/v1/products', routes.getTrendingProductsRouter);
+app.use('/api/v1/products', routes.getOfferProductsRouter);
+app.use('/api/v1/products', routes.createOfferRouter);
+app.use('/api/v1/products', routes.updateOfferRouter);
+app.use('/api/v1/products', routes.deleteOfferRouter);
 
 /**
  * 404 route

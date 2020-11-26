@@ -1,6 +1,5 @@
 import { address, natsWrapper } from '@aashas/common';
 import { Router, Request, Response } from 'express';
-import { userInfo } from 'os';
 import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
 import { queueGroupName } from '../../../events/queueGroupName';
 import { isUser } from '../../../middlewares/isUser';

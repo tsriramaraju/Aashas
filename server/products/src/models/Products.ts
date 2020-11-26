@@ -37,7 +37,7 @@ const productSchema = new Schema(
     },
     images: [{ type: String, required: true }],
     discount: { type: Number },
-    inOffer: Boolean,
+    inOffer: { type: Boolean, default: false },
     isNewProduct: Boolean,
     designerCollection: Boolean,
     trending: Boolean,

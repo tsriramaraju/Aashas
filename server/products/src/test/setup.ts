@@ -45,7 +45,6 @@ declare global {
       createCustomProduct(): Promise<
         CustomProductDoc<maleType | femaleType | kidsType>
       >;
-      createOrder(userId: Types.ObjectId): Promise<OrderDoc>;
     }
   }
 }
