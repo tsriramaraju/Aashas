@@ -8,6 +8,7 @@ const config: Config.InitialOptions = {
   projects: [
     '<rootDir>/server/auth/jest.config.js',
     '<rootDir>/server/users/jest.config.js',
+    '<rootDir>/server/products/jest.config.js',
   ],
 };
 export default config;

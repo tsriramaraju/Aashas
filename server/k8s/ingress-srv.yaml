@@ -18,3 +18,7 @@ spec:
             backend:
               serviceName: users-srv
               servicePort: 3002
+          - path: /api/v1/products/?(.*)
+            backend:
+              serviceName: products-srv
+              servicePort: 3003
