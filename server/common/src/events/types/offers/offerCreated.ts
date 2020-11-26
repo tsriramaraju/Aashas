@@ -10,7 +10,7 @@ export interface OfferCreatedEvent {
   subject: Subjects.OfferCreated;
   data: {
     product: ProductDoc<maleType | femaleType | kidsType>;
-    version?: number;
+    version: number;
     clientID?: string;
     group?: string;
     mode: 'message' | 'email' | 'push notification';

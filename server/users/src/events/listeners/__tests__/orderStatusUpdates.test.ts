@@ -24,6 +24,7 @@ describe('Orders status Updated listener test group', () => {
     await listener.onMessage(
       {
         orderID: order._id,
+        version: 1,
         orderStatus: 'shipped',
         mode: 'email',
         data: {

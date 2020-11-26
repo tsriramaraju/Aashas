@@ -5,7 +5,7 @@ export interface OrderDeletedEvent {
   subject: Subjects.OrderDeleted;
   data: {
     orderID: Types.ObjectId;
-    version?: number;
+    version: number;
     clientID?: string;
     group?: string;
     mode: 'message' | 'email' | 'push notification';

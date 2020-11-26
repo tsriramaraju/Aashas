@@ -1,4 +1,9 @@
-import { CustomProductUpdatedEvent, Listener, Subjects } from '@aashas/common';
+import {
+  CustomProductUpdatedEvent,
+  Listener,
+  ResourceNotFoundError,
+  Subjects,
+} from '@aashas/common';
 import { Message } from 'node-nats-streaming';
 import { CustomProduct } from '../../models/CustomProducts';
 
@@ -10,11 +15,20 @@ export class CustomProductUpdatedListener extends Listener<CustomProductUpdatedE
 
   async onMessage(data: CustomProductUpdatedEvent['data'], msg: Message) {
     try {
-      const { product } = data;
+      const { product, version } = data;
 
-      const existingProd = await CustomProduct.findById(product.id);
-      existingProd != product;
-      await existingProd!.save();
+      const customProduct = await CustomProduct.findByEvent({
+        id: product.id,
+        version: version,
+      });
+
+      if (!customProduct) {
+        throw new ResourceNotFoundError('Custom product not found');
+      }
+
+      await customProduct.updateOne(product);
+
+      await customProduct.save();
       console.log('Custom product Updated');
       msg.ack();
     } catch (error) {

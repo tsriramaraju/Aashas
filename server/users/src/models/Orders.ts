@@ -6,7 +6,8 @@ import {
   paymentStatus,
   size,
 } from '@aashas/common';
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const ordersSchema = new Schema(
   {
@@ -82,6 +83,19 @@ const ordersSchema = new Schema(
     },
   }
 );
+
+ordersSchema.set('versionKey', 'version');
+ordersSchema.plugin(updateIfCurrentPlugin);
+
+ordersSchema.statics.findByEvent = (event: {
+  id: Types.ObjectId;
+  version: number;
+}) => {
+  return Order.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
+};
 
 ordersSchema.statics.build = (attrs: orderAttrs) => {
   return new Order(attrs);

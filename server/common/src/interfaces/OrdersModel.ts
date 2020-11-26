@@ -51,6 +51,10 @@ interface orderAttrs {
  */
 interface OrderModel extends Model<OrderDoc> {
   build(attrs: orderAttrs): OrderDoc;
+  findByEvent(event: {
+    id: Types.ObjectId;
+    version: number;
+  }): Promise<OrderDoc | null>;
 }
 
 /**
@@ -86,6 +90,7 @@ interface OrderDoc extends Document {
   address: address;
   orderDate: Date;
   deliveryDate?: Date;
+  version: number;
   price: {
     productTotal: number;
     discountPrice: number;

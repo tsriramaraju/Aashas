@@ -20,6 +20,7 @@ describe('Order Deleted listener test group', () => {
       {
         orderID: order.id,
         mode: 'email',
+        version: 1,
         data: {
           body: '',
           message: '',

@@ -21,7 +21,7 @@ describe('Custom Product created listener test group', () => {
       {
         product,
         mode: 'email',
-
+        version: 1,
         data: {
           body: '',
           message: '',

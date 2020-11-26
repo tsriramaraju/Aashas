@@ -17,6 +17,10 @@ interface customProductsAttrs<T extends outfit> extends productAttrs<T> {
 interface CustomProductModel<T extends outfit>
   extends Model<CustomProductDoc<T>> {
   build(attrs: customProductsAttrs<T>): CustomProductDoc<T>;
+  findByEvent(event: {
+    id: Types.ObjectId;
+    version: number;
+  }): Promise<CustomProductDoc<T> | null>;
 }
 
 /**
@@ -31,7 +35,7 @@ interface CustomProductDoc<T extends outfit> extends Document {
   price: number;
   color: string;
   quantity: number;
-
+  version: number;
   refImages: String[];
   outfit: T;
   keywords: string[];

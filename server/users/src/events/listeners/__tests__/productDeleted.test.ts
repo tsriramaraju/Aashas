@@ -14,7 +14,7 @@ describe('Product Deleted listener test group', () => {
     const listener = new ProductDeletedListener(natsWrapper.client);
     const msg = { ack: () => {} } as Message;
 
-    await listener.onMessage({ productID: product.id }, msg);
+    await listener.onMessage({ productID: product.id, version: 1 }, msg);
 
     const prodPostFetch = await Product.find();
     expect(prodPostFetch!.length).toBe(0);

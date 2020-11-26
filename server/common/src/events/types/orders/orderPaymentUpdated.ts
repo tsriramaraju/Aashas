@@ -10,7 +10,7 @@ export interface OrderPaymentUpdatedEvent {
       status: paymentStatus;
       method?: paymentModes;
     };
-    version?: number;
+    version: number;
     clientID?: string;
     group?: string;
     mode: 'message' | 'email' | 'push notification';
