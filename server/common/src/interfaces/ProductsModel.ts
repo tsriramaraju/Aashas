@@ -46,7 +46,6 @@ interface productAttrs {
   price: number;
   color: string;
   quantity: number;
-
   outfit: outfit;
   keywords: string[];
   gender: 'male' | 'female';
@@ -63,10 +62,7 @@ interface offer {
   inOffer: boolean;
 }
 interface CategoryOffer {
-  category: {
-    main: string;
-    sub: string;
-  };
+  outfit: outfit;
   discount: number;
   inOffer: boolean;
 }
