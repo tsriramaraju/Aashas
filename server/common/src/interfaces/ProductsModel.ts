@@ -4,7 +4,7 @@ import { size } from './enums';
 
 interface outfit {
   type: categories;
-  occasion: {};
+  occasion?: {};
 }
 
 interface maleType {
