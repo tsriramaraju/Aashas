@@ -1,12 +1,4 @@
-import {
-  femaleType,
-  kidsType,
-  maleType,
-  productAttrs,
-  ProductDoc,
-  ProductModel,
-  size,
-} from '@aashas/common';
+import { productAttrs, ProductDoc, ProductModel, size } from '@aashas/common';
 import { model, Schema, Types } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
@@ -26,7 +18,7 @@ const productSchema = new Schema(
     quantity: { type: Number, required: true },
 
     outfit: {
-      type: { type: String, required: true },
+      type: { type: Number, required: true },
       occasion: { type: Object, required: true },
     },
     keywords: [{ type: String, required: true }],
@@ -56,9 +48,7 @@ const productSchema = new Schema(
 productSchema.set('versionKey', 'version');
 productSchema.plugin(updateIfCurrentPlugin);
 
-productSchema.statics.build = (
-  attrs: productAttrs<kidsType | femaleType | maleType>
-) => {
+productSchema.statics.build = (attrs: productAttrs) => {
   return new Product(attrs);
 };
 
@@ -72,9 +62,6 @@ productSchema.statics.findByEvent = (event: {
   });
 };
 
-const Product = model<
-  ProductDoc<maleType | femaleType | kidsType>,
-  ProductModel<maleType | femaleType | kidsType>
->('product', productSchema);
+const Product = model<ProductDoc, ProductModel>('product', productSchema);
 
 export { Product };

@@ -7,10 +7,10 @@ import {
   size,
 } from '@aashas/common';
 
-export const maleProductData: productAttrs<maleType> = {
+export const maleProductData: productAttrs = {
   title: 'males casuals',
   description:
-    "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+    "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
   size: [size.L, size.M, size.S],
   price: 98.15,
   color: 'green red blue',
@@ -34,10 +34,10 @@ export const maleProductData: productAttrs<maleType> = {
   },
 };
 
-export const femaleProductData: productAttrs<femaleType> = {
+export const femaleProductData: productAttrs = {
   title: 'female casuals',
   description:
-    "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+    "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
   size: [size.L, size.M, size.S],
   price: 98.15,
   color: 'green red blue',
@@ -61,10 +61,10 @@ export const femaleProductData: productAttrs<femaleType> = {
   },
 };
 
-export const kidsProductData: productAttrs<kidsType> = {
+export const kidsProductData: productAttrs = {
   title: 'kids casuals',
   description:
-    "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+    "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
   size: [size.L, size.M, size.S],
   price: 98.15,
   color: 'green red blue',

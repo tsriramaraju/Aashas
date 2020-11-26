@@ -17,7 +17,7 @@ router.post(
   '/',
   [isAdmin, productValidation],
   async (req: Request, res: Response) => {
-    const product = req.body as productAttrs<any>;
+    const product = req.body as productAttrs;
 
     await createProduct(product);
 

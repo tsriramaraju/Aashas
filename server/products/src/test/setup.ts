@@ -4,11 +4,13 @@ import { connection, connect, Types } from 'mongoose';
 import { User } from '../models/Users';
 import {
   authType,
+  categories,
   CustomProductDoc,
   femaleType,
   kidsType,
   maleType,
   OrderDoc,
+  outfit,
   paymentModes,
   paymentStatus,
   ProductDoc,
@@ -41,10 +43,8 @@ declare global {
     interface Global {
       userLogin(): Promise<string>;
       adminLogin(): Promise<string>;
-      createProduct(): Promise<ProductDoc<maleType | femaleType | kidsType>>;
-      createCustomProduct(): Promise<
-        CustomProductDoc<maleType | femaleType | kidsType>
-      >;
+      createProduct(outfit?: outfit): Promise<ProductDoc>;
+      createCustomProduct(): Promise<CustomProductDoc>;
     }
   }
 }
@@ -131,11 +131,11 @@ global.adminLogin = async () => {
   return token;
 };
 
-global.createProduct = async () => {
+global.createProduct = async (outfit?: outfit) => {
   const product = await Product.build({
     title: 'kids casuals',
     description:
-      "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+      "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
     size: [size.L, size.M, size.S],
     price: 98.15,
     color: 'green red blue',
@@ -150,12 +150,12 @@ global.createProduct = async () => {
     keywords: ['dress'],
     quantity: 120,
     trending: false,
-    outfit: {
+    outfit: outfit || {
       occasion: {
         birthday: 'Kurtas',
         bridesmaid: 'Kurtas',
       },
-      type: 1,
+      type: categories.kids,
     },
   }).save();
   return product;
@@ -164,7 +164,7 @@ global.createCustomProduct = async () => {
   const product = await CustomProduct.build({
     title: 'kids casuals',
     description:
-      "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and zardozi embroidery creating a vintage look in layers. This is a bright, flary, fun collection ranging from pastel to dark colours.",
+      "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
     size: [size.L, size.M, size.S],
     price: 98.15,
     color: 'green red blue',

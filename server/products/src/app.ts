@@ -30,6 +30,8 @@ app.use('/api/v1/products', routes.getOfferProductsRouter);
 app.use('/api/v1/products', routes.createOfferRouter);
 app.use('/api/v1/products', routes.updateOfferRouter);
 app.use('/api/v1/products', routes.deleteOfferRouter);
+app.use('/api/v1/products', routes.createCategoryOfferRouter);
+app.use('/api/v1/products', routes.removeCategoryOfferRouter);
 
 /**
  * 404 route

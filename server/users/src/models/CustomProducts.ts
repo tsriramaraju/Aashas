@@ -67,14 +67,12 @@ customProductSchema.statics.findByEvent = (event: {
   });
 };
 
-customProductSchema.statics.build = (
-  attrs: customProductsAttrs<kidsType | femaleType | maleType>
-) => {
+customProductSchema.statics.build = (attrs: customProductsAttrs) => {
   return new CustomProduct(attrs);
 };
-const CustomProduct = model<
-  CustomProductDoc<maleType | femaleType | kidsType>,
-  CustomProductModel<maleType | femaleType | kidsType>
->('custom product', customProductSchema);
+const CustomProduct = model<CustomProductDoc, CustomProductModel>(
+  'custom product',
+  customProductSchema
+);
 
 export { CustomProduct };

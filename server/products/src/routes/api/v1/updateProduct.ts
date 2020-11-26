@@ -24,7 +24,7 @@ router.put(
   [isAdmin, productValidation],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
-    const product = req.body as productAttrs<any>;
+    const product = req.body as productAttrs;
 
     if (!Types.ObjectId.isValid(prodId))
       throw new BadRequestError('Invalid product id');

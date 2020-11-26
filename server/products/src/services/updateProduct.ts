@@ -4,7 +4,7 @@ import { Product } from '../models/Products';
 
 export const updateProduct = async (
   prodId: Types.ObjectId,
-  productData: productAttrs<any> | offer
+  productData: productAttrs | offer
 ) => {
   try {
     const product = await Product.findByIdAndUpdate(prodId, { ...productData });

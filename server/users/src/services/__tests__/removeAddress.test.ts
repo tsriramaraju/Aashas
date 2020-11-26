@@ -9,10 +9,10 @@ describe('Remove address service test group', () => {
     const address: address = {
       name: 'office 23',
       house: 'FF-012, PentHouse',
-      location: 'Sparks Ville',
+      location: 'Sparks villa',
       street: 'NEw hamster Road',
       pin: 530013,
-      city: 'vizag',
+      city: 'USA',
       state: 'AP',
     };
 

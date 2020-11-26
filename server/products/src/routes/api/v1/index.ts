@@ -8,3 +8,5 @@ export * from './getOfferProducts';
 export * from './createOffer';
 export * from './updateOffer';
 export * from './deleteOffer';
+export * from './createCategoryOffer';
+export * from './removeCategoryOffer';

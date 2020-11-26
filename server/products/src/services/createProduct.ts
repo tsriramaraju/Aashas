@@ -1,7 +1,7 @@
 import { DatabaseConnectionError, productAttrs } from '@aashas/common';
 import { Product } from '../models/Products';
 
-export const createProduct = async (product: productAttrs<any>) => {
+export const createProduct = async (product: productAttrs) => {
   try {
     const productDoc = await Product.build(product).save();
     //  TODO : publish events

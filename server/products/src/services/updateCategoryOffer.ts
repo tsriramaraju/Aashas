@@ -1,21 +1,9 @@
-import {
-  categories,
-  CategoryOffer,
-  DatabaseConnectionError,
-  outfit,
-} from '@aashas/common';
+import { CategoryOffer, DatabaseConnectionError, outfit } from '@aashas/common';
 import { Product } from '../models/Products';
 
 export const updateCategoryOffer = async (category: CategoryOffer) => {
   try {
-    //  TODO : change category later
-
-    const filter: outfit = {
-      type: categories.men,
-      occasion: {},
-    };
-
-    const products = await Product.find({ outfit: filter });
+    const products = await Product.find({ outfit: category.outfit });
 
     if (products.length === 0) return false;
 
