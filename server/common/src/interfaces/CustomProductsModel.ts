@@ -6,7 +6,7 @@ import { outfit, productAttrs } from './ProductsModel';
  * An interface that describes the properties
  * that are required to create a new Custom Product model
  */
-interface customProductsAttrs<T extends outfit> extends productAttrs<T> {
+interface customProductsAttrs extends productAttrs {
   refImages: String[];
 }
 
@@ -14,20 +14,19 @@ interface customProductsAttrs<T extends outfit> extends productAttrs<T> {
  * An interface that describes the properties
  * that a Custom Product Model has
  */
-interface CustomProductModel<T extends outfit>
-  extends Model<CustomProductDoc<T>> {
-  build(attrs: customProductsAttrs<T>): CustomProductDoc<T>;
+interface CustomProductModel extends Model<CustomProductDoc> {
+  build(attrs: customProductsAttrs): CustomProductDoc;
   findByEvent(event: {
     id: Types.ObjectId;
     version: number;
-  }): Promise<CustomProductDoc<T> | null>;
+  }): Promise<CustomProductDoc | null>;
 }
 
 /**
  * An interface that describes the properties
  * hat a Custom Product Document has
  */
-interface CustomProductDoc<T extends outfit> extends Document {
+interface CustomProductDoc extends Document {
   id: Types.ObjectId;
   title: string;
   description: string;
@@ -37,7 +36,7 @@ interface CustomProductDoc<T extends outfit> extends Document {
   quantity: number;
   version: number;
   refImages: String[];
-  outfit: T;
+  outfit: outfit;
   keywords: string[];
   gender: 'male' | 'female';
   images: string[];

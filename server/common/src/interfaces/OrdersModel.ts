@@ -1,5 +1,4 @@
 import { Model, Types, Document } from 'mongoose';
-import { BinaryOperatorToken, NumberLiteralType } from 'typescript';
 import { paymentStatus, paymentModes, size } from './enums';
 import { address } from './UsersModel';
 

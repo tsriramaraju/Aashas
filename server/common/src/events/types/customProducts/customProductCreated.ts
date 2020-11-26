@@ -1,15 +1,10 @@
 import { CustomProductDoc } from '../../../interfaces/CustomProductsModel';
-import {
-  femaleType,
-  kidsType,
-  maleType,
-} from '../../../interfaces/ProductsModel';
 import { Subjects } from '../../subjects';
 
 export interface CustomProductCreatedEvent {
   subject: Subjects.CustomProductCreated;
   data: {
-    product: CustomProductDoc<maleType | femaleType | kidsType>;
+    product: CustomProductDoc;
     version: number;
     clientID?: string;
     group?: string;

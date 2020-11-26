@@ -1,15 +1,10 @@
 import { ProductDoc } from '../../..';
-import {
-  femaleType,
-  kidsType,
-  maleType,
-} from '../../../interfaces/ProductsModel';
 import { Subjects } from '../../subjects';
 
 export interface OfferUpdatedEvent {
   subject: Subjects.OfferUpdated;
   data: {
-    product: ProductDoc<maleType | femaleType | kidsType>;
+    product: ProductDoc;
     version: number;
     clientID?: string;
     group?: string;
