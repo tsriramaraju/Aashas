@@ -7,6 +7,7 @@ import { User } from '../../../models/Users';
 
 describe('Order Deleted listener test group', () => {
   it('should delete existing Order on receiving Order deleted event', async () => {
+    //  FIXME : check global logins
     // await global.userLogin();
     // const user = await User.findOne().lean();
     // const order = await global.createOrder(user!._id);
