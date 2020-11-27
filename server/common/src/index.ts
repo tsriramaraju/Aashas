@@ -56,6 +56,8 @@ export * from './interfaces/UsersModel';
 export * from './interfaces/OrdersModel';
 export * from './interfaces/CustomProductsModel';
 export * from './interfaces/ProductsModel';
+export * from './interfaces/DesignerModel';
+export * from './interfaces/SalesBannerModel';
 
 /**
  * Exporting basic  types

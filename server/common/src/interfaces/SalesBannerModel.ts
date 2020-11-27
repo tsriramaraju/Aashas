@@ -32,4 +32,4 @@ interface SalesBannerDoc extends Document {
   discount: number;
 }
 
-export { salesBannerAttrs, SalesBannerDoc };
+export { salesBannerAttrs, SalesBannerDoc, SalesBannerModel };
