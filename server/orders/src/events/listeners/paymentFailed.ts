@@ -2,7 +2,7 @@ import {
   Listener,
   natsWrapper,
   paymentStatusUpdate,
-  PaymentSuccessEvent,
+  PaymentFailedEvent,
   Subjects,
 } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
@@ -10,12 +10,12 @@ import { Order } from '../../models/Orders';
 import { OrderPaymentUpdatedPublisher } from '../publishers/orderPaymentUpdated';
 import { queueGroupName } from '../queueGroupName';
 
-export class PaymentSuccessListener extends Listener<PaymentSuccessEvent> {
-  readonly subject = Subjects.PaymentSuccess;
+export class PaymentFailedListener extends Listener<PaymentFailedEvent> {
+  readonly subject = Subjects.PaymentFailed;
 
   queueGroupName = queueGroupName;
 
-  async onMessage(data: PaymentSuccessEvent['data'], msg: Message) {
+  async onMessage(data: PaymentFailedEvent['data'], msg: Message) {
     try {
       const order = await Order.findByEvent({
         id: data.orderId,
@@ -39,7 +39,7 @@ export class PaymentSuccessListener extends Listener<PaymentSuccessEvent> {
         orderID: order.id,
         payment: order.payment,
         data: {
-          body: 'Payment successful',
+          body: 'Payment Failed',
           message: 'This is message',
         },
       });
