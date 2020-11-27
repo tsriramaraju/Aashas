@@ -1,6 +1,11 @@
-import { BadRequestError, ResourceNotFoundError } from '@aashas/common';
+import {
+  BadRequestError,
+  natsWrapper,
+  ResourceNotFoundError,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
+import { OrderDeletedPublisher } from '../../../events/publishers/orderDeleted';
 import { deleteOrder } from '../../../services/deleteOrder';
 
 const router = Router();
@@ -19,7 +24,17 @@ router.delete('/:id', async (req: Request, res: Response) => {
 
   if (!orderDoc) throw new ResourceNotFoundError('Order not available');
 
-  //  TODO : events
+  new OrderDeletedPublisher(natsWrapper.client).publish({
+    orderID: orderDoc.id,
+    version: orderDoc.version,
+    mode: 'email',
+    order: orderDoc,
+    data: {
+      body: 'Order created',
+      message: 'this is message',
+    },
+    //  FIXME : add email or contact
+  });
 
   res.status(201).json({ msg: 'Order Deleted successfully' });
 });

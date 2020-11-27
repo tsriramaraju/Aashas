@@ -1,6 +1,11 @@
-import { BadRequestError, ResourceNotFoundError } from '@aashas/common';
+import {
+  BadRequestError,
+  natsWrapper,
+  ResourceNotFoundError,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
+import { OrderStatusUpdatedPublisher } from '../../../events/publishers/orderStatusUpdate';
 import { createOrder } from '../../../services/createOrder';
 import { updateOrder } from '../../../services/updateOrder';
 
@@ -23,7 +28,17 @@ router.put('/status/:id', async (req: Request, res: Response) => {
 
   if (!orderDoc) throw new ResourceNotFoundError('Order not available');
 
-  //  TODO : events
+  new OrderStatusUpdatedPublisher(natsWrapper.client).publish({
+    version: orderDoc.version,
+    mode: 'email',
+    orderID: orderDoc.id,
+    orderStatus: status,
+    data: {
+      body: 'Order created',
+      message: 'this is message',
+    },
+    //  FIXME : add email or contact
+  });
 
   res.status(201).json({ msg: 'Order status updated successfully' });
 });

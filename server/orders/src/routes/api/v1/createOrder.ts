@@ -1,4 +1,6 @@
+import { natsWrapper } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { OrderCreatedPublisher } from '../../../events/publishers/orderCreated';
 import { createOrder } from '../../../services/createOrder';
 
 const router = Router();
@@ -14,7 +16,16 @@ router.post('/', async (req: Request, res: Response) => {
 
   const orderDoc = await createOrder(order);
 
-  //  TODO : events
+  new OrderCreatedPublisher(natsWrapper.client).publish({
+    version: orderDoc.version,
+    mode: 'email',
+    order: orderDoc,
+    data: {
+      body: 'Order created',
+      message: 'this is message',
+    },
+    //  FIXME : add email or contact
+  });
 
   res.status(201).json({ msg: 'Order created successfully' });
 });
