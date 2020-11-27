@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-depl
+  name: designer-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: admin
+      app: designer
   template:
     metadata:
       labels:
-        app: admin
+        app: designer
     spec:
       containers:
-        - name: admin
-          image: tsriramaraju/admin
+        - name: designer
+          image: tsriramaraju/designer
           envFrom:
             - secretRef:
                 name: server-secrets
@@ -27,12 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: admin-srv
+  name: designer-srv
 spec:
   selector:
-    app: admin
+    app: designer
   ports:
-    - name: admin
+    - name: designer
       protocol: TCP
       port: 3006
       targetPort: 3006

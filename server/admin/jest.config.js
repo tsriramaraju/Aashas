@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'Orders service',
+  name: 'Designers service',
   verbose: true,
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./src/test/setup.ts'],

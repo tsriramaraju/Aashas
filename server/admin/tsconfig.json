@@ -74,7 +74,7 @@
     "./@types",
     "../common/src/loaders/loggers.ts",
     "src/config",
-    "../admin/src/index.ts"
+    "../designer/src/index.ts"
   ],
   "exclude": ["node_modules", "tests"]
 }
