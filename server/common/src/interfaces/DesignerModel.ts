@@ -11,12 +11,14 @@ interface designerAttrs {
   mobile: number;
   image: string;
   bio: string;
-  blogs: {
-    title: string;
-    image: string;
-    content: string;
-    slug: string;
-  }[];
+  blogs?: blog[];
+}
+
+interface blog {
+  title: string;
+  image: string;
+  content: string;
+  slug: string;
 }
 
 /**
@@ -47,4 +49,4 @@ interface DesignerDoc extends Document {
   }[];
 }
 
-export { designerAttrs, DesignerDoc, DesignerModel };
+export { designerAttrs, DesignerDoc, DesignerModel, blog };
