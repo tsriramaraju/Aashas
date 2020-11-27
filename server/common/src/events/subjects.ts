@@ -18,4 +18,7 @@ export enum Subjects {
   OrderPaymentUpdated = 'orderPayment:updated',
   OrderStatusUpdated = 'orderStatus:updated',
   OrderDeleted = 'order:deleted',
+  PaymentSuccess = 'payment:success',
+  PaymentFailed = 'payment:failed',
+  BuildWebsite = 'build:website',
 }
