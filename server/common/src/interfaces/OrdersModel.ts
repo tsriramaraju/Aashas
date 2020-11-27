@@ -102,4 +102,20 @@ interface OrderDoc extends Document {
   };
 }
 
-export { orderAttrs, OrderDoc, OrderModel };
+interface paymentStatusUpdate {
+  payment: {
+    status: paymentStatus;
+    method?: paymentModes;
+  };
+}
+interface orderStatusUpdate {
+  status: string;
+}
+
+export {
+  orderAttrs,
+  OrderDoc,
+  OrderModel,
+  paymentStatusUpdate,
+  orderStatusUpdate,
+};
