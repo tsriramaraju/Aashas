@@ -8,6 +8,7 @@ export interface PaymentFailedEvent {
   data: {
     orderId: Mongoose.Types.ObjectId;
     clientID?: string;
+    version: number;
     group?: string;
     mode: 'message' | 'email' | 'push notification';
     paymentStatus: paymentStatus.failed;
