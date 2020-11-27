@@ -68,10 +68,16 @@ afterAll(async () => {
   await connection.close();
 });
 
-// global.createDesigner=async()=>{
+global.createDesigner = async () => {
+  const designer = await Designer.build({
+    bio: 'this is bio',
+    email: 'john@admin.com',
+    image:
+      'https://avatars2.githubusercontent.com/u/13117711?s=460&u=380dbcf3b070c32863b79fd4596678b2440ba78b&v=4',
+    mobile: 1234567891,
+    name: 'John the admin',
+    password: 'This is secret',
+  }).save();
 
-//   const DesignerDoc= await Designer.build({
-
-//   }).save()
-
-// }
+  return designer;
+};
