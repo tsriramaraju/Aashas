@@ -1,5 +1,4 @@
 import { Model, Types, Document } from 'mongoose';
-import { BinaryOperatorToken, NumberLiteralType } from 'typescript';
 import { paymentStatus, paymentModes, size } from './enums';
 import { address } from './UsersModel';
 
@@ -16,7 +15,8 @@ interface orderAttrs {
   email?: string;
   mobile?: number;
   items: {
-    tile: string;
+    prodId: Types.ObjectId;
+    title: string;
     description: string;
     size: size;
     price: number;
@@ -71,7 +71,8 @@ interface OrderDoc extends Document {
   email?: string;
   mobile?: number;
   items: {
-    tile: string;
+    prodId: Types.ObjectId;
+    title: string;
     description: string;
     size: size;
     price: number;

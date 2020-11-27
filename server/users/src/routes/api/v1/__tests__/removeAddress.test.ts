@@ -21,10 +21,10 @@ describe('Remove address route test group', () => {
       {
         name: 'office 23',
         house: 'FF-012, PentHouse',
-        location: 'Sparks Ville',
+        location: 'Sparks Villa',
         street: 'NEw hamster Road',
         pin: 530013,
-        city: 'vizag',
+        city: 'USA',
         state: 'AP',
       },
     ];
@@ -54,10 +54,10 @@ describe('Remove address route test group', () => {
       {
         name: 'office 23',
         house: 'FF-012, PentHouse',
-        location: 'Sparks Ville',
+        location: 'Sparks Villa',
         street: 'NEw hamster Road',
         pin: 530013,
-        city: 'vizag',
+        city: 'USA',
         state: 'AP',
       },
     ];

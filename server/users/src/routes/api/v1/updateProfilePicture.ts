@@ -3,7 +3,7 @@ import { Router, Request, Response } from 'express';
 import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
 import { queueGroupName } from '../../../events/queueGroupName';
 import { isUser } from '../../../middlewares/isUser';
-import { updateProfilePic } from '../../../services/udpateProfilePic';
+import { updateProfilePic } from '../../../services/updateProfilePic';
 
 const router = Router();
 

@@ -1,6 +1,6 @@
 import e from 'express';
 import { User } from '../../models/Users';
-import { updateProfilePic } from '../udpateProfilePic';
+import { updateProfilePic } from '../updateProfilePic';
 
 describe('Update profile picture service test group', () => {
   it('should update profile picture with valid input', async () => {

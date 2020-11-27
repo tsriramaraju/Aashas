@@ -1,10 +1,12 @@
 import { Types } from 'mongoose';
+import { OrderDoc } from '../../../interfaces/OrdersModel';
 import { Subjects } from '../../subjects';
 
 export interface OrderDeletedEvent {
   subject: Subjects.OrderDeleted;
   data: {
     orderID: Types.ObjectId;
+    order: OrderDoc;
     version: number;
     clientID?: string;
     group?: string;

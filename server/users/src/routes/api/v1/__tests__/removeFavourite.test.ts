@@ -6,7 +6,7 @@ import { User } from '../../../../models/Users';
 describe('Remove single Favourite items route test group', () => {
   it('should not access route if user token is not found', async () => {
     const res = await request(app)
-      .delete('/api/v1/users/favourites/sdfjhgj')
+      .delete('/api/v1/users/favourites/hello')
       .expect('Content-Type', /json/)
       .expect(400);
     expect(res.body.msg).toBe('Authentication token is not present');

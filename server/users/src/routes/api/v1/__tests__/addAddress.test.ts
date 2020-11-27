@@ -10,10 +10,10 @@ describe('Add address route test group', () => {
       .send({
         name: 'office 23',
         house: 'FF-012, PentHouse',
-        location: 'Sparks Ville',
+        location: 'Sparks Villa',
         street: 'NEw hamster Road',
         pin: '530013',
-        city: 'vizag',
+        city: 'USA',
         state: 'AP',
         default: true,
       })
@@ -33,10 +33,10 @@ describe('Add address route test group', () => {
       .send({
         name: 'office 23',
         house: 'FF-012, PentHouse',
-        location: 'Sparks Ville',
+        location: 'Sparks Villa',
         street: 'NEw hamster Road',
         pin: '530013',
-        city: 'vizag',
+        city: 'USA',
         state: 'AP',
         default: false,
       })
@@ -62,10 +62,10 @@ describe('Add address route test group', () => {
       .send({
         name: 'office 23',
         house: 'FF-012, PentHouse',
-        location: 'Sparks Ville',
+        location: 'Sparks Villa',
         street: 'NEw hamster Road',
         pin: '530013',
-        city: 'vizag',
+        city: 'USA',
         state: 'AP',
         default: true,
       })
@@ -91,10 +91,10 @@ describe('Add address route test group', () => {
       .send({
         name: 'office 23',
         house: 'FF-012, PentHouse',
-        location: 'Sparks Ville',
+        location: 'Sparks Villa',
         street: 'NEw hamster Road',
         pin: '530013',
-        city: 'vizag',
+        city: 'USA',
         state: 'AP',
       })
       .set('Authorization', `Bearer ${token}`)
@@ -121,10 +121,10 @@ describe('Add address route test group', () => {
       .send({
         name: 'office 23',
         house: 'FF-012, PentHouse',
-        location: 'Sparks Ville',
+        location: 'Sparks Villa',
         street: 'NEw hamster Road',
         pin: '530013',
-        city: 'vizag',
+        city: 'USA',
         state: 'AP',
         default: true,
       })

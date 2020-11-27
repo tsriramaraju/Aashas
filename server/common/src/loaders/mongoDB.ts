@@ -2,7 +2,7 @@ import { connect, ConnectionOptions } from 'mongoose';
 import 'colors';
 
 /**
- * Helps in connecting to mongodb atlass
+ * Helps in connecting to mongodb Atlas
  * @param uri - URL for database connection
  * @param options  - Connection settings
  */
