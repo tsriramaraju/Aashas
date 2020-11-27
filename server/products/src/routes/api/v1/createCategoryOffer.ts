@@ -1,9 +1,14 @@
 import {
   BadRequestError,
   CategoryOffer,
+  natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import {
+  OfferCreatedPublisher,
+  ProductUpdatedPublisher,
+} from '../../../events';
 import { isAdmin } from '../../../middlewares/isAdmin';
 import { updateCategoryOffer } from '../../../services/updateCategoryOffer';
 
@@ -28,9 +33,27 @@ router.post(
     if (typeof offer.inOffer !== 'boolean')
       throw new BadRequestError('Invalid offer Type');
 
-    const status = await updateCategoryOffer(offer);
-    if (!status) throw new ResourceNotFoundError('Product not found');
+    const products = await updateCategoryOffer(offer);
+    if (!products) throw new ResourceNotFoundError('Products not found');
     res.status(201).json({ msg: 'Products updated successfully' });
+
+    products.forEach((product) => {
+      new ProductUpdatedPublisher(natsWrapper.client).publish({
+        product,
+        version: product.version,
+      });
+
+      new OfferCreatedPublisher(natsWrapper.client).publish({
+        version: product.version,
+        product: product,
+        mode: 'email',
+        data: {
+          body: 'Offer added',
+          message: 'hello',
+        },
+      });
+    });
+    //  TODO : publish build website event
   }
 
   //  TODO : publish events

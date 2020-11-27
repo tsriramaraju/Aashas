@@ -1,5 +1,14 @@
-import { CategoryOffer, outfit, ResourceNotFoundError } from '@aashas/common';
+import {
+  CategoryOffer,
+  natsWrapper,
+  outfit,
+  ResourceNotFoundError,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import {
+  OfferDeletedPublisher,
+  ProductUpdatedPublisher,
+} from '../../../events';
 import { isAdmin } from '../../../middlewares/isAdmin';
 import { updateCategoryOffer } from '../../../services/updateCategoryOffer';
 
@@ -23,13 +32,23 @@ router.delete(
       inOffer: false,
       outfit,
     };
-
-    const status = await updateCategoryOffer(offer);
-    if (!status) throw new ResourceNotFoundError('Products not found');
+    const products = await updateCategoryOffer(offer);
+    if (!products) throw new ResourceNotFoundError('Products not found');
     res.status(201).json({ msg: 'Products updated successfully' });
-  }
 
-  //  TODO : publish events
+    products.forEach((product) => {
+      new ProductUpdatedPublisher(natsWrapper.client).publish({
+        product,
+        version: product.version,
+      });
+
+      new OfferDeletedPublisher(natsWrapper.client).publish({
+        version: product.version,
+        product: product,
+      });
+    });
+    //  TODO : publish build website event
+  }
 
   //  TODO : algolia
 );

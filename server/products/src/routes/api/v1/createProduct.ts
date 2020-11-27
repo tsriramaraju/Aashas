@@ -1,5 +1,12 @@
-import { femaleType, kidsType, maleType, productAttrs } from '@aashas/common';
+import {
+  femaleType,
+  kidsType,
+  maleType,
+  natsWrapper,
+  productAttrs,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { ProductCreatedPublisher } from '../../../events';
 import { isAdmin } from '../../../middlewares/isAdmin';
 import { productValidation } from '../../../middlewares/productValidation';
 import { createProduct } from '../../../services/createProduct';
@@ -19,11 +26,15 @@ router.post(
   async (req: Request, res: Response) => {
     const product = req.body as productAttrs;
 
-    await createProduct(product);
+    const productDoc = await createProduct(product);
 
     res.status(201).json({ msg: 'Product added successfully' });
 
-    //  TODO : publish events
+    //  TODO : publish build website
+    new ProductCreatedPublisher(natsWrapper.client).publish({
+      product: productDoc,
+      version: productDoc.version,
+    });
 
     //  TODO : algolia
   }

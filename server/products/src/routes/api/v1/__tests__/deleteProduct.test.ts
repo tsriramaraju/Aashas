@@ -1,3 +1,4 @@
+import { natsWrapper } from '@aashas/common';
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../../../app';
@@ -15,6 +16,7 @@ describe('Delete products test group', () => {
     const products = await Product.find();
     expect(products.length).toBe(0);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
   });
 
   it('should return 404 error if no id is found ', async () => {
@@ -24,7 +26,7 @@ describe('Delete products test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(404);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Route not found');
   });
 
@@ -36,7 +38,7 @@ describe('Delete products test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('No Product found');
   });
 
@@ -47,7 +49,7 @@ describe('Delete products test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Invalid product id');
   });
 
@@ -70,5 +72,26 @@ describe('Delete products test group', () => {
 
     expect(postFetch.length).toBe(2);
     expect(res.body.msg).toBe('Product deleted successfully');
+  });
+  it('should publish event on deleting product successfully', async () => {
+    const token = await global.adminLogin();
+    await global.createProduct();
+    const product = await global.createProduct();
+    await global.createProduct();
+
+    const preFetch = await Product.find();
+
+    expect(preFetch.length).toBe(3);
+
+    const res = await request(app)
+      .delete(`/api/v1/products/${product.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(201);
+    const postFetch = await Product.find();
+
+    expect(postFetch.length).toBe(2);
+    expect(res.body.msg).toBe('Product deleted successfully');
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
   });
 });

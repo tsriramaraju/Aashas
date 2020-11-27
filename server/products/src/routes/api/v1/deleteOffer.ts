@@ -1,6 +1,15 @@
-import { BadRequestError, offer, ResourceNotFoundError } from '@aashas/common';
+import {
+  BadRequestError,
+  natsWrapper,
+  offer,
+  ResourceNotFoundError,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
+import {
+  OfferDeletedPublisher,
+  ProductUpdatedPublisher,
+} from '../../../events';
 import { isAdmin } from '../../../middlewares/isAdmin';
 import { updateProduct } from '../../../services/updateProduct';
 
@@ -27,12 +36,22 @@ router.delete(
       inOffer: false,
     };
 
-    const status = await updateProduct(Types.ObjectId(prodId), offer);
-    if (!status) throw new ResourceNotFoundError('Product not found');
+    const product = await updateProduct(Types.ObjectId(prodId), offer);
+    if (!product) throw new ResourceNotFoundError('Product not found');
     res.status(201).json({ msg: 'Product updated successfully' });
-  }
 
-  //  TODO : publish events
+    //  TODO : publish build website event
+
+    new ProductUpdatedPublisher(natsWrapper.client).publish({
+      product,
+      version: product.version,
+    });
+
+    new OfferDeletedPublisher(natsWrapper.client).publish({
+      version: product.version,
+      product: product,
+    });
+  }
 
   //  TODO : algolia
 );

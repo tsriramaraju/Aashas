@@ -1,3 +1,4 @@
+import { natsWrapper } from '@aashas/common';
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../../../app';
@@ -17,6 +18,7 @@ describe('Update offer route test group', () => {
       .expect(401);
     const products = await Product.find();
     expect(products.length).toBe(0);
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
   });
 
@@ -44,6 +46,31 @@ describe('Update offer route test group', () => {
     expect(products[0].discount).toBe(15);
     expect(res.body.msg).toBe('Product updated successfully');
   });
+  it('should Publish events on valid offer input', async () => {
+    const token = await global.adminLogin();
+    const product = await global.createProduct();
+    product.inOffer = true;
+    product.discount = 12;
+    await product.save();
+    const preFetch = await Product.find();
+    expect(preFetch[0].inOffer).toBe(true);
+    expect(preFetch[0].discount).toBe(12);
+
+    const res = await request(app)
+      .put(`/api/v1/products/offers/${product.id}`)
+      .send({
+        discount: 15,
+      })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(201);
+    const products = await Product.find();
+
+    expect(products[0].inOffer).toBe(true);
+    expect(products[0].discount).toBe(15);
+    expect(res.body.msg).toBe('Product updated successfully');
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
+  });
 
   it('should return Resource not found error if no product is found ', async () => {
     const id = Types.ObjectId();
@@ -57,7 +84,7 @@ describe('Update offer route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Product not found');
   });
 
@@ -71,7 +98,7 @@ describe('Update offer route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Invalid product id');
   });
 
@@ -86,7 +113,7 @@ describe('Update offer route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Invalid offer');
   });
   it('should return Bad request if offer isn\t between 0-100 ', async () => {
@@ -100,7 +127,7 @@ describe('Update offer route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Invalid offer');
   });
 });

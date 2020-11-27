@@ -1,4 +1,4 @@
-import { categories } from '@aashas/common';
+import { categories, natsWrapper } from '@aashas/common';
 
 import request from 'supertest';
 import { app } from '../../../../app';
@@ -27,10 +27,61 @@ describe('Create Category offer route test group', () => {
       .expect(401);
     const products = await Product.find();
     expect(products.length).toBe(0);
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
   });
 
   it('should update products with valid offer input', async () => {
+    const token = await global.adminLogin();
+    const outfit = {
+      occasion: {
+        casual: 'Jackets',
+        groom: 'Kurta pyjama',
+      },
+      type: 0,
+    };
+
+    await Product.build({
+      inOffer: true,
+      discount: 15,
+      ...maleProductData,
+    }).save();
+    await Product.build({
+      inOffer: true,
+      discount: 15,
+      ...maleProductData,
+    }).save();
+    await Product.build({
+      inOffer: true,
+      discount: 15,
+      ...maleProductData,
+    }).save();
+    await Product.build({
+      inOffer: true,
+      discount: 15,
+      ...maleProductData,
+    }).save();
+    await Product.build({
+      inOffer: true,
+      discount: 15,
+      ...maleProductData,
+    }).save();
+    await Product.build(femaleProductData).save();
+    await Product.build(kidsProductData).save();
+
+    const preFetch = await Product.find();
+    expect(preFetch.length).toBe(7);
+
+    const preFetchCategories = await Product.find({ outfit });
+
+    expect(preFetchCategories.length).toBe(5);
+
+    preFetchCategories.forEach((product) => {
+      expect(product.inOffer).toBe(true);
+      expect(product.discount).toBe(15);
+    });
+  });
+  it('should publish events valid offer input', async () => {
     const token = await global.adminLogin();
     const outfit = {
       occasion: {
@@ -93,6 +144,7 @@ describe('Create Category offer route test group', () => {
       expect(product.discount).toBe(0);
     });
     expect(res.body.msg).toBe('Products updated successfully');
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(10);
   });
 
   it('should return Resource not found error if no product is found ', async () => {
@@ -127,7 +179,7 @@ describe('Create Category offer route test group', () => {
       .expect(420);
     const postFetchCategories = await Product.find({ outfit });
     expect(postFetchCategories.length).toBe(0);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Products not found');
   });
 });
