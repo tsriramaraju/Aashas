@@ -38,6 +38,9 @@ export * from './events/types/orders/orderCreated';
 export * from './events/types/orders/orderPaymentUpdated';
 export * from './events/types/orders/orderStatusUpdated';
 
+export * from './events/types/payments/paymentSuccess';
+export * from './events/types/payments/paymentFailed';
+
 /**
  * Exporting Event types
  */
