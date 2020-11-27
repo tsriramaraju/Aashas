@@ -1,20 +1,19 @@
 import {
   Listener,
   natsWrapper,
-  OrderCreatedEvent,
+  OrderDeletedEvent,
   Subjects,
 } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
-import { Order } from '../../models/Orders';
 import { Product } from '../../models/Products';
 import { ProductUpdatedPublisher } from '../publishers/productUpdated';
 import { queueGroupName } from '../queueGroupName';
 
-export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
+export class OrderDeletedListener extends Listener<OrderDeletedEvent> {
   queueGroupName = queueGroupName;
-  readonly subject = Subjects.OrderCreated;
+  readonly subject = Subjects.OrderDeleted;
 
-  async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
+  async onMessage(data: OrderDeletedEvent['data'], msg: Message) {
     try {
       const products = data.order.items;
 
@@ -22,18 +21,17 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         const prod = await Product.findById(product.prodId);
 
         if (!prod) throw new Error('product not found');
-
-        await prod.updateOne({ quantity: prod.quantity - 1 });
+        prod.quantity++;
+        await prod.save();
 
         new ProductUpdatedPublisher(natsWrapper.client).publish({
           product: prod,
           version: prod.version + 1,
         });
       });
+      msg.ack();
       //  FIXME : needs something to wait
       await Product.find().lean();
-
-      msg.ack();
     } catch (error) {
       console.log(error.message);
     }

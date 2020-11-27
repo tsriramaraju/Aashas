@@ -1,4 +1,4 @@
-import { natsWrapper } from '@aashas/common';
+import { natsWrapper, OrderDoc } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
 import { Order } from '../../../models/Orders';
 import { User } from '../../../models/Users';
@@ -19,6 +19,7 @@ describe('Order Deleted listener test group', () => {
     await listener.onMessage(
       {
         orderID: order.id,
+        order: {} as OrderDoc,
         mode: 'email',
         version: 1,
         data: {
