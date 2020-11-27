@@ -3,20 +3,14 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connection, connect, Types } from 'mongoose';
 
 import {
-  authType,
-  categories,
   CustomProductDoc,
-  outfit,
+  DesignerDoc,
   OrderDoc,
-  paymentModes,
-  paymentStatus,
   ProductDoc,
-  size,
-  verification,
+  salesBannerAttrs,
+  SalesBannerDoc,
 } from '@aashas/common';
-import { generateJWT } from '../utils';
-
-import { v4 } from 'uuid';
+import { Designer } from '../models/Designer';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -37,11 +31,8 @@ jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
 declare global {
   namespace NodeJS {
     interface Global {
-      userLogin(): Promise<string>;
-      adminLogin(): Promise<string>;
-      createProduct(): Promise<ProductDoc>;
-      createCustomProduct(): Promise<CustomProductDoc>;
-      createOrder(userId: Types.ObjectId): Promise<OrderDoc>;
+      createDesigner(): Promise<DesignerDoc>;
+      createSalesBanner(): Promise<SalesBannerDoc>;
     }
   }
 }
@@ -76,3 +67,11 @@ afterAll(async () => {
   await mongo.stop();
   await connection.close();
 });
+
+// global.createDesigner=async()=>{
+
+//   const DesignerDoc= await Designer.build({
+
+//   }).save()
+
+// }
