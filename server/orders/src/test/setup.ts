@@ -18,6 +18,7 @@ import {
 import { generateJWT } from '../utils';
 
 import { v4 } from 'uuid';
+import { User } from '../models/Users';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -77,3 +78,53 @@ afterAll(async () => {
   await mongo.stop();
   await connection.close();
 });
+global.userLogin = async () => {
+  const email = `${v4()}@test.com`;
+  const password = 'This is secret';
+  const name = 'john doe';
+
+  const mobile = Math.random();
+
+  const user = await User.build({
+    id: Types.ObjectId(),
+    name,
+    isAdmin: false,
+    authType: authType.email,
+    email,
+    mobile,
+  }).save();
+
+  const token = generateJWT({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    emailVerified: verification.yes,
+    mobileVerified: verification.yes,
+  });
+
+  return token;
+};
+global.adminLogin = async () => {
+  const email = 'john@doe.com';
+  const password = 'This is secret';
+  const name = 'john doe';
+
+  const user = await new User({
+    email,
+    password,
+    name,
+    isAdmin: true,
+
+    authType: authType.email,
+  }).save();
+
+  const token = generateJWT({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    emailVerified: verification.yes,
+    mobileVerified: verification.yes,
+  });
+
+  return token;
+};
