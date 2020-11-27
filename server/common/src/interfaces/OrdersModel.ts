@@ -15,7 +15,8 @@ interface orderAttrs {
   email?: string;
   mobile?: number;
   items: {
-    tile: string;
+    prodId: Types.ObjectId;
+    title: string;
     description: string;
     size: size;
     price: number;
@@ -70,8 +71,8 @@ interface OrderDoc extends Document {
   email?: string;
   mobile?: number;
   items: {
-    id: Types.ObjectId;
-    tile: string;
+    prodId: Types.ObjectId;
+    title: string;
     description: string;
     size: size;
     price: number;
