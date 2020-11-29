@@ -76,7 +76,6 @@ export * from './validators';
 
 export * from './middlewares/errorHandler';
 export * from './middlewares/validateRequests';
-export * from './middlewares/currentUser';
 export * from './middlewares/isUser';
 export * from './middlewares/isAdmin';
 
