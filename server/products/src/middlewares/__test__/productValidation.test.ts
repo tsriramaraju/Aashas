@@ -1,6 +1,6 @@
 import { BadRequestError } from '@aashas/common';
 import { NextFunction, Request, Response } from 'express';
-import { maleProductData } from '../../dummy data/Product';
+import { maleProductData } from '../../dummyData/Product';
 import { removeProperty } from '../../utils/removeProperty';
 import { productValidation } from '../productValidation';
 describe('Product validation middleware test group', () => {

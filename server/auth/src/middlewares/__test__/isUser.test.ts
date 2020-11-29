@@ -1,7 +1,7 @@
 import { BadRequestError, NotAuthorizedError } from '@aashas/common';
 import { NextFunction, Request, Response } from 'express';
 import { Types } from 'mongoose';
-import { payloadData } from '../../dummy data/payload';
+import { payloadData } from '../../dummyData/payload';
 import { Account } from '../../models';
 import { generateJWT } from '../../utils';
 import { isUser } from '../isUser';

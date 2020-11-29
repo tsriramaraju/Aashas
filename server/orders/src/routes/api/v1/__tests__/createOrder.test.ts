@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../../../app';
-import { orderData } from '../../../../dummy data/orders';
+import { orderData } from '../../../../dummyData/orders';
 import { Order } from '../../../../models/Orders';
 
 describe('Create Order route test group', () => {

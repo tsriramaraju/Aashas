@@ -7,7 +7,7 @@ import { keys } from '../config/keys';
  * @param payload user details
  * @param exp jwt expiry in seconds
  */
-export const generateJWT = (payload: jwtPayload, exp = 350000000) => {
+export const generateJWT = (payload: jwtPayload) => {
   const token = sign({ payload: payload }, keys.jwtSecret!, {
     expiresIn: '1d',
   });

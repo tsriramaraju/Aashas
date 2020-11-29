@@ -37,7 +37,7 @@ router.post(
           mobileVerified: user.mobileVerified,
           isAdmin: user.isAdmin,
         };
-        res.status(201).json(generateJWT(payload, 100));
+        res.status(201).json(generateJWT(payload));
       }
     }
   }

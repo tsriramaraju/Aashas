@@ -52,7 +52,7 @@ router.post('/verify-register', async (req: Request, res: Response) => {
         isAdmin: user.isAdmin,
       };
 
-      res.status(201).json(generateJWT(payload, 100));
+      res.status(201).json(generateJWT(payload));
 
       //Publish account created event
       if (!user.email)

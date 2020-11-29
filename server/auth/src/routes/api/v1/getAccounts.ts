@@ -1,6 +1,7 @@
 import { getAccounts } from './../../../services';
 import { Router, Request, Response } from 'express';
-import { isAdmin } from './../../../middlewares/isAdmin';
+import { currentUser, isAdmin } from '@aashas/common';
+import { currentUserTest } from '../../../middlewares/tes';
 
 const router = Router();
 
@@ -10,9 +11,13 @@ const router = Router();
  *  @access    Admin
  *  @returns   List of accounts
  */
-router.get('/super/get', isAdmin, async (req: Request, res: Response) => {
-  const users = await getAccounts();
-  res.status(201).json(users);
-});
+router.get(
+  '/super/get',
+  [currentUserTest, isAdmin],
+  async (req: Request, res: Response) => {
+    const users = await getAccounts();
+    res.status(201).json(users);
+  }
+);
 
 export { router as getAccounts };

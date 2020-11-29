@@ -84,7 +84,7 @@ router.post(
         title: 'Please enter 4 digit OTP to verify the email',
       },
     });
-    res.status(201).json(generateJWT(payload, 100));
+    res.status(201).json(generateJWT(payload));
   }
 );
 

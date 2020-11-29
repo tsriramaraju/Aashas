@@ -6,7 +6,7 @@ import {
   femaleProductData,
   kidsProductData,
   maleProductData,
-} from '../../../../dummy data/Product';
+} from '../../../../dummyData/Product';
 import { Product } from '../../../../models/Products';
 
 describe('Create Category offer route test group', () => {
