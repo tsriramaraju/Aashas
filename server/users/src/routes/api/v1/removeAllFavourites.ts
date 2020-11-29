@@ -1,4 +1,4 @@
-import { currentUser, isUser } from '@aashas/common';
+import { isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 
 import { removeFavourites } from '../../../services/removeFavourites';
@@ -12,15 +12,11 @@ const router = Router();
  *  @returns   Status
  */
 
-router.delete(
-  '/favourites',
-  [currentUser, isUser],
-  async (req: Request, res: Response) => {
-    const status = await removeFavourites({
-      userId: req.currentUser!.id,
-    });
-    res.status(201).json({ msg: status });
-  }
-);
+router.delete('/favourites', [isUser], async (req: Request, res: Response) => {
+  const status = await removeFavourites({
+    userId: req.currentUser!.id,
+  });
+  res.status(201).json({ msg: status });
+});
 
 export { router as removeAllFavourites };

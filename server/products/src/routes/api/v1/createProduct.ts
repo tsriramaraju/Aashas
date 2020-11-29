@@ -1,9 +1,4 @@
-import {
-  currentUser,
-  isAdmin,
-  natsWrapper,
-  productAttrs,
-} from '@aashas/common';
+import { isAdmin, natsWrapper, productAttrs } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { ProductCreatedPublisher } from '../../../events';
 
@@ -20,7 +15,7 @@ const router = Router();
  */
 router.post(
   '/',
-  [currentUser, isAdmin, productValidation],
+  [isAdmin, productValidation],
   async (req: Request, res: Response) => {
     const product = req.body as productAttrs;
 

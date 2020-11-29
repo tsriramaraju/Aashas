@@ -8,7 +8,6 @@ import {
   BadRequestError,
   DatabaseConnectionError,
   jwtPayload,
-  currentUser,
   isUser,
 } from '@aashas/common';
 
@@ -23,7 +22,7 @@ const router = Router();
 
 router.post(
   '/update-contact',
-  [currentUser, isUser],
+  [isUser],
   async (req: Request, res: Response) => {
     const { email } = req.body;
     const mobile = +req.body.mobile;

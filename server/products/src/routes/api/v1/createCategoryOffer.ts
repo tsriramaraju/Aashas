@@ -1,7 +1,6 @@
 import {
   BadRequestError,
   CategoryOffer,
-  currentUser,
   isAdmin,
   natsWrapper,
   ResourceNotFoundError,
@@ -24,7 +23,7 @@ const router = Router();
 
 router.post(
   '/offers-category',
-  [currentUser, isAdmin],
+  [isAdmin],
   async (req: Request, res: Response) => {
     const offer = req.body as CategoryOffer;
 

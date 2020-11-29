@@ -1,6 +1,5 @@
 import {
   BadRequestError,
-  currentUser,
   isAdmin,
   natsWrapper,
   offer,
@@ -26,7 +25,7 @@ const router = Router();
 
 router.delete(
   '/offers/:id',
-  [currentUser, isAdmin],
+  [isAdmin],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
 

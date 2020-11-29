@@ -1,4 +1,4 @@
-import { BadRequestError, currentUser, isUser } from '@aashas/common';
+import { BadRequestError, isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { removeFavourites } from '../../../services/removeFavourites';
@@ -14,7 +14,7 @@ const router = Router();
 
 router.delete(
   '/favourites/:id',
-  [currentUser, isUser],
+  [isUser],
   async (req: Request, res: Response) => {
     const product = req.params.id;
     if (!Types.ObjectId.isValid(product))

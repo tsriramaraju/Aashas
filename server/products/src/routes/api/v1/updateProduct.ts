@@ -1,6 +1,5 @@
 import {
   BadRequestError,
-  currentUser,
   isAdmin,
   natsWrapper,
   productAttrs,
@@ -24,7 +23,7 @@ const router = Router();
 
 router.put(
   '/:id',
-  [currentUser, isAdmin],
+  [isAdmin],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
     const productData = req.body as productAttrs;

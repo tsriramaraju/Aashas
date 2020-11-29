@@ -1,4 +1,4 @@
-import { currentUser, isUser } from '@aashas/common';
+import { isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 
 import { getUser } from '../../../services/getUsers';
@@ -12,13 +12,9 @@ const router = Router();
  *  @returns   Status
  */
 
-router.get(
-  '/lean',
-  [currentUser, isUser],
-  async (req: Request, res: Response) => {
-    const data = await getUser(req.currentUser?.id!, true);
-    res.status(201).send(data);
-  }
-);
+router.get('/lean', [isUser], async (req: Request, res: Response) => {
+  const data = await getUser(req.currentUser?.id!, true);
+  res.status(201).send(data);
+});
 
 export { router as getUserLean };

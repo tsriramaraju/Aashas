@@ -1,6 +1,5 @@
 import {
   CategoryOffer,
-  currentUser,
   isAdmin,
   natsWrapper,
   outfit,
@@ -25,7 +24,7 @@ const router = Router();
 
 router.delete(
   '/category/remove',
-  [currentUser, isAdmin],
+  [isAdmin],
   async (req: Request, res: Response) => {
     const outfit = req.body as outfit;
 

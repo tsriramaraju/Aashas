@@ -1,4 +1,4 @@
-import { currentUser, isUser } from '@aashas/common';
+import { isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { getOrder } from '../../../services/getOrders';
 
@@ -11,13 +11,9 @@ const router = Router();
  *  @returns   Orders
  */
 
-router.get(
-  '/orders',
-  [currentUser, isUser],
-  async (req: Request, res: Response) => {
-    const data = await getOrder(req.currentUser!.id);
-    res.status(201).json(data);
-  }
-);
+router.get('/orders', [isUser], async (req: Request, res: Response) => {
+  const data = await getOrder(req.currentUser!.id);
+  res.status(201).json(data);
+});
 
 export { router as getOrders };

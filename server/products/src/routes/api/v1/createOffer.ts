@@ -1,6 +1,5 @@
 import {
   BadRequestError,
-  currentUser,
   isAdmin,
   natsWrapper,
   offer,
@@ -25,7 +24,7 @@ const router = Router();
 
 router.post(
   '/offers/:id',
-  [currentUser, isAdmin],
+  [isAdmin],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
     const discount = +req.body.discount;

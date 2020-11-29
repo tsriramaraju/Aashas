@@ -1,4 +1,4 @@
-import { currentUser, isUser } from '@aashas/common';
+import { isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 
 import { removeCart } from '../../../services/removeCart';
@@ -12,15 +12,11 @@ const router = Router();
  *  @returns   Status
  */
 
-router.delete(
-  '/cart',
-  [currentUser, isUser],
-  async (req: Request, res: Response) => {
-    const status = await removeCart({
-      userId: req.currentUser!.id,
-    });
-    res.status(201).json({ msg: status });
-  }
-);
+router.delete('/cart', [isUser], async (req: Request, res: Response) => {
+  const status = await removeCart({
+    userId: req.currentUser!.id,
+  });
+  res.status(201).json({ msg: status });
+});
 
 export { router as removeAllCart };
