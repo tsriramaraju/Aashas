@@ -1,8 +1,12 @@
-import { BadRequestError, natsWrapper } from '@aashas/common';
+import {
+  BadRequestError,
+  currentUser,
+  isUser,
+  natsWrapper,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
 import { queueGroupName } from '../../../events/queueGroupName';
-import { isUser } from '../../../middlewares/isUser';
 import { updateProfilePic } from '../../../services/updateProfilePic';
 
 const router = Router();
@@ -14,25 +18,32 @@ const router = Router();
  *  @returns   Status
  */
 
-router.put('/image', isUser, async (req: Request, res: Response) => {
-  const { image } = req.body;
-  const { id, email } = req.user!;
+router.put(
+  '/image',
+  [currentUser, isUser],
+  async (req: Request, res: Response) => {
+    const { image } = req.body;
+    const { id, email } = req.currentUser!;
 
-  const status = await updateProfilePic({ id: req.user!.id, pic: image });
+    const status = await updateProfilePic({
+      id: req.currentUser!.id,
+      pic: image,
+    });
 
-  res.status(201).json({ msg: status });
+    res.status(201).json({ msg: status });
 
-  new UserUpdatedPublisher(natsWrapper.client).publish({
-    id,
-    mode: 'email',
-    group: queueGroupName,
-    data: {
-      body: `Profile picture updated successfully`,
-      message: 'Profile picture updated successfully',
-      email,
-      title: 'Profile picture updated ',
-    },
-  });
-});
+    new UserUpdatedPublisher(natsWrapper.client).publish({
+      id,
+      mode: 'email',
+      group: queueGroupName,
+      data: {
+        body: `Profile picture updated successfully`,
+        message: 'Profile picture updated successfully',
+        email,
+        title: 'Profile picture updated ',
+      },
+    });
+  }
+);
 
 export { router as updateUser };

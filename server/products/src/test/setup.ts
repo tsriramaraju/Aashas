@@ -50,7 +50,7 @@ declare global {
 
 let mongo: any;
 beforeAll(async () => {
-  keys.jwtSecret = 'secret';
+  keys.jwtSecret = 'This almost had me ';
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';

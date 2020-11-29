@@ -1,16 +1,14 @@
 import {
-  femaleType,
-  kidsType,
-  maleType,
+  currentUser,
+  isAdmin,
   natsWrapper,
   productAttrs,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { ProductCreatedPublisher } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
+
 import { productValidation } from '../../../middlewares/productValidation';
 import { createProduct } from '../../../services/createProduct';
-import { removeProperty } from '../../../utils/removeProperty';
 
 const router = Router();
 
@@ -22,7 +20,7 @@ const router = Router();
  */
 router.post(
   '/',
-  [isAdmin, productValidation],
+  [currentUser, isAdmin, productValidation],
   async (req: Request, res: Response) => {
     const product = req.body as productAttrs;
 

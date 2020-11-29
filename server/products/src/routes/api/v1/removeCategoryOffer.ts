@@ -1,5 +1,7 @@
 import {
   CategoryOffer,
+  currentUser,
+  isAdmin,
   natsWrapper,
   outfit,
   ResourceNotFoundError,
@@ -9,7 +11,7 @@ import {
   OfferDeletedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
+
 import { updateCategoryOffer } from '../../../services/updateCategoryOffer';
 
 const router = Router();
@@ -23,7 +25,7 @@ const router = Router();
 
 router.delete(
   '/category/remove',
-  [isAdmin],
+  [currentUser, isAdmin],
   async (req: Request, res: Response) => {
     const outfit = req.body as outfit;
 

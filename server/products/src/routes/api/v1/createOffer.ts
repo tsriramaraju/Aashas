@@ -1,5 +1,7 @@
 import {
   BadRequestError,
+  currentUser,
+  isAdmin,
   natsWrapper,
   offer,
   ResourceNotFoundError,
@@ -10,7 +12,6 @@ import {
   OfferCreatedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
 import { updateProduct } from '../../../services/updateProduct';
 
 const router = Router();
@@ -24,7 +25,7 @@ const router = Router();
 
 router.post(
   '/offers/:id',
-  [isAdmin],
+  [currentUser, isAdmin],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
     const discount = +req.body.discount;

@@ -1,8 +1,11 @@
-import { natsWrapper, ResourceNotFoundError } from '@aashas/common';
+import {
+  currentUser,
+  isUser,
+  natsWrapper,
+  ResourceNotFoundError,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserDeletePublisher } from '../../../events';
-import { queueGroupName } from '../../../events/queueGroupName';
-import { isUser } from '../../../middlewares/isUser';
 import { deleteUser } from '../../../services/deleteUser';
 
 const router = Router();
@@ -14,26 +17,30 @@ const router = Router();
  *  @returns   Status
  */
 
-router.delete('/', isUser, async (req: Request, res: Response) => {
-  const { id } = req.user!;
+router.delete(
+  '/',
+  [currentUser, isUser],
+  async (req: Request, res: Response) => {
+    const { id } = req.currentUser!;
 
-  const isDeleted = await deleteUser(id!);
+    const isDeleted = await deleteUser(id!);
 
-  if (!isDeleted)
-    throw new ResourceNotFoundError(
-      "Makes sure the user don't have any pending orders"
-    );
+    if (!isDeleted)
+      throw new ResourceNotFoundError(
+        "Makes sure the user don't have any pending orders"
+      );
 
-  new UserDeletePublisher(natsWrapper.client).publish({
-    id: id!,
-    mode: 'email',
-    data: {
-      body: 'User has been deleted',
-      message: 'Deleted',
-      email: req.user?.email,
-    },
-  });
-  res.status(201).json({ msg: 'User deleted successfully' });
-});
+    new UserDeletePublisher(natsWrapper.client).publish({
+      id: id!,
+      mode: 'email',
+      data: {
+        body: 'User has been deleted',
+        message: 'Deleted',
+        email: req.currentUser?.email,
+      },
+    });
+    res.status(201).json({ msg: 'User deleted successfully' });
+  }
+);
 
 export { router as deleteUser };

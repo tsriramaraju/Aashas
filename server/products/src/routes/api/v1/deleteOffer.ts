@@ -1,5 +1,7 @@
 import {
   BadRequestError,
+  currentUser,
+  isAdmin,
   natsWrapper,
   offer,
   ResourceNotFoundError,
@@ -10,7 +12,7 @@ import {
   OfferDeletedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
+
 import { updateProduct } from '../../../services/updateProduct';
 
 const router = Router();
@@ -24,7 +26,7 @@ const router = Router();
 
 router.delete(
   '/offers/:id',
-  [isAdmin],
+  [currentUser, isAdmin],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
 

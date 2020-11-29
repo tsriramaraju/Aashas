@@ -1,6 +1,8 @@
 import {
   BadRequestError,
   CategoryOffer,
+  currentUser,
+  isAdmin,
   natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
@@ -9,7 +11,6 @@ import {
   OfferCreatedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
 import { updateCategoryOffer } from '../../../services/updateCategoryOffer';
 
 const router = Router();
@@ -23,7 +24,7 @@ const router = Router();
 
 router.post(
   '/offers-category',
-  [isAdmin],
+  [currentUser, isAdmin],
   async (req: Request, res: Response) => {
     const offer = req.body as CategoryOffer;
 
