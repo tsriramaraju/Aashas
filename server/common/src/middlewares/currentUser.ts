@@ -36,8 +36,10 @@ export const currentUser = (
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET!) as jwtPayload;
-    req.currentUser = payload;
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET!) as
+      | string
+      | { payload: jwtPayload };
+    if (typeof decodedData == 'object') req.currentUser = decodedData.payload;
   } catch (err) {
     throw new ServerError(err);
   }
