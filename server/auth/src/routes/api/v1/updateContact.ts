@@ -11,7 +11,6 @@ import {
   currentUser,
   isUser,
 } from '@aashas/common';
-import { currentUserTest } from '../../../middlewares/tes';
 
 const router = Router();
 
@@ -24,7 +23,7 @@ const router = Router();
 
 router.post(
   '/update-contact',
-  [currentUserTest, isUser],
+  [currentUser, isUser],
   async (req: Request, res: Response) => {
     const { email } = req.body;
     const mobile = +req.body.mobile;
