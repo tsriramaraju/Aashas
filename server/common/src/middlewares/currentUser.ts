@@ -1,3 +1,4 @@
+import { BadRequestError, ServerError } from '@aashas/common';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { jwtPayload } from '../interfaces/payLoads';
@@ -15,17 +16,31 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.session?.jwt) {
-    return next();
+  let token;
+  if (!req.headers) {
+    throw new BadRequestError('Invalid headers');
+  }
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    // Set token from Bearer token in header
+    token = req.headers.authorization.split(' ')[1];
+    // Set token from cookie
+  }
+
+  // Make sure token exists
+  if (!token) {
+    throw new BadRequestError('Authentication token is not present');
   }
 
   try {
-    const payload = jwt.verify(
-      req.session.jwt,
-      process.env.JWT_SECRET!
-    ) as jwtPayload;
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as jwtPayload;
     req.currentUser = payload;
-  } catch (err) {}
+  } catch (err) {
+    throw new ServerError(err);
+  }
 
   next();
 };
