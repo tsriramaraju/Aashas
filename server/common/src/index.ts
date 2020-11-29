@@ -58,6 +58,7 @@ export * from './interfaces/CustomProductsModel';
 export * from './interfaces/ProductsModel';
 export * from './interfaces/DesignerModel';
 export * from './interfaces/SalesBannerModel';
+export * from './interfaces/payLoads';
 
 /**
  * Exporting basic  types
@@ -75,6 +76,9 @@ export * from './validators';
 
 export * from './middlewares/errorHandler';
 export * from './middlewares/validateRequests';
+export * from './middlewares/currentUser';
+export * from './middlewares/isUser';
+export * from './middlewares/isAdmin';
 
 /**
  * Exporting error handlers
