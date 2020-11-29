@@ -18,7 +18,6 @@ it('should return number of accounts available', async () => {
     .expect('Content-Type', /json/)
     .expect(201);
 
-  // expect(res.body.msg).toBe('8');
   expect(res.body.length).toBe(8);
 });
 it('should fail route is accessed other than admin', async () => {

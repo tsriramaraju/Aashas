@@ -1,14 +1,13 @@
-// import { BadRequestError, NotAuthorizedError } from '@aashas/common';
+// import { BadRequestError, NotAuthorizedError, isAdmin } from '@aashas/common';
 // import { NextFunction, Request, Response } from 'express';
 
-// import { payloadData } from '../../dummy data/payload';
+// import { payloadData } from '../../dummyData/payload';
 // import { Account } from '../../models';
 // import { generateJWT } from '../../utils';
-// import { isAdmin } from '../isAdmin';
 
 // describe('Admin authorization middleware test group', () => {
 //   it('should throw Bad request error if user is not present', async () => {
-//     const token = generateJWT(payloadData);
+//     const token = generateJWT({ ...payloadData, isAdmin: true });
 
 //     const mockRequest = {
 //       headers: {

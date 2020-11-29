@@ -35,10 +35,11 @@ export const currentUserTest = (
   if (!token) {
     throw new BadRequestError('Authentication token is not present');
   }
-  console.log(token);
   try {
-    const payload = jwt.verify(token, keys.jwtSecret!) as jwtPayload;
-    req.currentUser = payload;
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET!) as
+      | string
+      | { payload: jwtPayload };
+    if (typeof decodedData == 'object') req.currentUser = decodedData.payload;
   } catch (err) {
     throw new ServerError(err);
   }
