@@ -19,6 +19,7 @@ describe('update Contacts route test group', () => {
       mobileVerified: user.mobileVerified,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     });
 
     await request(app)
@@ -49,6 +50,7 @@ describe('update Contacts route test group', () => {
       mobileVerified: user.mobileVerified,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     });
 
     await request(app)
@@ -78,6 +80,7 @@ describe('update Contacts route test group', () => {
       mobileVerified: user.mobileVerified,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     });
 
     const res = await request(app)
@@ -112,8 +115,8 @@ describe('update Contacts route test group', () => {
       mobileVerified: user.mobileVerified,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     });
-
     const res = await request(app)
       .post('/api/v1/auth/update-contact')
       .send({
@@ -170,6 +173,7 @@ describe('update Contacts route test group', () => {
       mobileVerified: user.mobileVerified,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     });
 
     const res = await request(app)
@@ -199,6 +203,7 @@ describe('update Contacts route test group', () => {
       mobileVerified: user.mobileVerified,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     });
 
     const res = await request(app)

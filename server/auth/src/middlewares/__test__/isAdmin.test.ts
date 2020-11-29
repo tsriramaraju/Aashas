@@ -1,24 +1,14 @@
-import {
-  BadRequestError,
-  NotAuthorizedError,
-  verification,
-} from '@aashas/common';
+import { BadRequestError, NotAuthorizedError } from '@aashas/common';
 import { NextFunction, Request, Response } from 'express';
-import { Types } from 'mongoose';
+
+import { payloadData } from '../../dummy data/payload';
 import { Account } from '../../models';
 import { generateJWT } from '../../utils';
 import { isAdmin } from '../isAdmin';
 
 describe('Admin authorization middleware test group', () => {
   it('should throw Bad request error if user is not present', async () => {
-    const id = Types.ObjectId();
-    const token = generateJWT({
-      id,
-      name: 'john',
-      emailVerified: verification.yes,
-      mobileVerified: verification.yes,
-      email: 'john@test.com',
-    });
+    const token = generateJWT(payloadData);
 
     const mockRequest = {
       headers: {
@@ -35,7 +25,6 @@ describe('Admin authorization middleware test group', () => {
 
   it('should throw not authorized error if non admin accessed this route', async () => {
     const user = await global.userLogin();
-
     const mockRequest = {
       headers: {
         authorization: `Bearer ${user}`,

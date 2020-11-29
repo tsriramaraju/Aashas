@@ -102,6 +102,7 @@ global.userLogin = async () => {
     email: user.email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
+    isAdmin: false,
   });
 
   return token;
@@ -126,6 +127,7 @@ global.adminLogin = async () => {
     email: user.email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
+    isAdmin: true,
   });
 
   return token;

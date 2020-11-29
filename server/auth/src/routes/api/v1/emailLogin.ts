@@ -52,6 +52,7 @@ router.post(
         email: user.email,
         emailVerified: user.emailVerified,
         mobileVerified: user.mobileVerified,
+        isAdmin: user.isAdmin,
       })
     );
   }

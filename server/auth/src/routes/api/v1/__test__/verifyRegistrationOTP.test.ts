@@ -1,10 +1,10 @@
 import request from 'supertest';
 import { app } from '../../../../app';
 import { OTP } from '../../../../models/OTP';
-import { jwtPayload } from '../../../../interfaces';
+
 import { Account } from '../../../../models/Accounts';
 import { decodeJWT } from '../../../../utils/generateJWT';
-import { natsWrapper, verification } from '@aashas/common';
+import { natsWrapper, verification, jwtPayload } from '@aashas/common';
 
 describe('Verify Login OTP route test group', () => {
   it('should return validation when invalid otp is submitted', async () => {

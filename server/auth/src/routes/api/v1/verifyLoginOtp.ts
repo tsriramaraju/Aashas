@@ -1,7 +1,7 @@
 import { generateJWT } from '../../../utils';
 import { verifyOTP } from '../../../services';
-import { jwtPayload } from '../../../interfaces';
 import {
+  jwtPayload,
   mobileValidation,
   otpValidation,
   RequestValidationError,
@@ -35,6 +35,7 @@ router.post(
           name: user.name!,
           emailVerified: user.emailVerified,
           mobileVerified: user.mobileVerified,
+          isAdmin: user.isAdmin,
         };
         res.status(201).json(generateJWT(payload, 100));
       }

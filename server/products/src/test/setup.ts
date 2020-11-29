@@ -6,9 +6,6 @@ import {
   authType,
   categories,
   CustomProductDoc,
-  femaleType,
-  kidsType,
-  maleType,
   OrderDoc,
   outfit,
   paymentModes,
@@ -108,6 +105,7 @@ global.userLogin = async () => {
     email: user.email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
+    isAdmin: false,
   });
 
   return token;
@@ -132,6 +130,7 @@ global.adminLogin = async () => {
     email: user.email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
+    isAdmin: true,
   });
 
   return token;

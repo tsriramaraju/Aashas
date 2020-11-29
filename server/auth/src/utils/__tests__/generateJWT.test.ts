@@ -1,37 +1,20 @@
-import mongoose from 'mongoose';
-import { jwtPayload } from '../../interfaces';
 import { generateJWT, decodeJWT } from '../generateJWT';
-import { BadRequestError, verification } from '@aashas/common';
+import { BadRequestError } from '@aashas/common';
+import { payloadData } from '../../dummy data/payload';
 
 describe('JSON web token  test group', () => {
   it('should create JWT token on valid parameters', () => {
-    const payload: jwtPayload = {
-      id: mongoose.Types.ObjectId(),
-      name: 'john doe',
-      email: 'john@test.com',
-      emailVerified: verification.yes,
-      mobileVerified: verification.no,
-    };
-
-    const token = generateJWT(payload);
+    const token = generateJWT(payloadData);
 
     expect(typeof token).toBe('string');
   });
 
-  it('should match with JWT payload', () => {
-    const payload = {
-      id: mongoose.Types.ObjectId(),
-      name: 'john doe',
-      email: 'john@test.com',
-      emailVerified: verification.yes,
-      mobileVerified: verification.no,
-    };
-
-    const token = generateJWT(payload);
+  it('should match with JWT payloadData', () => {
+    const token = generateJWT(payloadData);
 
     const data = decodeJWT(token);
 
-    expect(JSON.stringify(payload) == JSON.stringify(data)).toBe(true);
+    expect(JSON.stringify(payloadData) == JSON.stringify(data)).toBe(true);
   });
 
   it('should fail by using expired token', () => {

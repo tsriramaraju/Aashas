@@ -2,9 +2,9 @@ import request from 'supertest';
 import { Types } from 'mongoose';
 import { app } from '../../../../app';
 import { Reset } from '../../../../models/Reset';
-import { jwtPayload } from '../../../../interfaces';
 import { Account } from '../../../../models/Accounts';
 import { decodeJWT } from '../../../../utils/generateJWT';
+import { jwtPayload } from '@aashas/common';
 
 describe('Password reset route test group', () => {
   it('should return jwt token on successful input ', async () => {

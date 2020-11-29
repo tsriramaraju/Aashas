@@ -18,6 +18,7 @@ describe('Admin authorization middleware test group', () => {
       emailVerified: verification.yes,
       mobileVerified: verification.yes,
       email: 'john@test.com',
+      isAdmin: true,
     });
 
     const mockRequest = {

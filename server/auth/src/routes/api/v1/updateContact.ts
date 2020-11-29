@@ -1,5 +1,4 @@
 import { generateJWT } from '../../../utils';
-import { jwtPayload } from '../../../interfaces';
 import { Router, Request, Response } from 'express';
 import { isUser } from '../../../middlewares/isUser';
 import { GenerateOTPPublisher } from '../../../events';
@@ -9,6 +8,7 @@ import {
   natsWrapper,
   BadRequestError,
   DatabaseConnectionError,
+  jwtPayload,
 } from '@aashas/common';
 
 const router = Router();
@@ -68,6 +68,7 @@ router.post('/update-contact', isUser, async (req: Request, res: Response) => {
         email: user[0].email,
         emailVerified: user[0].emailVerified,
         mobileVerified: user[0].mobileVerified,
+        isAdmin: user[0].isAdmin,
       };
 
       res.status(201).json(generateJWT(jwt));

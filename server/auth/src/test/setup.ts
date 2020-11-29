@@ -109,6 +109,7 @@ global.adminLogin = async () => {
     email: user.email,
     emailVerified: user.emailVerified,
     mobileVerified: user.mobileVerified,
+    isAdmin: user.isAdmin,
   });
 
   return token;
