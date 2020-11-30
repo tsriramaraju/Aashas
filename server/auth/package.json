@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aashas/common": "^1.2.79",
+    "@aashas/common": "^1.2.80",
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.8",

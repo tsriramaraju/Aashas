@@ -7,17 +7,12 @@ const router = Router();
 /**
  *  @desc      Get existing designer data
  *  @route     get /api/v1/designer
- *  @access    Admin
+ *  @access    Public
  *  @returns   Designer
  */
 
-router.get('/', [isAdmin], async (req: Request, res: Response) => {
-  const { id } = req.currentUser!;
-
-  const designerDoc = await getDesigner({
-    id,
-    mode: 'full',
-  });
+router.get('/', async (req: Request, res: Response) => {
+  const designerDoc = await getDesigner('full');
   if (!designerDoc)
     throw new ResourceNotFoundError('Designer account not found');
 

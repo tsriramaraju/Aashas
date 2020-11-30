@@ -4,3 +4,6 @@ export * from './getBlogs';
 export * from './getCompleteData';
 export * from './removeBlog';
 export * from './createBlog';
+export * from './createBanner';
+export * from './removeBanner';
+export * from './getBanners';

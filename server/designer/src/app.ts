@@ -27,6 +27,9 @@ app.use('/api/v1/designer', router.getBlogsRouter);
 app.use('/api/v1/designer', router.getDesignerFullRouter);
 app.use('/api/v1/designer', router.createBlogRouter);
 app.use('/api/v1/designer', router.removeBlogRouter);
+app.use('/api/v1/designer', router.createBannerRouter);
+app.use('/api/v1/designer', router.removeBannerRouter);
+app.use('/api/v1/designer', router.getBannersRouter);
 /**
  * 404 route
  */
