@@ -1,6 +1,7 @@
 import 'colors';
 import 'express-async-errors';
 import express, { json } from 'express';
+import * as router from './routes/api/v1';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
 
 /**
@@ -17,9 +18,15 @@ security(app);
 process.env.NODE_ENV !== 'test' && loggers(app);
 
 /**
- * Admin service routes
+ *
+ * Designer service routes
  */
-
+app.use('/api/v1/designer', router.updateDesignerRouter);
+app.use('/api/v1/designer', router.getDesignerInfoRouter);
+app.use('/api/v1/designer', router.getBlogsRouter);
+app.use('/api/v1/designer', router.getDesignerFullRouter);
+app.use('/api/v1/designer', router.createBlogRouter);
+app.use('/api/v1/designer', router.removeBlogRouter);
 /**
  * 404 route
  */

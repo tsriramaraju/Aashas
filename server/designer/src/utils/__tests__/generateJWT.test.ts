@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import { jwtPayload } from '../../interfaces';
 import { generateJWT, decodeJWT } from '../generateJWT';
-import { BadRequestError, verification } from '@aashas/common';
+import { BadRequestError, jwtPayload, verification } from '@aashas/common';
 
 describe('JSON web token  test group', () => {
   it('should create JWT token on valid parameters', () => {
@@ -11,6 +10,7 @@ describe('JSON web token  test group', () => {
       email: 'john@test.com',
       emailVerified: verification.yes,
       mobileVerified: verification.no,
+      isAdmin: false,
     };
 
     const token = generateJWT(payload);
@@ -25,6 +25,7 @@ describe('JSON web token  test group', () => {
       email: 'john@test.com',
       emailVerified: verification.yes,
       mobileVerified: verification.no,
+      isAdmin: false,
     };
 
     const token = generateJWT(payload);
