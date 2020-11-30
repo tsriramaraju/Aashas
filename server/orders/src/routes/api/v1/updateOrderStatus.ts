@@ -30,11 +30,11 @@ router.put('/status/:id', async (req: Request, res: Response) => {
 
   new OrderStatusUpdatedPublisher(natsWrapper.client).publish({
     version: orderDoc.version,
-    mode: 'email',
+    mode: ['email'],
     orderID: orderDoc.id,
     orderStatus: status,
     data: {
-      body: 'Order created',
+      title: 'Order created',
       message: 'this is message',
     },
     //  FIXME : add email or contact

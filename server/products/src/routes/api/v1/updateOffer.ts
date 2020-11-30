@@ -53,10 +53,10 @@ router.put(
     new OfferUpdatedPublisher(natsWrapper.client).publish({
       version: product.version,
       product: product,
-      mode: 'email',
+      mode: ['email'],
       data: {
-        body: 'Offer added',
         message: 'hello',
+        title: 'Offer added',
       },
     });
   }

@@ -23,9 +23,9 @@ describe('Offer created listener test group', () => {
       {
         version: 1,
         product: prodPreFetch[0],
-        mode: 'email',
+        mode: ['email'],
         data: {
-          body: '',
+          title: '',
           message: '',
         },
       },

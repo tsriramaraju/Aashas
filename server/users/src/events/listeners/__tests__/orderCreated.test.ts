@@ -22,11 +22,12 @@ describe('Order created listener test group', () => {
     await listener.onMessage(
       {
         order,
-        mode: 'email',
+        mode: ['email'],
         version: 1,
         data: {
           body: '',
           message: '',
+          title: '',
         },
       },
       msg

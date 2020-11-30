@@ -27,11 +27,12 @@ describe('Offer Updated listener test group', () => {
     await listener.onMessage(
       {
         product: prodPreFetch[0],
-        mode: 'email',
+        mode: ['email'],
         version: 1,
         data: {
           body: '',
           message: '',
+          title: '',
         },
       },
       msg

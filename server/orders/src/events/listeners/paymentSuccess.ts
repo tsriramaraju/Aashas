@@ -35,11 +35,12 @@ export class PaymentSuccessListener extends Listener<PaymentSuccessEvent> {
 
       new OrderPaymentUpdatedPublisher(natsWrapper.client).publish({
         version: order.version + 1,
-        mode: 'email',
+        mode: ['email'],
         orderID: order.id,
         payment: order.payment,
         data: {
-          body: 'Payment successful',
+          title: 'Payment successful',
+
           message: 'This is message',
         },
       });

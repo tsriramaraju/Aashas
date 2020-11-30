@@ -35,11 +35,11 @@ export class PaymentFailedListener extends Listener<PaymentFailedEvent> {
 
       new OrderPaymentUpdatedPublisher(natsWrapper.client).publish({
         version: order.version + 1,
-        mode: 'email',
+        mode: ['email'],
         orderID: order.id,
         payment: order.payment,
         data: {
-          body: 'Payment Failed',
+          title: 'Payment Failed',
           message: 'This is message',
         },
       });

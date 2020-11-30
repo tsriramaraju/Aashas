@@ -57,13 +57,14 @@ router.post(
       if (otpData) {
         // Publishes OTP event
         new GenerateOTPPublisher(natsWrapper.client).publish({
-          mode,
+          mode: [mode],
           data: {
             name: otpData.name,
             title: 'Please enter 4 digit OTP for verification',
             otp: otpData.otp,
             email: otpData.email,
             mobile: otpData.mobile,
+            message: 'Message',
           },
         });
 

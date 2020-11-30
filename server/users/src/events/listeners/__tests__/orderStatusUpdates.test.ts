@@ -26,10 +26,11 @@ describe('Orders status Updated listener test group', () => {
         orderID: order._id,
         version: 1,
         orderStatus: 'shipped',
-        mode: 'email',
+        mode: ['email'],
         data: {
           body: '',
           message: '',
+          title: '',
         },
       },
       msg

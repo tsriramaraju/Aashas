@@ -18,10 +18,10 @@ router.post('/', async (req: Request, res: Response) => {
 
   new OrderCreatedPublisher(natsWrapper.client).publish({
     version: orderDoc.version,
-    mode: 'email',
+    mode: ['email'],
     order: orderDoc,
     data: {
-      body: 'Order created',
+      title: 'Order created',
       message: 'this is message',
     },
     //  FIXME : add email or contact

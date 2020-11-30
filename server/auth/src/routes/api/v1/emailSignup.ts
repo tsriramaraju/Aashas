@@ -76,12 +76,13 @@ router.post(
     //Publishes Generate OTP event once the OTP is registered
     new GenerateOTPPublisher(natsWrapper.client).publish({
       id: otpData.id,
-      mode: 'email',
+      mode: ['email'],
       data: {
         name: otpData.name,
         otp: otpData.otp,
         email: otpData.email,
         title: 'Please enter 4 digit OTP to verify the email',
+        message: 'this is message',
       },
     });
     res.status(201).json(generateJWT(payload));

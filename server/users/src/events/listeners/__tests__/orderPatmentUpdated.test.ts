@@ -29,10 +29,11 @@ describe('Orders Payment status Updated listener test group', () => {
           status: paymentStatus.paid,
           method: paymentModes.creditCard,
         },
-        mode: 'email',
+        mode: ['email'],
         data: {
           body: '',
           message: '',
+          title: '',
         },
       },
       msg

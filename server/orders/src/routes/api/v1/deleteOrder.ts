@@ -27,10 +27,10 @@ router.delete('/:id', async (req: Request, res: Response) => {
   new OrderDeletedPublisher(natsWrapper.client).publish({
     orderID: orderDoc.id,
     version: orderDoc.version,
-    mode: 'email',
+    mode: ['email'],
     order: orderDoc,
     data: {
-      body: 'Order created',
+      title: 'Order created',
       message: 'this is message',
     },
     //  FIXME : add email or contact

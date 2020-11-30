@@ -21,11 +21,12 @@ describe('Custom Product Updated listener test group', () => {
       {
         product: prodPreFetch[0],
 
-        mode: 'email',
+        mode: ['email'],
         version: 1,
         data: {
           body: '',
           message: '',
+          title: '',
         },
       },
       msg

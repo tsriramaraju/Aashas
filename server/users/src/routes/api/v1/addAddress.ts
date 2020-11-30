@@ -43,7 +43,7 @@ router.post('/address', [isUser], async (req: Request, res: Response) => {
 
   new UserUpdatedPublisher(natsWrapper.client).publish({
     id,
-    mode: 'email',
+    mode: ['email'],
     group: queueGroupName,
     data: {
       body: `${name} added to the address book`,
