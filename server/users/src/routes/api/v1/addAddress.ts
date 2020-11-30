@@ -1,8 +1,8 @@
-import { address, natsWrapper } from '@aashas/common';
+import { address, isUser, natsWrapper } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
 import { queueGroupName } from '../../../events/queueGroupName';
-import { isUser } from '../../../middlewares/isUser';
+
 import { addAddress } from '../../../services/addAddress';
 
 const router = Router();
@@ -14,8 +14,8 @@ const router = Router();
  *  @returns   Status
  */
 
-router.post('/address', isUser, async (req: Request, res: Response) => {
-  const { id, name: userName, email } = req.user!;
+router.post('/address', [isUser], async (req: Request, res: Response) => {
+  const { id, name: userName, email } = req.currentUser!;
   const {
     city,
     house,

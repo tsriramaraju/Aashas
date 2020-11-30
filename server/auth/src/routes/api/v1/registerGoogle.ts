@@ -1,9 +1,8 @@
 import express from 'express';
 import '../../../config/OAuth/google';
 import { authenticate } from 'passport';
-import { AccountDoc } from '@aashas/common';
+import { AccountDoc, jwtPayload } from '@aashas/common';
 import { generateJWT } from '../../../utils';
-import { jwtPayload } from '../../../interfaces';
 
 const router = express.Router();
 
@@ -34,6 +33,7 @@ router.get(
       mobileVerified: user.mobileVerified,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
     };
 
     res.json(generateJWT(payload));

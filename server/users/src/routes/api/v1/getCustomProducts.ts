@@ -1,5 +1,5 @@
+import { isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
-import { isUser } from '../../../middlewares/isUser';
 import { getCustomProducts } from '../../../services/getCustomProducts';
 
 const router = Router();
@@ -11,8 +11,8 @@ const router = Router();
  *  @returns   Custom products
  */
 
-router.get('/custom', isUser, async (req: Request, res: Response) => {
-  const data = await getCustomProducts(req.user!.id);
+router.get('/custom', [isUser], async (req: Request, res: Response) => {
+  const data = await getCustomProducts(req.currentUser!.id);
   res.status(201).json(data);
 });
 //  TODO : add test cases later

@@ -1,9 +1,9 @@
 import { generateJWT } from '../../../utils';
 import { verifyReset } from '../../../services';
-import { jwtPayload } from '../../../interfaces';
 import { Router, Request, Response } from 'express';
 import {
   emailValidation,
+  jwtPayload,
   passwordValidation,
   TamperedRequestError,
   validateRequest,
@@ -39,9 +39,10 @@ router.post(
         email: user.email,
         emailVerified: user.emailVerified,
         mobileVerified: user.mobileVerified,
+        isAdmin: user.isAdmin,
       };
 
-      res.status(201).json(generateJWT(payload, 100));
+      res.status(201).json(generateJWT(payload));
     }
   }
 );

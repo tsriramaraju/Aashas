@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  isAdmin,
   natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
@@ -7,7 +8,7 @@ import { Router, Request, Response } from 'express';
 import { statSync } from 'fs';
 import { Types } from 'mongoose';
 import { ProductDeletedPublisher } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
+
 import { deleteProduct } from '../../../services/deleteProduct';
 import { getProducts } from '../../../services/getProducts';
 
@@ -19,7 +20,7 @@ const router = Router();
  *  @access    Public
  *  @returns   Products array
  */
-router.delete('/:id', isAdmin, async (req: Request, res: Response) => {
+router.delete('/:id', [isAdmin], async (req: Request, res: Response) => {
   const productID = req.params.id;
 
   if (!Types.ObjectId.isValid(productID))

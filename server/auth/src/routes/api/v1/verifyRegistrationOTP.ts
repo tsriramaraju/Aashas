@@ -1,9 +1,13 @@
 import { generateJWT } from '../../../utils';
 import { verifyOTP } from '../../../services';
-import { jwtPayload } from '../../../interfaces';
 import { Router, Request, Response } from 'express';
 import { AccountCreatedPublisher } from '../../../events';
-import { authType, BadRequestError, natsWrapper } from '@aashas/common';
+import {
+  authType,
+  BadRequestError,
+  jwtPayload,
+  natsWrapper,
+} from '@aashas/common';
 
 const router = Router();
 
@@ -45,9 +49,10 @@ router.post('/verify-register', async (req: Request, res: Response) => {
         name: user.name,
         emailVerified: user.emailVerified,
         mobileVerified: user.mobileVerified,
+        isAdmin: user.isAdmin,
       };
 
-      res.status(201).json(generateJWT(payload, 100));
+      res.status(201).json(generateJWT(payload));
 
       //Publish account created event
       if (!user.email)

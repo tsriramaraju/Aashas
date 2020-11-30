@@ -1,8 +1,6 @@
-import { natsWrapper, ResourceNotFoundError } from '@aashas/common';
+import { isUser, natsWrapper, ResourceNotFoundError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserDeletePublisher } from '../../../events';
-import { queueGroupName } from '../../../events/queueGroupName';
-import { isUser } from '../../../middlewares/isUser';
 import { deleteUser } from '../../../services/deleteUser';
 
 const router = Router();
@@ -14,8 +12,8 @@ const router = Router();
  *  @returns   Status
  */
 
-router.delete('/', isUser, async (req: Request, res: Response) => {
-  const { id } = req.user!;
+router.delete('/', [isUser], async (req: Request, res: Response) => {
+  const { id } = req.currentUser!;
 
   const isDeleted = await deleteUser(id!);
 
@@ -30,7 +28,7 @@ router.delete('/', isUser, async (req: Request, res: Response) => {
     data: {
       body: 'User has been deleted',
       message: 'Deleted',
-      email: req.user?.email,
+      email: req.currentUser?.email,
     },
   });
   res.status(201).json({ msg: 'User deleted successfully' });

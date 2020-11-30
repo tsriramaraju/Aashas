@@ -1,9 +1,9 @@
-import { BadRequestError, natsWrapper } from '@aashas/common';
+import { BadRequestError, isUser, natsWrapper } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
 import { queueGroupName } from '../../../events/queueGroupName';
-import { isUser } from '../../../middlewares/isUser';
+
 import { removeAddress } from '../../../services/removeAddress';
 
 const router = Router();
@@ -15,9 +15,9 @@ const router = Router();
  *  @returns   Status
  */
 
-router.delete('/address/:id', isUser, async (req: Request, res: Response) => {
+router.delete('/address/:id', [isUser], async (req: Request, res: Response) => {
   const addressId = req.params.id;
-  const { id, name, email } = req.user!;
+  const { id, name, email } = req.currentUser!;
 
   if (!Types.ObjectId.isValid(addressId))
     throw new BadRequestError('Invalid address ID');

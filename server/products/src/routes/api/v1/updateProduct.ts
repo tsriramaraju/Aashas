@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  isAdmin,
   natsWrapper,
   productAttrs,
   ProductDoc,
@@ -8,7 +9,6 @@ import {
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { ProductUpdatedPublisher } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
 import { productValidation } from '../../../middlewares/productValidation';
 import { updateProduct } from '../../../services/updateProduct';
 
@@ -23,7 +23,7 @@ const router = Router();
 
 router.put(
   '/:id',
-  [isAdmin, productValidation],
+  [isAdmin],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
     const productData = req.body as productAttrs;

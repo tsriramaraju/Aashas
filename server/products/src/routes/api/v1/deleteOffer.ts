@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  isAdmin,
   natsWrapper,
   offer,
   ResourceNotFoundError,
@@ -10,7 +11,7 @@ import {
   OfferDeletedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
+
 import { updateProduct } from '../../../services/updateProduct';
 
 const router = Router();

@@ -1,5 +1,6 @@
+import { isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
-import { isUser } from '../../../middlewares/isUser';
+
 import { removeFavourites } from '../../../services/removeFavourites';
 
 const router = Router();
@@ -11,9 +12,9 @@ const router = Router();
  *  @returns   Status
  */
 
-router.delete('/favourites', isUser, async (req: Request, res: Response) => {
+router.delete('/favourites', [isUser], async (req: Request, res: Response) => {
   const status = await removeFavourites({
-    userId: req.user!.id,
+    userId: req.currentUser!.id,
   });
   res.status(201).json({ msg: status });
 });

@@ -1,6 +1,5 @@
 import { generateJWT } from '../../../utils';
 import express, { Request, Response } from 'express';
-import { emailPayload, jwtPayload } from '../../../interfaces';
 import { GenerateOTPPublisher, AccountCreatedPublisher } from '../../../events';
 import {
   checkAvailability,
@@ -16,6 +15,8 @@ import {
   natsWrapper,
   authType,
   DatabaseConnectionError,
+  emailPayload,
+  jwtPayload,
 } from '@aashas/common';
 
 const router = express.Router();
@@ -53,6 +54,7 @@ router.post(
       email: user.email,
       emailVerified: user.emailVerified,
       mobileVerified: user.mobileVerified,
+      isAdmin: user.isAdmin,
     };
 
     //Publishes Account created event once the user is registered
@@ -82,7 +84,7 @@ router.post(
         title: 'Please enter 4 digit OTP to verify the email',
       },
     });
-    res.status(201).json(generateJWT(payload, 100));
+    res.status(201).json(generateJWT(payload));
   }
 );
 

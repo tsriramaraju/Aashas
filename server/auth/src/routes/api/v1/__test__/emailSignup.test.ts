@@ -1,7 +1,6 @@
 import request from 'supertest';
 import { app } from '../../../../app';
-import { natsWrapper } from '@aashas/common';
-import { jwtPayload } from '../../../../interfaces';
+import { natsWrapper, jwtPayload } from '@aashas/common';
 import { Account } from '../../../../models/Accounts';
 import { decodeJWT } from '../../../../utils/generateJWT';
 

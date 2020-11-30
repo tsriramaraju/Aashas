@@ -1,8 +1,7 @@
-import { BadRequestError, natsWrapper } from '@aashas/common';
+import { BadRequestError, isUser, natsWrapper } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
 import { queueGroupName } from '../../../events/queueGroupName';
-import { isUser } from '../../../middlewares/isUser';
 import { updateProfilePic } from '../../../services/updateProfilePic';
 
 const router = Router();
@@ -14,11 +13,14 @@ const router = Router();
  *  @returns   Status
  */
 
-router.put('/image', isUser, async (req: Request, res: Response) => {
+router.put('/image', [isUser], async (req: Request, res: Response) => {
   const { image } = req.body;
-  const { id, email } = req.user!;
+  const { id, email } = req.currentUser!;
 
-  const status = await updateProfilePic({ id: req.user!.id, pic: image });
+  const status = await updateProfilePic({
+    id: req.currentUser!.id,
+    pic: image,
+  });
 
   res.status(201).json({ msg: status });
 

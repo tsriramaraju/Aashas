@@ -1,7 +1,8 @@
+import { jwtPayload } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
 import { OTP } from '../../../../models/OTP';
-import { jwtPayload } from '../../../../interfaces';
+
 import { decodeJWT } from '../../../../utils/generateJWT';
 
 describe('Verify Login OTP route test group', () => {

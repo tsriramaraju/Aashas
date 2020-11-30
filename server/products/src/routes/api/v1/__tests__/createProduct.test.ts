@@ -1,7 +1,7 @@
 import { natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
-import { maleProductData } from '../../../../dummy data/Product';
+import { maleProductData } from '../../../../dummyData/Product';
 import { Product } from '../../../../models/Products';
 import { removeProperty } from '../../../../utils/removeProperty';
 

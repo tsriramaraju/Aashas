@@ -51,7 +51,7 @@ declare global {
 
 let mongo: any;
 beforeAll(async () => {
-  keys.jwtSecret = 'secret';
+  keys.jwtSecret = 'This almost had me ';
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';
@@ -102,6 +102,7 @@ global.userLogin = async () => {
     email: user.email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
+    isAdmin: false,
   });
 
   return token;
@@ -126,6 +127,7 @@ global.adminLogin = async () => {
     email: user.email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
+    isAdmin: true,
   });
 
   return token;

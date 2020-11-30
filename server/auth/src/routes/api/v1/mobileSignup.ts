@@ -1,5 +1,4 @@
 import { Router, Request, Response } from 'express';
-import { mobilePayload } from '../../../interfaces';
 import { GenerateOTPPublisher } from '../../../events';
 import { checkAvailability, initiateOTP } from '../../../services';
 import {
@@ -8,6 +7,7 @@ import {
   BadRequestError,
   validateRequest,
   natsWrapper,
+  mobilePayload,
 } from '@aashas/common';
 
 const router = Router();

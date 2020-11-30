@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: designer-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: designer
+  template:
+    metadata:
+      labels:
+        app: designer
+    spec:
+      containers:
+        - name: designer
+          image: tsriramaraju/designer
+          envFrom:
+            - secretRef:
+                name: server-secrets
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: designer-srv
+spec:
+  selector:
+    app: designer
+  ports:
+    - name: designer
+      protocol: TCP
+      port: 3006
+      targetPort: 3006

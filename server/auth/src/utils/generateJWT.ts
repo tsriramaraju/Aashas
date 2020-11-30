@@ -1,13 +1,13 @@
-import { BadRequestError } from '@aashas/common';
+import { BadRequestError, jwtPayload } from '@aashas/common';
 import { sign, verify } from 'jsonwebtoken';
 import { keys } from '../config/keys';
-import { jwtPayload } from '../interfaces';
+
 /**
  * Returns a valid jwt token
  * @param payload user details
  * @param exp jwt expiry in seconds
  */
-export const generateJWT = (payload: jwtPayload, exp = 350000000) => {
+export const generateJWT = (payload: jwtPayload) => {
   const token = sign({ payload: payload }, keys.jwtSecret!, {
     expiresIn: '1d',
   });

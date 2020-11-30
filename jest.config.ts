@@ -10,6 +10,7 @@ const config: Config.InitialOptions = {
     '<rootDir>/server/users/jest.config.js',
     '<rootDir>/server/products/jest.config.js',
     '<rootDir>/server/orders/jest.config.js',
+    '<rootDir>/server/designer/jest.config.js',
   ],
 };
 export default config;

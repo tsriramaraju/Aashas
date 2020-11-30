@@ -1,5 +1,6 @@
 import {
   CategoryOffer,
+  isAdmin,
   natsWrapper,
   outfit,
   ResourceNotFoundError,
@@ -9,7 +10,7 @@ import {
   OfferDeletedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
+
 import { updateCategoryOffer } from '../../../services/updateCategoryOffer';
 
 const router = Router();

@@ -1,7 +1,7 @@
-import { BadRequestError } from '@aashas/common';
+import { BadRequestError, isUser } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
-import { isUser } from '../../../middlewares/isUser';
+
 import { addCart } from '../../../services/addCart';
 
 const router = Router();
@@ -13,14 +13,17 @@ const router = Router();
  *  @returns   Status
  */
 
-router.post('/cart', isUser, async (req: Request, res: Response) => {
+router.post('/cart', [isUser], async (req: Request, res: Response) => {
   const product = req.body.product as Types.ObjectId;
 
   if (!product) throw new BadRequestError('Product id not found');
   if (!Types.ObjectId.isValid(product))
     throw new BadRequestError('Invalid product id');
 
-  const status = await addCart({ prodId: product, userId: req.user!.id });
+  const status = await addCart({
+    prodId: product,
+    userId: req.currentUser!.id,
+  });
   res.status(201).json({ msg: status });
 });
 

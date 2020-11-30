@@ -1,8 +1,7 @@
 import request from 'supertest';
 import { app } from '../../../../app';
 import { Account } from '../../../../models';
-import { jwtPayload } from '../../../../interfaces';
-import { authType, verification } from '@aashas/common';
+import { authType, verification, jwtPayload } from '@aashas/common';
 import { decodeJWT } from './../../../../utils/generateJWT';
 
 describe('Email login route test group', () => {

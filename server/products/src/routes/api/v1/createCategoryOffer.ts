@@ -1,6 +1,7 @@
 import {
   BadRequestError,
   CategoryOffer,
+  isAdmin,
   natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
@@ -9,7 +10,6 @@ import {
   OfferCreatedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
-import { isAdmin } from '../../../middlewares/isAdmin';
 import { updateCategoryOffer } from '../../../services/updateCategoryOffer';
 
 const router = Router();
