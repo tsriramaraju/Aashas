@@ -49,6 +49,7 @@ interface DesignerDoc extends Document {
   image: string;
   bio: string;
   blogs: {
+    _id: Types.ObjectId;
     title: string;
     image: string;
     content: string;
