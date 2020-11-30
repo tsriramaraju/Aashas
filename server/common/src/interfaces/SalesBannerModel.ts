@@ -5,7 +5,6 @@ import { Types, Model, Document } from 'mongoose';
  * that are required to create a new Sales banner
  */
 interface salesBannerAttrs {
-  id: Types.ObjectId;
   title: string;
   img: string;
   type: 'percentage' | 'price';
