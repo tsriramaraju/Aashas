@@ -7,7 +7,7 @@ import { Types, Model, Document } from 'mongoose';
 interface designerAttrs {
   name: string;
   email: string;
-  password: string;
+  id: Types.ObjectId;
   mobile: number;
   image: string;
   bio: string;
@@ -37,7 +37,6 @@ interface DesignerDoc extends Document {
   id: Types.ObjectId;
   name: string;
   email: string;
-  password: string;
   mobile: number;
   image: string;
   bio: string;
