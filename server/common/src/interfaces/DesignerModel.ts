@@ -14,6 +14,14 @@ interface designerAttrs {
   blogs?: blog[];
 }
 
+interface designerInfoUpdate {
+  name?: string;
+  email?: string;
+  mobile?: number;
+  image?: string;
+  bio?: string;
+}
+
 interface blog {
   title: string;
   image: string;
@@ -48,4 +56,4 @@ interface DesignerDoc extends Document {
   }[];
 }
 
-export { designerAttrs, DesignerDoc, DesignerModel, blog };
+export { designerAttrs, designerInfoUpdate, DesignerDoc, DesignerModel, blog };
