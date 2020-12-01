@@ -3,7 +3,6 @@ import { Message } from 'node-nats-streaming';
 import { deleteAccount } from '../../services';
 import { queueGroupName } from '../queueGroupName';
 import {
-  DatabaseConnectionError,
   Listener,
   ResourceNotFoundError,
   Subjects,
@@ -25,6 +24,7 @@ export class UserDeletedListener extends Listener<UserDeletedEvent> {
       /**
        * Makes sure user exists
        */
+
       if (!user) throw new ResourceNotFoundError('Requesting user not found');
 
       await deleteAccount(user.id);
@@ -34,8 +34,7 @@ export class UserDeletedListener extends Listener<UserDeletedEvent> {
        */
       msg.ack();
     } catch (error) {
-      // throw new DatabaseConnectionError(error.message);
-      console.log(error.message);
+      process.env.NODE_ENV !== 'test' && console.log(error.message);
     }
   }
 }

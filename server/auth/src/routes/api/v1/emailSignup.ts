@@ -89,4 +89,4 @@ router.post(
   }
 );
 
-export { router as emailRegistration };
+export { router as emailRegistrationRouter };

@@ -68,4 +68,4 @@ router.post('/verify-register', async (req: Request, res: Response) => {
   }
 });
 
-export { router as verifyRegistration };
+export { router as verifyRegistrationRouter };

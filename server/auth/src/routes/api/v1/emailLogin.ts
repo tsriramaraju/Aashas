@@ -58,4 +58,4 @@ router.post(
   }
 );
 
-export { router as emailLogin };
+export { router as emailLoginRouter };

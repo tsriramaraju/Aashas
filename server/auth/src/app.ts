@@ -34,19 +34,19 @@ deserializeUser(function (obj, cb) {
 /**
  * Auth service routes
  */
-app.use('/api/v1/auth', routes.emailRegistration);
-app.use('/api/v1/auth', routes.mobileRegistration);
-app.use('/api/v1/auth', routes.verifyRegistration);
-app.use('/api/v1/auth', routes.emailLogin);
-app.use('/api/v1/auth', routes.getAccounts);
-app.use('/api/v1/auth', routes.forgotPassword);
-app.use('/api/v1/auth', routes.mobileLogin);
-app.use('/api/v1/auth', routes.passwordReset);
-app.use('/api/v1/auth', routes.verifyLogin);
-app.use('/api/v1/auth', routes.resendOTP);
-app.use('/api/v1/auth', routes.updateContact);
-app.use('/api/v1/auth', routes.GoogleRegister);
-app.use('/api/v1/auth', routes.FacebookRegister);
+app.use('/api/v1/auth', routes.emailRegistrationRouter);
+app.use('/api/v1/auth', routes.mobileRegistrationRouter);
+app.use('/api/v1/auth', routes.verifyRegistrationRouter);
+app.use('/api/v1/auth', routes.emailLoginRouter);
+app.use('/api/v1/auth', routes.getAccountsRouter);
+app.use('/api/v1/auth', routes.forgotPasswordRouter);
+app.use('/api/v1/auth', routes.mobileLoginRouter);
+app.use('/api/v1/auth', routes.passwordResetRouter);
+app.use('/api/v1/auth', routes.verifyLoginRouter);
+app.use('/api/v1/auth', routes.resendOTPRouter);
+app.use('/api/v1/auth', routes.updateContactRouter);
+app.use('/api/v1/auth', routes.GoogleRegisterRouter);
+app.use('/api/v1/auth', routes.FacebookRegisterRouter);
 
 /**
  * 404 route

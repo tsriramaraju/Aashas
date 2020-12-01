@@ -2,7 +2,7 @@ import { ConnectionOptions } from 'mongoose';
 import { app } from './app';
 import { connectDB, natsWrapper } from '@aashas/common';
 import { keys } from './config/keys';
-import { UserDeletedListener } from './events/listeners/userDeleted';
+import { initializeListener } from './events/listeners';
 
 const start = async () => {
   /**
@@ -44,7 +44,7 @@ const start = async () => {
     process.exit();
   }
 
-  new UserDeletedListener(natsWrapper.client).listen();
+  initializeListener();
 
   app.listen(keys.port, () => {
     console.log(`Listening in port ${keys.port}`.green);

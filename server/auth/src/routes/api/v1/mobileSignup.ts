@@ -51,4 +51,4 @@ router.post(
   }
 );
 
-export { router as mobileRegistration };
+export { router as mobileRegistrationRouter };

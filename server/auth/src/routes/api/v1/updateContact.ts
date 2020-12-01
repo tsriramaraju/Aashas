@@ -85,4 +85,4 @@ router.post(
   }
 );
 
-export { router as updateContact };
+export { router as updateContactRouter };

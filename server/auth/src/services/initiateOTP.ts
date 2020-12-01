@@ -49,12 +49,12 @@ export const initiateOTP = async (
       }
       typeof id == 'string'
         ? user.emailVerified === verification.no &&
-          (await user.update({
+          (await user.updateOne({
             emailVerified: verification.pending,
             email: id,
           }))
         : user?.mobileVerified === verification.no &&
-          (await user.update({
+          (await user.updateOne({
             mobileVerified: verification.pending,
             mobile: id,
           }));

@@ -58,4 +58,4 @@ router.post(
   }
 );
 
-export { router as forgotPassword };
+export { router as forgotPasswordRouter };
