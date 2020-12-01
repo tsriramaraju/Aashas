@@ -22,19 +22,19 @@ export const bannerValidation = async (
   Object.keys(bannerType).forEach((key) => {
     const newKey = key as keyof object;
 
+    if (banner[newKey] === undefined)
+      throw new BadRequestError(`Please enter ${key}`);
+
     if (bannerType[newKey] === 'string')
-      if (typeof banner[newKey] !== 'string' && banner[newKey] !== undefined)
+      if (typeof banner[newKey] !== 'string')
         throw new BadRequestError(`Entered ${key} is not String`);
 
     if (bannerType[newKey] === 'number')
-      if (typeof banner[newKey] !== 'number' && banner[newKey] !== undefined)
+      if (typeof banner[newKey] !== 'number')
         throw new BadRequestError(`Entered ${key} is not Number`);
 
     if (bannerType[newKey] === 'percentage price')
-      if (
-        !(banner[newKey] === 'percentage' || banner[newKey] === 'price') &&
-        banner[newKey] !== undefined
-      )
+      if (!(banner[newKey] === 'percentage' || banner[newKey] === 'price'))
         throw new BadRequestError(`Entered ${key} is not valid discount type`);
   });
 
