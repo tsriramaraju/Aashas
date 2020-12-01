@@ -58,15 +58,15 @@ describe('Update info route test group', () => {
   });
 
   it('should throw Bad request error if invalid parameters are submitted', async () => {
-    // const designer = await global.createDesigner();
-    // expect(designer.name).toBe('John the admin');
-    // const token = global.adminLogin();
-    // const res = await request(app)
-    //   .put('/api/v1/designer')
-    //   .send({ name: 123 })
-    //   .set('Authorization', `Bearer ${token}`)
-    //   .expect('Content-Type', /json/)
-    //   .expect(400);
-    // expect(res.body.msg).toBe('Invalid input');
+    const designer = await global.createDesigner();
+    expect(designer.name).toBe('John the admin');
+    const token = global.adminLogin();
+    const res = await request(app)
+      .put('/api/v1/designer')
+      .send({ name: 123 })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+    expect(res.body.msg).toBe('Entered name is not String');
   });
 });
