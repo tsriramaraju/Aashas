@@ -38,7 +38,7 @@ describe('Email signup route tests group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
   it('should return validation error if no input is submitted', async () => {
@@ -47,7 +47,7 @@ describe('Email signup route tests group', () => {
 
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -61,7 +61,7 @@ describe('Email signup route tests group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -74,7 +74,7 @@ describe('Email signup route tests group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -87,7 +87,7 @@ describe('Email signup route tests group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -99,7 +99,7 @@ describe('Email signup route tests group', () => {
         password: 'this is secret',
       })
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -115,6 +115,7 @@ describe('Email signup route tests group', () => {
       .expect(418);
 
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
 
   it('should return Bad request error if email already exists', async () => {
@@ -123,6 +124,7 @@ describe('Email signup route tests group', () => {
       email: 'johndoe@test.com',
       password: 'this is secret',
     });
+    expect(natsWrapper.client.publish).toBeCalledTimes(2);
     const res = await request(app)
       .post('/api/v1/auth/email-register')
       .send({
@@ -132,7 +134,6 @@ describe('Email signup route tests group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(400);
-
     expect(res.body.msg).toBe('Email already exists');
   });
 
@@ -158,6 +159,6 @@ describe('Email signup route tests group', () => {
     expect(payload.id).toBe(user?.id);
     expect(payload.name).toBe(user?.name);
 
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toBeCalledTimes(2);
   });
 });

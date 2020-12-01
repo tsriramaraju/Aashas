@@ -35,7 +35,6 @@ router.post(
 
     const exists = await checkAvailability(email);
     //Makes sure email id doesn't exist
-
     if (exists) {
       throw new BadRequestError('Email already exists');
     }

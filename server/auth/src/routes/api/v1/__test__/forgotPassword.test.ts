@@ -13,7 +13,7 @@ describe('Forgot password route test group', () => {
       .expect('Content-Type', /json/)
       .expect(201);
 
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
 
     expect(res.body.msg).toBe('Reset link have been sent to your email.');
   });
@@ -24,7 +24,7 @@ describe('Forgot password route test group', () => {
       .send({ email: 'johndoetest.com' })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
   it('should give validation error if no input is given', async () => {
@@ -33,7 +33,7 @@ describe('Forgot password route test group', () => {
 
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -43,6 +43,7 @@ describe('Forgot password route test group', () => {
       .send({ email: 'johndoe@test.com' })
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe("Email doesn't exists");
   });
 
@@ -60,7 +61,7 @@ describe('Forgot password route test group', () => {
       .send({ email: user.email })
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe(
       'This email is registered with google oauth, please use google signIn'
     );
@@ -79,7 +80,7 @@ describe('Forgot password route test group', () => {
       .send({ email: user.email })
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe(
       'This email is registered with facebook oauth, please use facebook signIn'
     );
@@ -94,9 +95,8 @@ describe('Forgot password route test group', () => {
       .expect('Content-Type', /json/)
       .expect(201);
 
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
 
     expect(res.body.msg).toBe('Reset link have been sent to your email.');
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });

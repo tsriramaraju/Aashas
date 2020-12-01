@@ -21,7 +21,7 @@ describe('Mobile login route test group', () => {
       .send({ mobile: 1234567891 })
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe("Mobile no. doesn't exists");
   });
 
@@ -31,7 +31,7 @@ describe('Mobile login route test group', () => {
       .send({ mobile: 123457891 })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -41,7 +41,7 @@ describe('Mobile login route test group', () => {
 
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -55,6 +55,6 @@ describe('Mobile login route test group', () => {
       .expect(201);
 
     expect(res.body).toMatch('OTP has been sent to your mobile');
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
 });

@@ -11,7 +11,7 @@ describe('Resend OTP route test group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
   it('should return validation error with no input', async () => {
@@ -20,7 +20,7 @@ describe('Resend OTP route test group', () => {
 
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -32,7 +32,7 @@ describe('Resend OTP route test group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe("Email doesn't exists");
   });
 
@@ -63,7 +63,7 @@ describe('Resend OTP route test group', () => {
 
     expect(res.body).toBe('OTP has been sent to your email');
 
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
   it('should throw bad request error if email is already verified', async () => {
     const user = await global.register();
@@ -78,6 +78,7 @@ describe('Resend OTP route test group', () => {
         })
         .expect('Content-Type', /json/)
         .expect(400);
+      expect(natsWrapper.client.publish).toBeCalledTimes(0);
       expect(res.body.msg).toBe('Email already verified');
     }
   });
