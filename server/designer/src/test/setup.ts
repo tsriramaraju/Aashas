@@ -5,6 +5,8 @@ import { connection, connect, Types } from 'mongoose';
 import { DesignerDoc, SalesBannerDoc, verification } from '@aashas/common';
 import { Designer } from '../models/Designer';
 import { generateJWT } from '../utils';
+import { bannerData } from '../dummy data/bannerData';
+import { SalesBanner } from '../models/SalesBanner';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -78,6 +80,11 @@ global.createDesigner = async () => {
   }).save();
 
   return designer;
+};
+global.createSalesBanner = async () => {
+  const banner = await SalesBanner.build(bannerData).save();
+
+  return banner;
 };
 
 global.adminLogin = () => {

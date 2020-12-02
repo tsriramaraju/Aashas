@@ -2,7 +2,7 @@ import { natsWrapper } from '@aashas/common';
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../../../app';
-import { maleProductData } from '../../../../dummyData/Product';
+import { maleProductData } from '../../../../dummy Data/Product';
 import { Product } from '../../../../models/Products';
 
 describe('Update Product route test group', () => {
