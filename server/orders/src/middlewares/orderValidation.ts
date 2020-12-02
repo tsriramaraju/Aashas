@@ -1,10 +1,16 @@
-import { BadRequestError, categories, paymentStatus } from '@aashas/common';
+import {
+  BadRequestError,
+  categories,
+  paymentStatus,
+  size,
+} from '@aashas/common';
 import { Request, Response, NextFunction } from 'express';
 import { Types } from 'mongoose';
 /**
  * Checks whether the incoming request has valid product details
  */
-export const productValidation = async (
+//  TODO : add optional validations later
+export const orderValidation = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -34,7 +40,7 @@ export const productValidation = async (
     outfit: 'outfit',
     price: 'number',
     color: 'string',
-    category: 'category',
+
     images: 'string[]',
     discount: 'number',
     inOffer: 'boolean',
@@ -45,11 +51,6 @@ export const productValidation = async (
   };
 
   const order = req.body;
-
-  const category = {
-    main: 'string',
-    sub: 'string',
-  };
 
   const address = {
     name: 'string',
@@ -78,9 +79,10 @@ export const productValidation = async (
       if (typeof order[newKey] !== 'boolean')
         throw new BadRequestError(`Entered order ${key} is not Boolean`);
 
-    if (orderType[newKey] === 'Types.ObjectId')
+    if (orderType[newKey] === 'Types.ObjectId') {
       if (!Types.ObjectId.isValid(order[newKey]))
         throw new BadRequestError(`Entered order ${key} is not valid type`);
+    }
 
     if (orderType[newKey] === 'payment')
       if (!(order[newKey]['status'] in paymentStatus))
@@ -91,60 +93,66 @@ export const productValidation = async (
     if (orderType[newKey] === 'items')
       Object.keys(items).forEach((item) => {
         const newItem = item as keyof object;
-        if (items[newItem] === 'Types.ObjectId')
-          if (!Types.ObjectId.isValid(order[newKey][newItem]))
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem} is not valid type`
-            );
 
-        if (items[newItem] === 'string')
-          if (typeof order[newKey][newItem] !== 'string')
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem} is not String`
-            );
+        order[newKey].forEach((product: any) => {
+          if (items[newItem] === 'Types.ObjectId') {
+            if (!Types.ObjectId.isValid(product[newItem]))
+              throw new BadRequestError(
+                `Entered order ${key}:${newItem} is not valid type`
+              );
+          }
 
-        if (items[newItem] === 'number')
-          if (typeof order[newKey][newItem] !== 'number')
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem} is not Number`
-            );
-
-        if (items[newItem] === 'boolean')
-          if (typeof order[newKey][newItem] !== 'boolean')
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem} is not Boolean`
-            );
-
-        if (items[newItem] === 'string[]')
-          order[newKey][newItem].forEach((element: any) => {
-            if (typeof element !== 'string')
+          if (items[newItem] === 'string')
+            if (typeof product[newItem] !== 'string')
               throw new BadRequestError(
                 `Entered order ${key}:${newItem} is not String`
               );
-          });
 
-        if (items[newItem] === 'category') {
-          if (typeof order[newKey][newItem]['main'] !== 'string')
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem}:main is not String`
-            );
-          if (typeof order[newKey][newItem]['sub'] !== 'string')
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem}:sub is not String`
-            );
-        }
+          if (items[newItem] === 'number')
+            if (typeof product[newItem] !== 'number')
+              throw new BadRequestError(
+                `Entered order ${key}:${newItem} is not Number`
+              );
 
-        if (items[newItem] === 'outfit') {
-          if (!(order[newKey][newItem]['type'] in categories))
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem}:type is not valid category`
-            );
+          if (items[newItem] === 'boolean')
+            if (typeof product[newItem] !== 'boolean')
+              throw new BadRequestError(
+                `Entered order ${key}:${newItem} is not Boolean`
+              );
 
-          if (typeof order[newKey][newItem]['occasion'] !== 'object')
-            throw new BadRequestError(
-              `Entered order ${key}:${newItem}:occasion is not valid occasion`
-            );
-        }
+          if (items[newItem] === 'string[]') {
+            if (!Array.isArray(product[newItem])) {
+              throw new BadRequestError(
+                `Entered order ${key}:${newItem} is not Array`
+              );
+            }
+            product[newItem].forEach((element: any) => {
+              if (typeof element !== 'string') {
+                throw new BadRequestError(
+                  `Entered order ${key}:${newItem} is not String`
+                );
+              }
+            });
+          }
+
+          if (items[newItem] === 'outfit') {
+            if (!(product[newItem]['type'] in categories))
+              throw new BadRequestError(
+                `Entered order ${key}:${newItem}:type is not valid category`
+              );
+
+            if (typeof product[newItem]['occasion'] !== 'object')
+              throw new BadRequestError(
+                `Entered order ${key}:${newItem}:occasion is not valid occasion`
+              );
+          }
+          if (items[newItem] === 'size') {
+            if (!(product[newItem] in size))
+              throw new BadRequestError(
+                `Entered order ${key}:${newItem} is not valid size`
+              );
+          }
+        });
       });
 
     if (orderType[newKey] === 'price')
@@ -162,12 +170,12 @@ export const productValidation = async (
       Object.keys(address).forEach((item) => {
         const newItem = item as keyof object;
 
-        if (price[newItem] === 'number')
+        if (address[newItem] === 'number')
           if (typeof order[newKey][newItem] !== 'number')
             throw new BadRequestError(
               `Entered order ${key}:${newItem} is not Number`
             );
-        if (price[newItem] === 'string')
+        if (address[newItem] === 'string')
           if (typeof order[newKey][newItem] !== 'string')
             throw new BadRequestError(
               `Entered order ${key}:${newItem} is not String`
