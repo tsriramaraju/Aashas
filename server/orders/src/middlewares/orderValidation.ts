@@ -1,4 +1,4 @@
-import { BadRequestError, paymentStatus } from '@aashas/common';
+import { BadRequestError, categories, paymentStatus } from '@aashas/common';
 import { Request, Response, NextFunction } from 'express';
 import { Types } from 'mongoose';
 /**
@@ -9,8 +9,6 @@ export const productValidation = async (
   res: Response,
   next: NextFunction
 ) => {
-  //  TODO : add outfit type in orders
-
   const orderType = {
     userId: 'Types.ObjectId',
     payment: 'payment',
@@ -33,6 +31,7 @@ export const productValidation = async (
     title: 'string',
     description: 'string',
     size: 'size',
+    outfit: 'outfit',
     price: 'number',
     color: 'string',
     category: 'category',
@@ -134,6 +133,18 @@ export const productValidation = async (
               `Entered order ${key}:${newItem}:sub is not String`
             );
         }
+
+        if (items[newItem] === 'outfit') {
+          if (!(order[newKey][newItem]['type'] in categories))
+            throw new BadRequestError(
+              `Entered order ${key}:${newItem}:type is not valid category`
+            );
+
+          if (typeof order[newKey][newItem]['occasion'] !== 'object')
+            throw new BadRequestError(
+              `Entered order ${key}:${newItem}:occasion is not valid occasion`
+            );
+        }
       });
 
     if (orderType[newKey] === 'price')
@@ -162,13 +173,6 @@ export const productValidation = async (
               `Entered order ${key}:${newItem} is not String`
             );
       });
-
-    // if (orderType[newKey] === 'outfit') {
-    //   if (!(order[newKey]['type'] in categories))
-    //     throw new BadRequestError(`Entered order ${key} is not valid category`);
-    //   if (typeof order[newKey]['occasion'] !== 'object')
-    //     throw new BadRequestError(`Entered order ${key} is not valid occasion`);
-    // }
   });
 
   next();
