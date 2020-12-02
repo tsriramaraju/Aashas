@@ -139,6 +139,7 @@ describe('Create Category offer route test group', () => {
       .expect(201);
     const postFetchCategories = await Product.find({ outfit });
     expect(postFetchCategories.length).toBe(5);
+
     postFetchCategories.forEach((product) => {
       expect(product.inOffer).toBe(false);
       expect(product.discount).toBe(0);

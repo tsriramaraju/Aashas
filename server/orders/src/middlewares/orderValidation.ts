@@ -10,7 +10,7 @@ export const productValidation = async (
   next: NextFunction
 ) => {
   //  TODO : add outfit type in orders
-  //  TODO : add payment mode in model
+
   const orderType = {
     userId: 'Types.ObjectId',
     payment: 'payment',

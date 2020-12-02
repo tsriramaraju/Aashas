@@ -42,9 +42,9 @@ const ordersSchema = new Schema(
         },
         price: { type: Number, required: true },
         color: { type: String, required: true },
-        category: {
-          main: { type: String, required: true },
-          sub: { type: String, required: true },
+        outfit: {
+          type: { type: String, required: true },
+          occasion: { type: Object, required: true },
         },
         images: [{ type: String, required: true }],
         discount: { type: Number, required: true },

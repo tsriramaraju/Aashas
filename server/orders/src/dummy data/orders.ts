@@ -1,4 +1,4 @@
-import { paymentModes, paymentStatus, size } from '@aashas/common';
+import { categories, paymentModes, paymentStatus, size } from '@aashas/common';
 import { Types } from 'mongoose';
 
 export const orderData = {
@@ -13,9 +13,11 @@ export const orderData = {
   },
   items: [
     {
-      category: {
-        main: 'asd',
-        sub: 'sad',
+      outfit: {
+        type: categories.kids,
+        occasion: {
+          party: 'sherwani',
+        },
       },
       prodId: Types.ObjectId(),
       title: 'kids casuals',

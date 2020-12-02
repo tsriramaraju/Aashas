@@ -146,9 +146,11 @@ global.createOrder = async (userId: Types.ObjectId) => {
     },
     items: [
       {
-        category: {
-          main: 'asd',
-          sub: 'sad',
+        outfit: {
+          type: categories.kids,
+          occasion: {
+            party: 'sherwani',
+          },
         },
         prodId: Types.ObjectId(),
         title: 'kids casuals',
