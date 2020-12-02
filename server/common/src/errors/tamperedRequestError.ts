@@ -5,7 +5,7 @@ export class TamperedRequestError extends CustomError {
   reason = 'Request is tampered, please use valid one';
 
   constructor(public msg?: string) {
-    super('Tampered Request');
+    super(msg ? msg : 'Tampered Request');
 
     Object.setPrototypeOf(this, TamperedRequestError.prototype);
   }
