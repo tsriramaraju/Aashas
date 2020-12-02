@@ -3,7 +3,7 @@ import { Order } from '../models/Orders';
 
 export const getOrders = async () => {
   try {
-    //  TODO : filter this
+    //  TODO : filter this later
     const orders = await Order.find().lean();
     return orders;
   } catch (error) {

@@ -12,7 +12,8 @@ export const updateOrder = async (
 ) => {
   try {
     const orderDoc = await Order.findByIdAndUpdate(orderId, update);
-    return orderDoc;
+    if (!orderDoc) return null;
+    return await Order.findById(orderId);
   } catch (error) {
     throw new DatabaseConnectionError(error.message);
   }
