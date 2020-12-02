@@ -1,5 +1,6 @@
 import { Model, Types, Document } from 'mongoose';
 import { paymentStatus, paymentModes, size } from './enums';
+import { outfit } from './ProductsModel';
 import { address } from './UsersModel';
 
 /**
@@ -21,10 +22,7 @@ interface orderAttrs {
     size: size;
     price: number;
     color: string;
-    category: {
-      main: string;
-      sub: string;
-    };
+    outfit: outfit;
     images: string[];
     discount: number;
     inOffer: boolean;
@@ -77,10 +75,7 @@ interface OrderDoc extends Document {
     size: size;
     price: number;
     color: string;
-    category: {
-      main: string;
-      sub: string;
-    };
+    outfit: outfit;
     images: string[];
     discount: number;
     inOffer: boolean;
