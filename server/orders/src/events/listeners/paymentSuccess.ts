@@ -31,7 +31,7 @@ export class PaymentSuccessListener extends Listener<PaymentSuccessEvent> {
         },
       };
       await order.updateOne(payment);
-      console.log('payment status updated');
+      process.env.NODE_ENV !== 'test' && console.log('payment status updated');
 
       new OrderPaymentUpdatedPublisher(natsWrapper.client).publish({
         version: order.version + 1,

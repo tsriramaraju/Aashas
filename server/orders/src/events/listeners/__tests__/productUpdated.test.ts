@@ -9,17 +9,19 @@ describe('Product Updated listener test group', () => {
 
     const prodPreFetch = await Product.find();
     expect(prodPreFetch![0].title).not.toBe('new product test');
-    (prodPreFetch[0].title = 'new product test'), await prodPreFetch[0].save();
+    prodPreFetch[0].title = 'new product test';
+    await prodPreFetch[0].save();
 
     expect(prodPreFetch!.length).toBe(1);
 
     const listener = new ProductUpdatedListener(natsWrapper.client);
     const msg = { ack: () => {} } as Message;
 
-    await listener.onMessage({ product: prodPreFetch[0], version: 1 }, msg);
+    await listener.onMessage({ product: prodPreFetch[0], version: 2 }, msg);
 
     const prodPostFetch1 = await Product.find();
     expect(prodPostFetch1!.length).toBe(1);
     expect(prodPostFetch1![0].title).toBe('new product test');
+    expect(prodPostFetch1![0].version).toBe(2);
   });
 });

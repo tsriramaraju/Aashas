@@ -27,7 +27,7 @@ export class OfferDeletedListener extends Listener<OfferDeletedEvent> {
 
       existingProd.updateOne(product);
       await existingProd.save();
-      console.log('Offer Deleted');
+      process.env.NODE_ENV !== 'test' && console.log('Offer Deleted');
 
       msg.ack();
     } catch (error) {

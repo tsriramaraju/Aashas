@@ -26,7 +26,7 @@ export class CustomProductDeletedListener extends Listener<CustomProductDeletedE
       }
 
       await product.remove();
-      console.log('product Deleted');
+      process.env.NODE_ENV !== 'test' && console.log('product Deleted');
 
       msg.ack();
     } catch (error) {
