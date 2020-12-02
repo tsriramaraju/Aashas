@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  isAdmin,
   natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
@@ -17,7 +18,7 @@ const router = Router();
  *  @access    admin
  *  @returns   status
  */
-router.put('/status/:id', async (req: Request, res: Response) => {
+router.put('/status/:id', [isAdmin], async (req: Request, res: Response) => {
   const status = req.body;
   const orderId = req.params.id;
 
@@ -36,8 +37,8 @@ router.put('/status/:id', async (req: Request, res: Response) => {
     data: {
       title: 'Order created',
       message: 'this is message',
+      email: orderDoc.email,
     },
-    //  FIXME : add email or contact
   });
 
   res.status(201).json({ msg: 'Order status updated successfully' });
