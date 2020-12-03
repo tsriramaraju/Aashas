@@ -6,7 +6,11 @@ describe('Delete user service test group', () => {
   it('should not delete if user has pending orders', async () => {
     await global.userLogin();
     const user = await User.findOne();
-    user!.orders = [Types.ObjectId()];
+    const order = await global.createOrder(user!.id);
+    const order1 = await global.createOrder(user!.id);
+    order1.deliveryDate = Date.now().toString();
+    await order1.save();
+    user!.orders = [order.id, order1.id];
 
     await user!.save();
 
@@ -22,5 +26,10 @@ describe('Delete user service test group', () => {
     const res = await deleteUser(user?._id);
 
     expect(res).toBe(true);
+  });
+  it('should delete successfully if there are no pending orders', async () => {
+    const res = await deleteUser(Types.ObjectId());
+
+    expect(res).toBe(null);
   });
 });

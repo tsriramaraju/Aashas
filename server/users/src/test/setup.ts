@@ -81,6 +81,10 @@ afterAll(async () => {
   await connection.close();
 });
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 global.userLogin = async () => {
   const email = `${v4()}@test.com`;
   const password = 'This is secret';

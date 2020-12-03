@@ -1,6 +1,6 @@
 import { generateJWT, decodeJWT } from '../generateJWT';
 import { BadRequestError } from '@aashas/common';
-import { payloadData } from '../../dummyData/payload';
+import { payloadData } from '../../dummy data/payload';
 
 describe('JSON web token  test group', () => {
   it('should create JWT token on valid parameters', () => {

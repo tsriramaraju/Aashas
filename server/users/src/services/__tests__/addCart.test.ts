@@ -12,11 +12,16 @@ describe('Add Cart items service test group', () => {
       prodId: Types.ObjectId(),
       userId: user?._id,
     });
+    await addCart({
+      prodId: Types.ObjectId(),
+      userId: user?._id,
+    });
 
     expect(status).toBe('Cart items added successfully');
     const user1 = await User.findOne().lean();
 
-    expect(user1?.cart?.length).toBe(1);
+    expect(user1?.cart?.length).toBe(2);
+    expect(user1?.version).toBe(2);
   });
 
   it('should not add duplicate entry if item  already exists', async () => {
@@ -27,11 +32,14 @@ describe('Add Cart items service test group', () => {
     const id = Types.ObjectId();
     const status = await addCart({ prodId: id, userId: user?._id });
     const status1 = await addCart({ prodId: id, userId: user?._id });
+    await addCart({ prodId: id, userId: user?._id });
+    await addCart({ prodId: id, userId: user?._id });
+    await addCart({ prodId: id, userId: user?._id });
 
     expect(status).toBe('Cart items added successfully');
     expect(status1).toBe('Cart items added successfully');
     const user1 = await User.findOne().lean();
-
+    expect(user1?.version).toBe(1);
     expect(user1?.cart?.length).toBe(1);
   });
 });

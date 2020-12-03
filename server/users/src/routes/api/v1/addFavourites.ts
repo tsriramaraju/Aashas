@@ -24,6 +24,7 @@ router.post('/favourites', [isUser], async (req: Request, res: Response) => {
     prodId: product,
     userId: req.currentUser!.id,
   });
+  if (!status) throw new BadRequestError("User don't exist");
   res.status(201).json({ msg: status });
 });
 

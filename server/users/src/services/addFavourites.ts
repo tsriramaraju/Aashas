@@ -8,13 +8,13 @@ export const addFavourite = async (ids: {
 }) => {
   try {
     const user = await User.findById(ids.userId);
-
-    const favExists = user?.favourites?.includes(ids.prodId);
+    if (!user) return null;
+    const favExists = user.favourites?.includes(ids.prodId);
 
     if (!favExists) {
-      user?.favourites?.unshift(ids.prodId);
+      user.favourites?.unshift(ids.prodId);
+      await user.save();
     }
-    await user?.save();
 
     return 'Favourite added successfully';
   } catch (error) {

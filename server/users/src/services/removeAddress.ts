@@ -24,7 +24,6 @@ export const removeAddress = async (ids: {
       Object.keys(user.defaultAddress!).length === 0 &&
       user.defaultAddress!.constructor === Object
     ) {
-      console.log(user.defaultAddress);
       if (
         user.defaultAddress!._id!.toHexString() === ids.addressId.toHexString()
       )

@@ -1,17 +1,28 @@
-import { DatabaseConnectionError } from '@aashas/common';
+import { DatabaseConnectionError, OrderDoc } from '@aashas/common';
 import { Types } from 'mongoose';
 
 import { User } from '../models/Users';
 
 export const deleteUser = async (id: Types.ObjectId) => {
   try {
-    const user = await User.findById(id);
-    //  TODO : populate orders later
+    const user = await User.findById(id).populate('orders');
 
-    if (user?.orders?.length !== 0) return false;
+    if (!user) return null;
+    if (user.orders === undefined) {
+      await user.remove();
+      return true;
+    }
+    // console.log(user.orders);
 
-    await user?.remove();
-    return true;
+    let pendingOrder = false;
+    user.orders.forEach((order: any) => {
+      if (order.deliveryDate !== undefined) pendingOrder = true;
+    });
+    if (!pendingOrder) {
+      await user.remove();
+      return true;
+    }
+    return false;
   } catch (error) {
     throw new DatabaseConnectionError(error.message);
   }

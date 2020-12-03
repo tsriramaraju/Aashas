@@ -1,4 +1,9 @@
-import { address, isUser, natsWrapper } from '@aashas/common';
+import {
+  address,
+  isUser,
+  natsWrapper,
+  ResourceNotFoundError,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { UserUpdatedPublisher } from '../../../events/publishers/userUpdated';
 import { queueGroupName } from '../../../events/queueGroupName';
@@ -38,6 +43,8 @@ router.post('/address', [isUser], async (req: Request, res: Response) => {
   };
 
   const response = await addAddress({ id, address, defaultAddress });
+
+  if (!response) throw new ResourceNotFoundError('User not found');
 
   res.status(201).json({ msg: response });
 

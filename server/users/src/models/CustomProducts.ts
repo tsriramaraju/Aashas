@@ -2,9 +2,6 @@ import {
   CustomProductDoc,
   CustomProductModel,
   customProductsAttrs,
-  femaleType,
-  kidsType,
-  maleType,
   size,
 } from '@aashas/common';
 import { model, Schema, Types } from 'mongoose';
