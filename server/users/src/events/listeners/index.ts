@@ -6,7 +6,7 @@ import { OfferCreatedListener } from './offerCreated';
 import { OfferDeletedListener } from './offerDeleted';
 import { OfferUpdatedListener } from './offerUpdated';
 import { OrderCreatedListener } from './orderCreated';
-import { OrderDeletedListener } from './asdasdasd';
+import { OrderDeletedListener } from './orderDeleted';
 import { OrderPaymentUpdatedListener } from './orderPaymentUpdates';
 import { OrderStatusUpdatedListener } from './orderStatusUpdated';
 import { ProductCreatedListener } from './productCreated';
