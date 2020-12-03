@@ -1,7 +1,6 @@
 import { keys } from '../config/keys';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connection, connect, Types } from 'mongoose';
-import { User } from '../models/Users';
 import {
   authType,
   categories,
@@ -85,24 +84,15 @@ afterAll(async () => {
 
 global.userLogin = async () => {
   const email = `${v4()}@test.com`;
-  const password = 'This is secret';
   const name = 'john doe';
 
   const mobile = Math.random();
 
-  const user = await User.build({
+  const token = generateJWT({
     id: Types.ObjectId(),
     name,
-    isAdmin: false,
-    authType: authType.email,
     email,
     mobile,
-  }).save();
-
-  const token = generateJWT({
-    id: user.id,
-    name: user.name,
-    email: user.email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
     isAdmin: false,
@@ -112,22 +102,12 @@ global.userLogin = async () => {
 };
 global.adminLogin = async () => {
   const email = 'john@doe.com';
-  const password = 'This is secret';
   const name = 'john doe';
 
-  const user = await new User({
-    email,
-    password,
-    name,
-    isAdmin: true,
-
-    authType: authType.email,
-  }).save();
-
   const token = generateJWT({
-    id: user.id,
-    name: user.name,
-    email: user.email,
+    id: Types.ObjectId(),
+    name,
+    email,
     emailVerified: verification.yes,
     mobileVerified: verification.yes,
     isAdmin: true,

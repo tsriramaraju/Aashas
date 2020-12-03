@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { getOfferProducts } from '../../../services/getOfferProducts';
+import { getProducts } from '../../../services/getProducts';
 
 const router = Router();
 
@@ -10,7 +10,7 @@ const router = Router();
  *  @returns   Products array
  */
 router.get('/offers', async (req: Request, res: Response) => {
-  const products = await getOfferProducts();
+  const products = await getProducts({ inOffer: true });
 
   res.status(201).json(products);
 });

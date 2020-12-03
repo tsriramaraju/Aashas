@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express';
-
-import { getTrends } from '../../../services/getTrends';
+import { getProducts } from '../../../services/getProducts';
 
 const router = Router();
 
@@ -11,7 +10,7 @@ const router = Router();
  *  @returns   Products array
  */
 router.get('/trends', async (req: Request, res: Response) => {
-  const products = await getTrends();
+  const products = await getProducts({ trending: true });
 
   res.status(201).json(products);
 });

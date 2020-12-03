@@ -39,6 +39,21 @@ describe('Update Product route test group', () => {
     expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
   });
+  it('should throw bad request if invalid product details is given', async () => {
+    const token = await global.adminLogin();
+    const product = await global.createProduct();
+    const preFetch = await Product.find();
+    expect(preFetch[0]).not.toBe('males casuals');
+
+    const res = await request(app)
+      .put(`/api/v1/products/${product.id}`)
+      .send({ ...maleProductData, title: 123 })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+
+    expect(res.body.msg).toBe('Entered product title is not String');
+  });
   it('should publish events on valid product input', async () => {
     const token = await global.adminLogin();
     const product = await global.createProduct();
