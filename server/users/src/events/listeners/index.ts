@@ -6,7 +6,7 @@ import { OfferCreatedListener } from './offerCreated';
 import { OfferDeletedListener } from './offerDeleted';
 import { OfferUpdatedListener } from './offerUpdated';
 import { OrderCreatedListener } from './orderCreated';
-import { OrderDeletedListener } from './orderDeleted';
+// import { OrderDeletedListener } from './orderDeleted';
 import { OrderPaymentUpdatedListener } from './orderPaymentUpdates';
 import { OrderStatusUpdatedListener } from './orderStatusUpdated';
 import { ProductCreatedListener } from './productCreated';
@@ -27,7 +27,7 @@ export const initializeListeners = () => {
   new OfferUpdatedListener(natsWrapper.client).listen();
 
   new OrderCreatedListener(natsWrapper.client).listen();
-  new OrderDeletedListener(natsWrapper.client).listen();
+  // new OrderDeletedListener(natsWrapper.client).listen();
   new OrderPaymentUpdatedListener(natsWrapper.client).listen();
   new OrderStatusUpdatedListener(natsWrapper.client).listen();
 };

@@ -2,7 +2,7 @@ import { natsWrapper, OrderDoc } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
 import { Order } from '../../../models/Orders';
 import { User } from '../../../models/Users';
-import { OrderDeletedListener } from '../orderDeleted';
+// import { OrderDeletedListener } from '../orderDeleted';
 
 describe('Order Deleted listener test group', () => {
   it('should delete existing Order on receiving Order deleted event', async () => {
