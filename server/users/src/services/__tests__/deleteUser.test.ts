@@ -19,7 +19,7 @@ describe('Delete user service test group', () => {
     expect(res).toBe(false);
   });
 
-  it('should delete successfully if there are no pending orders', async () => {
+  it('should delete successfully if there are no  orders', async () => {
     await global.userLogin();
     const user = await User.findOne().lean();
 
@@ -28,6 +28,20 @@ describe('Delete user service test group', () => {
     expect(res).toBe(true);
   });
   it('should delete successfully if there are no pending orders', async () => {
+    await global.userLogin();
+    const user = await User.findOne();
+    const order = await global.createOrder(user!.id);
+    order.deliveryDate = Date.now().toString();
+    await order.save();
+    user!.orders = [order.id];
+
+    await user!.save();
+
+    const res = await deleteUser(user?._id);
+
+    expect(res).toBe(true);
+  });
+  it('should return null if no user exist', async () => {
     const res = await deleteUser(Types.ObjectId());
 
     expect(res).toBe(null);

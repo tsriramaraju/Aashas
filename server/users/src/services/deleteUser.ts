@@ -16,7 +16,7 @@ export const deleteUser = async (id: Types.ObjectId) => {
 
     let pendingOrder = false;
     user.orders.forEach((order: any) => {
-      if (order.deliveryDate !== undefined) pendingOrder = true;
+      if (order.deliveryDate === undefined) pendingOrder = true;
     });
     if (!pendingOrder) {
       await user.remove();

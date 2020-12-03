@@ -15,12 +15,11 @@ describe('Get orders route test group', () => {
   it('should get list of all the orders', async () => {
     const token = await global.userLogin();
     const preUser = await User.findOne({});
-    preUser!.orders = [
-      Types.ObjectId(),
-      Types.ObjectId(),
-      Types.ObjectId(),
-      Types.ObjectId(),
-    ];
+    const order = await global.createOrder(preUser!.id);
+    const order1 = await global.createOrder(preUser!.id);
+    const order2 = await global.createOrder(preUser!.id);
+    const order3 = await global.createOrder(preUser!.id);
+    preUser!.orders = [order.id, order1.id, order2.id, order3.id];
     await preUser?.save();
     expect(preUser!.orders!.length).toBe(4);
 
@@ -29,8 +28,7 @@ describe('Get orders route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(201);
-    // expect(res.body.orders.length).toBe(4);
-    //  FIXME : populate orders
+    expect(res.body.orders.length).toBe(4);
   });
 
   it('should return empty array if no orders found', async () => {
