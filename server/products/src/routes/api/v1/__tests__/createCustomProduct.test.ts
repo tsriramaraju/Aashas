@@ -35,6 +35,8 @@ describe('Create custom product route test group', () => {
     const products = await CustomProduct.find();
     expect(products.length).toBe(1);
     expect(products![0].status).toBe(verification.yes);
+
+    expect(products![0].version).toBe(1);
     expect(res.body.msg).toBe('Custom Product added successfully');
   });
 

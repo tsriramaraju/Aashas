@@ -33,6 +33,7 @@ describe('Request custom product route test group', () => {
     const products = await CustomProduct.find();
     expect(products.length).toBe(1);
     expect(products![0].status).toBe(verification.pending);
+    expect(products![0].version).toBe(0);
     expect(res.body.msg).toBe('Custom Product is requested');
   });
 });
