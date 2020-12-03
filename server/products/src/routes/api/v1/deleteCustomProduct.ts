@@ -1,6 +1,7 @@
 import {
   BadRequestError,
   isAdmin,
+  isAuthenticated,
   isUser,
   natsWrapper,
   ResourceNotFoundError,
@@ -21,28 +22,32 @@ const router = Router();
  *  @access    Public
  *  @returns   Products array
  */
-router.delete('/custom/:id', [isUser], async (req: Request, res: Response) => {
-  const productID = req.params.id;
-  //  TODO : add autherization
-  if (!Types.ObjectId.isValid(productID))
-    throw new BadRequestError('Invalid product id');
+router.delete(
+  '/custom/:id',
+  [isAuthenticated],
+  async (req: Request, res: Response) => {
+    const productID = req.params.id;
 
-  const product = await deleteCustomProduct(Types.ObjectId(productID));
+    if (!Types.ObjectId.isValid(productID))
+      throw new BadRequestError('Invalid product id');
 
-  if (!product) throw new ResourceNotFoundError('No Product found');
+    const product = await deleteCustomProduct(Types.ObjectId(productID));
 
-  res.status(201).json({ msg: 'Product deleted successfully' });
+    if (!product) throw new ResourceNotFoundError('No Product found');
 
-  new CustomProductDeletedPublisher(natsWrapper.client).publish({
-    productID: product.id,
-    version: product.version,
-    mode: ['email'],
-    data: {
-      message: 'Custom product updated',
-      title: 'custom product title',
-      email: req.currentUser?.email,
-    },
-  });
-});
+    res.status(201).json({ msg: 'Product deleted successfully' });
+
+    new CustomProductDeletedPublisher(natsWrapper.client).publish({
+      productID: product.id,
+      version: product.version,
+      mode: ['email'],
+      data: {
+        message: 'Custom product updated',
+        title: 'custom product title',
+        email: req.currentUser?.email,
+      },
+    });
+  }
+);
 
 export { router as deleteCustomProductRouter };

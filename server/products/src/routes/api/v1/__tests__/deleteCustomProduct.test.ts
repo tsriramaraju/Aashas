@@ -4,15 +4,15 @@ import request from 'supertest';
 import { app } from '../../../../app';
 
 describe('Delete custom product route test group', () => {
-  it('should throw authorization error if non admin access the route', async () => {
+  it('should be accessible by admin too', async () => {
     const token = await global.adminLogin();
     const res = await request(app)
       .delete('/api/v1/products/custom/1233')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
-      .expect(401);
+      .expect(400);
 
-    expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
+    expect(res.body.msg).toBe('Invalid product id');
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
   });
 
