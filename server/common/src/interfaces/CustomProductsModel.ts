@@ -28,7 +28,6 @@ interface customProductRequestAttrs {
   title?: string;
   description?: string;
   size?: size[];
-  price?: number;
   color?: string;
   outfit?: outfit;
   gender?: 'male' | 'female';
