@@ -10,10 +10,18 @@ export class OrderDeletedListener extends Listener<OrderDeletedEvent> {
 
   async onMessage(data: OrderDeletedEvent['data'], msg: Message) {
     try {
-      const { orderID } = data;
+      const { orderID, version } = data;
 
-      await Order.findByIdAndDelete(orderID);
-      console.log('Order Deleted');
+      const order = await Order.findByEvent({
+        id: orderID,
+        version: version,
+      });
+
+      if (!order) throw new Error('order not found');
+
+      await order.remove();
+
+      process.env.NODE_ENV !== 'test' && console.log('Order Deleted');
 
       msg.ack();
     } catch (error) {

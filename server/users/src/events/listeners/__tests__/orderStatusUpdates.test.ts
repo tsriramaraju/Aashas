@@ -15,6 +15,8 @@ describe('Orders status Updated listener test group', () => {
 
     expect(orderPreFetch![0].status).toBe('working on it');
     expect(orderPreFetch![1].status).toBe('working on it');
+    expect(orderPreFetch![1].version).toBe(0);
+    expect(orderPreFetch![0].version).toBe(0);
 
     expect(orderPreFetch!.length).toBe(2);
 
@@ -40,5 +42,7 @@ describe('Orders status Updated listener test group', () => {
     const ordersPostFetch2 = await Order.findById(order2.id);
     expect(ordersPostFetch1!.status).toBe('shipped');
     expect(ordersPostFetch2!.status).toBe('working on it');
+    expect(ordersPostFetch1!.version).toBe(1);
+    expect(ordersPostFetch2!.version).toBe(0);
   });
 });

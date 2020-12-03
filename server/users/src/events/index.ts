@@ -2,6 +2,6 @@
  * export every Publishing events from one single file
  */
 
-export * from './listeners/accountCreated';
+export * from './listeners/';
 
 export * from './publishers/userDeleted';

@@ -34,5 +34,6 @@ describe('Order created listener test group', () => {
     );
     const ordersPostFetch1 = await Order.find();
     expect(ordersPostFetch1!.length).toBe(1);
+    expect(ordersPostFetch1![0].version).toBe(0);
   });
 });

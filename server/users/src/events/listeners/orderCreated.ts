@@ -26,7 +26,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         mobile: order.mobile,
         note: order.note,
       }).save();
-      console.log('Order created');
+      process.env.NODE_ENV !== 'test' && console.log('Order created');
 
       msg.ack();
     } catch (error) {

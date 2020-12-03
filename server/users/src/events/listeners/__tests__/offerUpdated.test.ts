@@ -19,8 +19,8 @@ describe('Offer Updated listener test group', () => {
     prodPreFetch[0].discount = 70;
     await prodPreFetch[0].save();
 
+    expect(prodPreFetch![0].version).toBe(2);
     expect(prodPreFetch!.length).toBe(1);
-
     const listener = new OfferUpdatedListener(natsWrapper.client);
     const msg = { ack: () => {} } as Message;
 
@@ -28,7 +28,7 @@ describe('Offer Updated listener test group', () => {
       {
         product: prodPreFetch[0],
         mode: ['email'],
-        version: 1,
+        version: 3,
         data: {
           body: '',
           message: '',
@@ -42,5 +42,6 @@ describe('Offer Updated listener test group', () => {
     expect(prodPostFetch1!.length).toBe(1);
     expect(prodPostFetch1![0].inOffer).toBe(true);
     expect(prodPostFetch1![0].discount).toBe(70);
+    expect(prodPostFetch1![0].version).toBe(3);
   });
 });

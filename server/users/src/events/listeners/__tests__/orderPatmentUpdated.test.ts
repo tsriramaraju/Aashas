@@ -1,5 +1,6 @@
 import { natsWrapper, paymentModes, paymentStatus } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
+import { version } from 'process';
 import { Order } from '../../../models/Orders';
 import { User } from '../../../models/Users';
 import { OrderPaymentUpdatedListener } from '../orderPaymentUpdates';
@@ -15,6 +16,8 @@ describe('Orders Payment status Updated listener test group', () => {
 
     expect(orderPreFetch![0].payment.status).toBe(paymentStatus.pending);
     expect(orderPreFetch![1].payment.status).toBe(paymentStatus.pending);
+    expect(orderPreFetch![1].version).toBe(0);
+    expect(orderPreFetch![0].version).toBe(0);
 
     expect(orderPreFetch!.length).toBe(2);
 
@@ -43,5 +46,7 @@ describe('Orders Payment status Updated listener test group', () => {
     const ordersPostFetch2 = await Order.findById(order2.id);
     expect(ordersPostFetch1!.payment.status).toBe(paymentStatus.paid);
     expect(ordersPostFetch2!.payment.status).toBe(paymentStatus.pending);
+    expect(ordersPostFetch1!.version).toBe(1);
+    expect(ordersPostFetch2!.version).toBe(0);
   });
 });

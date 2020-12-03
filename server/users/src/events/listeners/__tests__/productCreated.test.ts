@@ -21,5 +21,6 @@ describe('Product created listener test group', () => {
 
     const prodPostFetch1 = await Product.find();
     expect(prodPostFetch1!.length).toBe(1);
+    expect(prodPostFetch1![0].version).toBe(0);
   });
 });
