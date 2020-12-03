@@ -16,7 +16,6 @@ describe('Update Custom Product service test group', () => {
   it('should return null if no product is found', async () => {
     const res = await updateCustomProduct(Types.ObjectId(), {
       ...customBuildData,
-      title: 'hello',
     });
 
     expect(res).toBe(null);

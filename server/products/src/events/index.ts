@@ -10,3 +10,6 @@ export * from './publishers/offerUpdated';
 export * from './publishers/productCreated';
 export * from './publishers/productDeleted';
 export * from './publishers/productUpdated';
+export * from './publishers/customProductCreated';
+export * from './publishers/customProductDeleted';
+export * from './publishers/customProductUpdated';

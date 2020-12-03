@@ -32,6 +32,10 @@ app.use('/api/v1/products', routes.updateOfferRouter);
 app.use('/api/v1/products', routes.deleteOfferRouter);
 app.use('/api/v1/products', routes.createCategoryOfferRouter);
 app.use('/api/v1/products', routes.removeCategoryOfferRouter);
+app.use('/api/v1/products', routes.requestCustomProductRouter);
+app.use('/api/v1/products', routes.createCustomProductRouter);
+app.use('/api/v1/products', routes.updateCustomProductRouter);
+app.use('/api/v1/products', routes.deleteCustomProductRouter);
 
 /**
  * 404 route

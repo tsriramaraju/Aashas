@@ -10,7 +10,7 @@ describe('Update Product route test group', () => {
     const token = await global.userLogin();
 
     const res = await request(app)
-      .put('/api/v1/products/sdf')
+      .put('/api/v1/products/update/sdf')
       .send(maleProductData)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -28,7 +28,7 @@ describe('Update Product route test group', () => {
     expect(preFetch[0]).not.toBe('males casuals');
 
     const res = await request(app)
-      .put(`/api/v1/products/${product.id}`)
+      .put(`/api/v1/products/update/${product.id}`)
       .send(maleProductData)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -46,7 +46,7 @@ describe('Update Product route test group', () => {
     expect(preFetch[0]).not.toBe('males casuals');
 
     const res = await request(app)
-      .put(`/api/v1/products/${product.id}`)
+      .put(`/api/v1/products/update/${product.id}`)
       .send({ ...maleProductData, title: 123 })
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -61,7 +61,7 @@ describe('Update Product route test group', () => {
     expect(preFetch[0]).not.toBe('males casuals');
 
     const res = await request(app)
-      .put(`/api/v1/products/${product.id}`)
+      .put(`/api/v1/products/update/${product.id}`)
       .send(maleProductData)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -79,7 +79,7 @@ describe('Update Product route test group', () => {
     const token = await global.adminLogin();
 
     const res = await request(app)
-      .put(`/api/v1/products/${id}`)
+      .put(`/api/v1/products/update/${id}`)
       .send(maleProductData)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -92,7 +92,7 @@ describe('Update Product route test group', () => {
   it('should return Bad request if invalid product id is given ', async () => {
     const token = await global.adminLogin();
     const res = await request(app)
-      .put(`/api/v1/products/1234}`)
+      .put(`/api/v1/products/update/1234}`)
       .send(maleProductData)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)

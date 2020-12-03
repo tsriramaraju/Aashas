@@ -9,7 +9,7 @@ describe('Delete products test group', () => {
     const token = await global.userLogin();
 
     const res = await request(app)
-      .delete('/api/v1/products/12')
+      .delete('/api/v1/products/delete/12')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(401);
@@ -22,7 +22,7 @@ describe('Delete products test group', () => {
   it('should return 404 error if no id is found ', async () => {
     const token = await global.adminLogin();
     const res = await request(app)
-      .delete('/api/v1/products')
+      .delete('/api/v1/products/delete/')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(404);
@@ -34,7 +34,7 @@ describe('Delete products test group', () => {
     const token = await global.adminLogin();
     const id = Types.ObjectId();
     const res = await request(app)
-      .delete(`/api/v1/products/${id}`)
+      .delete(`/api/v1/products/delete/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(420);
@@ -45,7 +45,7 @@ describe('Delete products test group', () => {
   it('should return Bad request if invalid product id is given ', async () => {
     const token = await global.adminLogin();
     const res = await request(app)
-      .delete(`/api/v1/products/1123154`)
+      .delete(`/api/v1/products/delete/1123154`)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
@@ -64,7 +64,7 @@ describe('Delete products test group', () => {
     expect(preFetch.length).toBe(3);
 
     const res = await request(app)
-      .delete(`/api/v1/products/${product.id}`)
+      .delete(`/api/v1/products/delete/${product.id}`)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(201);
@@ -84,7 +84,7 @@ describe('Delete products test group', () => {
     expect(preFetch.length).toBe(3);
 
     const res = await request(app)
-      .delete(`/api/v1/products/${product.id}`)
+      .delete(`/api/v1/products/delete/${product.id}`)
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(201);
