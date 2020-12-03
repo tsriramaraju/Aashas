@@ -14,7 +14,7 @@ const router = Router();
 router.post('/custom', [isUser], async (req: Request, res: Response) => {
   const product = req.body as customProductRequestAttrs;
 
-  const productDoc = await requestCustomProduct(product);
+  await requestCustomProduct(product);
 
   res.status(201).json({ msg: 'Custom Product is requested' });
 });
