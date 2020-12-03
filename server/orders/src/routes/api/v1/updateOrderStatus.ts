@@ -7,7 +7,6 @@ import {
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { OrderStatusUpdatedPublisher } from '../../../events/publishers/orderStatusUpdate';
-import { createOrder } from '../../../services/createOrder';
 import { updateOrder } from '../../../services/updateOrder';
 
 const router = Router();

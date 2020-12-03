@@ -33,6 +33,7 @@ describe('Create Order route test group', () => {
       .expect(201);
     const orders = await Order.find();
     expect(orders.length).toBe(0);
+
     expect(res.body.msg).toBe('Order Deleted successfully');
     expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });

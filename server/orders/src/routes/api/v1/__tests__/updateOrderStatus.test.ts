@@ -36,6 +36,7 @@ describe('Update order Status test group', () => {
       .expect(201);
     const orders = await Order.find();
     expect(orders![0].status).toBe('shipped');
+    expect(orders[0].version).toBe(1);
     expect(res.body.msg).toBe('Order status updated successfully');
     expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });

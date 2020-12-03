@@ -7,6 +7,7 @@ import {
 } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
 import { Order } from '../../models/Orders';
+import { updateOrder } from '../../services/updateOrder';
 import { OrderPaymentUpdatedPublisher } from '../publishers/orderPaymentUpdated';
 import { queueGroupName } from '../queueGroupName';
 
@@ -30,14 +31,16 @@ export class PaymentFailedListener extends Listener<PaymentFailedEvent> {
           method: data.paymentMode,
         },
       };
-      await order.updateOne(payment);
+      const res = await updateOrder(order.id, payment);
+
+      if (!res) throw new Error('Error in updating order in from listener');
       process.env.NODE_ENV !== 'test' && console.log('payment status updated');
 
       new OrderPaymentUpdatedPublisher(natsWrapper.client).publish({
-        version: order.version + 1,
+        version: res.version,
         mode: ['email'],
-        orderID: order.id,
-        payment: order.payment,
+        orderID: res.id,
+        payment: res.payment,
         data: {
           title: 'Payment Failed',
           message: 'This is message',

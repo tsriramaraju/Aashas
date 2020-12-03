@@ -27,7 +27,7 @@ router.delete('/:id', [isAdmin], async (req: Request, res: Response) => {
 
   new OrderDeletedPublisher(natsWrapper.client).publish({
     orderID: orderDoc.id,
-    version: orderDoc.version,
+    version: orderDoc.version + 1,
     mode: ['email'],
     order: orderDoc,
     data: {
