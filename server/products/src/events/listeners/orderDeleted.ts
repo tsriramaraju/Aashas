@@ -18,7 +18,10 @@ export class OrderDeletedListener extends Listener<OrderDeletedEvent> {
       const products = data.order.items;
 
       const promises = products.map(async (product) => {
-        const prod = await Product.findById(product.prodId);
+        const prod = await Product.findByEvent({
+          id: product.prodId,
+          version: data.version,
+        });
 
         if (!prod) throw new Error('product not found');
         ++prod.quantity;
