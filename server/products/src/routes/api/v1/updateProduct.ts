@@ -16,13 +16,13 @@ const router = Router();
 
 /**
  *  @desc      Updates existing product
- *  @route     Put /api/v1/products
+ *  @route     Put /api/v1/products/update/:id
  *  @access    Admin
  *  @returns   Status
  */
 
 router.put(
-  '/:id',
+  '/update/:id',
   [isAdmin, productValidation],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;

@@ -78,6 +78,7 @@ export * from './middlewares/errorHandler';
 export * from './middlewares/validateRequests';
 export * from './middlewares/isUser';
 export * from './middlewares/isAdmin';
+export * from './middlewares/isAuthenticated';
 
 /**
  * Exporting error handlers

@@ -1,44 +1,46 @@
 import {
   CustomProductDoc,
   CustomProductModel,
+  customProductRequestAttrs,
   customProductsAttrs,
   size,
+  verification,
 } from '@aashas/common';
 import { model, Schema, Types } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const customProductSchema = new Schema(
   {
-    title: { type: String, required: true },
-    description: { type: String, required: true },
+    title: String,
+    description: String,
     size: [
       {
         type: String,
-        required: true,
+
         enum: [size.L, size.M, size.S, size.XL, size.XS, size.XXL],
       },
     ],
-    price: { type: Number, required: true },
-    color: { type: String, required: true },
-    quantity: { type: Number, required: true },
+    price: { type: Number },
+    color: String,
 
     outfit: {
-      type: { type: String, required: true },
-      occasion: { type: Object, required: true },
+      type: { type: String },
+      occasion: { type: Object },
     },
-    keywords: [{ type: String, required: true }],
+    keywords: [{ type: String }],
     gender: {
       type: String,
       required: true,
       enum: ['male', 'female'],
     },
-    images: [{ type: String, required: true }],
-    refImages: [{ type: String, required: true }],
-    discount: { type: Number },
-    inOffer: Boolean,
-    isNewProduct: Boolean,
-    designerCollection: Boolean,
-    trending: Boolean,
+    images: [{ type: String }],
+    refImages: [{ type: String }],
+    status: {
+      type: String,
+      enum: [verification.no, verification.pending, verification.yes],
+      required: true,
+      default: verification.pending,
+    },
   },
   {
     autoIndex: true,
@@ -63,7 +65,9 @@ customProductSchema.statics.findByEvent = (event: {
     version: event.version - 1,
   });
 };
-
+customProductSchema.statics.request = (attrs: customProductRequestAttrs) => {
+  return new CustomProduct(attrs);
+};
 customProductSchema.statics.build = (attrs: customProductsAttrs) => {
   return new CustomProduct(attrs);
 };
