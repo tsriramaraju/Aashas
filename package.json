@@ -15,7 +15,7 @@
   "author": "tsriramaraju",
   "license": "ISC",
   "dependencies": {
-    "@aashas/common": "^1.2.87",
+    "@aashas/common": "^1.2.88",
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.8",
