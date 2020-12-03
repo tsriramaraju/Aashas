@@ -10,15 +10,13 @@ import { outfit, productAttrs } from './ProductsModel';
 interface customProductsAttrs {
   refImages: String[];
   userId?: Types.ObjectId;
-
   title: string;
   description: string;
   size: size[];
   price: number;
   color: string;
-
+  status: verification;
   outfit: outfit;
-
   gender: 'male' | 'female';
   images: string[];
 }
@@ -32,6 +30,7 @@ interface customProductRequestAttrs {
   outfit?: outfit;
   gender?: 'male' | 'female';
   images?: string[];
+  status: verification.pending;
 }
 
 /**
