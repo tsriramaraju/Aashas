@@ -41,6 +41,7 @@ router.post(
     };
 
     const product = await updateProduct(Types.ObjectId(prodId), offer);
+
     if (!product) throw new ResourceNotFoundError('Product not found');
     res.status(201).json({ msg: 'Product updated successfully' });
     //  TODO : publish build website event

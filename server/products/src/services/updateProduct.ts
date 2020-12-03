@@ -10,7 +10,7 @@ export const updateProduct = async (
     const product = await Product.findByIdAndUpdate(prodId, { ...productData });
 
     if (!product) return null;
-
+    await product.save();
     return product;
   } catch (error) {
     throw new DatabaseConnectionError(error.message);

@@ -36,6 +36,7 @@ describe('Update Product route test group', () => {
     const products = await Product.find();
 
     expect(products[0].title).toBe('males casuals');
+    expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
   });
   it('should publish events on valid product input', async () => {
@@ -53,6 +54,7 @@ describe('Update Product route test group', () => {
     const products = await Product.find();
 
     expect(products[0].title).toBe('males casuals');
+    expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
   });

@@ -44,6 +44,7 @@ describe('Update offer route test group', () => {
 
     expect(products[0].inOffer).toBe(true);
     expect(products[0].discount).toBe(15);
+    expect(products[0].version).toBe(2);
     expect(res.body.msg).toBe('Product updated successfully');
   });
   it('should Publish events on valid offer input', async () => {
@@ -68,6 +69,7 @@ describe('Update offer route test group', () => {
 
     expect(products[0].inOffer).toBe(true);
     expect(products[0].discount).toBe(15);
+    expect(products[0].version).toBe(2);
     expect(res.body.msg).toBe('Product updated successfully');
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
   });

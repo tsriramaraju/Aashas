@@ -35,7 +35,7 @@ router.delete('/:id', [isAdmin], async (req: Request, res: Response) => {
 
   new ProductDeletedPublisher(natsWrapper.client).publish({
     productID: product.id,
-    version: product.version,
+    version: product.version + 1,
   });
 
   //  TODO : algolia
