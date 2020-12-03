@@ -8,6 +8,7 @@ import { outfit, productAttrs } from './ProductsModel';
  */
 interface customProductsAttrs extends productAttrs {
   refImages: String[];
+  userId?: Types.ObjectId;
 }
 
 /**
@@ -28,6 +29,7 @@ interface CustomProductModel extends Model<CustomProductDoc> {
  */
 interface CustomProductDoc extends Document {
   id: Types.ObjectId;
+  userId: Types.ObjectId;
   title: string;
   description: string;
   size: size[];
