@@ -1,11 +1,12 @@
 import { natsWrapper } from '@aashas/common';
+import { Types } from 'mongoose';
 import { Message } from 'node-nats-streaming';
 import { CustomProduct } from '../../../models/CustomProducts';
 import { CustomProductUpdatedListener } from '../customProductUpdated';
 
 describe('Custom Product Updated listener test group', () => {
   it('should update existing Custom product on receiving Custom product updated event', async () => {
-    await global.createCustomProduct();
+    await global.createCustomProduct(Types.ObjectId());
 
     const prodPreFetch = await CustomProduct.find();
     expect(prodPreFetch![0].title).not.toBe('new product test');

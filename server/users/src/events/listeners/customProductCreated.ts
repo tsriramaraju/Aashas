@@ -19,19 +19,13 @@ export class CustomProductCreatedListener extends Listener<CustomProductCreatedE
       await CustomProduct.build({
         color: product.color,
         description: product.description,
-        designerCollection: product.designerCollection,
+        title: product.title,
         gender: product.gender,
         images: product.images,
-        isNewProduct: product.isNewProduct,
-        keywords: product.keywords,
+        userId: product.userId,
         outfit: product.outfit,
         price: product.price,
-        quantity: product.quantity,
         size: product.size,
-        title: product.title,
-        trending: product.trending,
-        discount: product.discount,
-        inOffer: product.inOffer,
         refImages: product.refImages,
       }).save();
       process.env.NODE_ENV !== 'test' && console.log('Custom product created');

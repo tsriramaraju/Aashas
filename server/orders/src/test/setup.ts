@@ -44,7 +44,7 @@ declare global {
       userLogin(): Promise<string>;
       adminLogin(): Promise<string>;
       createProduct(): Promise<ProductDoc>;
-      createCustomProduct(): Promise<CustomProductDoc>;
+      createCustomProduct(userId: Types.ObjectId): Promise<CustomProductDoc>;
       createOrder(userId: Types.ObjectId): Promise<OrderDoc>;
     }
   }
@@ -221,7 +221,7 @@ global.createProduct = async (outfit?: outfit) => {
   }).save();
   return product;
 };
-global.createCustomProduct = async () => {
+global.createCustomProduct = async (userId: Types.ObjectId) => {
   const product = await CustomProduct.build({
     title: 'kids casuals',
     description:
@@ -239,12 +239,9 @@ global.createCustomProduct = async () => {
       'https://5.imimg.com/data5/QT/NY/MY-42821634/designer-new-style-garara-wedding-wear-suit-500x500.jpg',
       'https://img2.exportersindia.com/product_images/bc-full/dir_112/3354894/stylish-wedding-wear-lehenga-1497779736-3071612.jpeg',
     ],
-    designerCollection: false,
-    isNewProduct: false,
+    userId,
     gender: 'female',
-    keywords: ['dress'],
-    quantity: 120,
-    trending: false,
+
     outfit: {
       occasion: {
         birthday: 'Kurtas',
