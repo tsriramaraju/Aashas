@@ -163,7 +163,7 @@ global.createCustomProduct = async (userId: Types.ObjectId) => {
       'https://5.imimg.com/data5/QT/NY/MY-42821634/designer-new-style-garara-wedding-wear-suit-500x500.jpg',
       'https://img2.exportersindia.com/product_images/bc-full/dir_112/3354894/stylish-wedding-wear-lehenga-1497779736-3071612.jpeg',
     ],
-
+    status: verification.yes,
     gender: 'female',
     userId,
     outfit: {

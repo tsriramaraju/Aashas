@@ -224,6 +224,7 @@ global.createProduct = async (outfit?: outfit) => {
 global.createCustomProduct = async (userId: Types.ObjectId) => {
   const product = await CustomProduct.build({
     title: 'kids casuals',
+    status: verification.yes,
     description:
       "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
     size: [size.L, size.M, size.S],

@@ -4,6 +4,7 @@ import {
   customProductRequestAttrs,
   customProductsAttrs,
   size,
+  verification,
 } from '@aashas/common';
 import { model, Schema, Types } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
@@ -34,6 +35,12 @@ const customProductSchema = new Schema(
     },
     images: [{ type: String }],
     refImages: [{ type: String }],
+    status: {
+      type: String,
+      enum: [verification.no, verification.pending, verification.yes],
+      required: true,
+      default: verification.pending,
+    },
   },
   {
     autoIndex: true,

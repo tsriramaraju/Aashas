@@ -3,11 +3,12 @@ import {
   customProductRequestAttrs,
   customProductsAttrs,
   size,
+  verification,
 } from '@aashas/common';
 
 export const customRequestData: customProductRequestAttrs = {
   refImages: ['https://5.imimg.com/data5/XY/CL/MY-2/fgfgg-jpg-500x500.jpg'],
-
+  status: verification.pending,
   gender: 'male',
 };
 
@@ -18,7 +19,7 @@ export const customBuildData: customProductsAttrs = {
 
   color: 'green red blue',
   refImages: ['https://5.imimg.com/data5/XY/CL/MY-2/fgfgg-jpg-500x500.jpg'],
-
+  status: verification.yes,
   images: [
     'https://5.imimg.com/data5/XY/CL/MY-2/fgfgg-jpg-500x500.jpg',
     'https://5.imimg.com/data5/QT/NY/MY-42821634/designer-new-style-garara-wedding-wear-suit-500x500.jpg',

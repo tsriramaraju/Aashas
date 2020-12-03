@@ -187,7 +187,7 @@ global.createCustomProduct = async (userId: Types.ObjectId) => {
     ],
     userId,
     gender: 'female',
-
+    status: verification.yes,
     outfit: {
       occasion: {
         birthday: 'Kurtas',

@@ -22,6 +22,7 @@ export class CustomProductCreatedListener extends Listener<CustomProductCreatedE
         price: product.price,
         size: product.size,
         refImages: product.refImages,
+        status: product.status,
       }).save();
       process.env.NODE_ENV !== 'test' && console.log('Custom product created');
 
