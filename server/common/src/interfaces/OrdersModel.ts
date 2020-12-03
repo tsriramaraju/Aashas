@@ -82,10 +82,10 @@ interface OrderDoc extends Document {
   }[];
   note?: string;
   status: string;
-  estDelivery?: Date;
+  estDelivery?: string;
   address: address;
-  orderDate: Date;
-  deliveryDate?: Date;
+  orderDate: string;
+  deliveryDate?: string;
   version: number;
   price: {
     productTotal: number;
