@@ -17,9 +17,9 @@ describe('Custom Product Deleted listener test group', () => {
       {
         productID: product.id,
         version: 1,
-        mode: 'email',
+        mode: ['email'],
         data: {
-          body: '',
+          title: '',
           message: '',
         },
       },

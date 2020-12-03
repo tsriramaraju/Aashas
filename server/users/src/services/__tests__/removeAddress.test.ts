@@ -24,6 +24,7 @@ describe('Remove address service test group', () => {
     const user1 = await User.findOne().lean();
 
     expect(user1?.addresses?.length).toBe(3);
+    expect(user1?.version).toBe(3);
 
     const result = await removeAddress({
       addressId: user1!.addresses![1]._id!,
@@ -34,5 +35,6 @@ describe('Remove address service test group', () => {
     const user2 = await User.findOne().lean();
 
     expect(user2?.addresses?.length).toBe(2);
+    expect(user2?.version).toBe(4);
   });
 });

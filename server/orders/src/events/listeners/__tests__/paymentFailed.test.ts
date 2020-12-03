@@ -23,10 +23,11 @@ describe('Payment Failed listener test group', () => {
       msg
     );
 
-    const orders = await Order.find();
+    const orders = await Order.findOne();
 
     expect(natsWrapper.client.publish).toBeCalledTimes(1);
-    expect(orders![0].payment.status).toBe(paymentStatus.failed);
-    expect(orders![0].payment.method).toBe(paymentModes.creditCard);
+    expect(orders!.payment.status).toBe(paymentStatus.failed);
+    expect(orders!.version).toBe(1);
+    expect(orders!.payment.method).toBe(paymentModes.creditCard);
   });
 });

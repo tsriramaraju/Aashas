@@ -47,4 +47,4 @@ router.post(
   }
 );
 
-export { router as passwordReset };
+export { router as passwordResetRouter };

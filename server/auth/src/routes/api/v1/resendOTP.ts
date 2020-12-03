@@ -38,12 +38,13 @@ router.post(
     if (otpData) {
       // Publishes OTP event
       new GenerateOTPPublisher(natsWrapper.client).publish({
-        mode: 'email',
+        mode: ['email'],
         data: {
           name: otpData.name,
           title: 'Please enter 4 digit OTP for verification',
           otp: otpData.otp,
           email: otpData.email,
+          message: 'message',
         },
       });
 
@@ -52,4 +53,4 @@ router.post(
   }
 );
 
-export { router as resendOTP };
+export { router as resendOTPRouter };

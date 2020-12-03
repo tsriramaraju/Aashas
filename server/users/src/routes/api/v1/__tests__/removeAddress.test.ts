@@ -1,6 +1,7 @@
 import { natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
+import { addressData } from '../../../../dummy data/user';
 import { User } from '../../../../models/Users';
 
 describe('Remove address route test group', () => {
@@ -10,6 +11,7 @@ describe('Remove address route test group', () => {
       .expect('Content-Type', /json/)
       .expect(400);
     expect(res.body.msg).toBe('Authentication token is not present');
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
   });
 
   it('should publish event after the process completed successfully', async () => {
@@ -17,17 +19,7 @@ describe('Remove address route test group', () => {
 
     const user = await User.findOne();
 
-    user!.addresses = [
-      {
-        name: 'office 23',
-        house: 'FF-012, PentHouse',
-        location: 'Sparks Villa',
-        street: 'NEw hamster Road',
-        pin: 530013,
-        city: 'USA',
-        state: 'AP',
-      },
-    ];
+    user!.addresses = [addressData];
 
     await user?.save();
 
@@ -42,7 +34,7 @@ describe('Remove address route test group', () => {
 
     expect(res.body.msg).toBe('Removed address successfully');
     expect(user1!.addresses?.length).toBe(0);
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
   });
 
   it('should remove address if valid parameter in provided', async () => {
@@ -50,17 +42,7 @@ describe('Remove address route test group', () => {
 
     const user = await User.findOne();
 
-    user!.addresses = [
-      {
-        name: 'office 23',
-        house: 'FF-012, PentHouse',
-        location: 'Sparks Villa',
-        street: 'NEw hamster Road',
-        pin: 530013,
-        city: 'USA',
-        state: 'AP',
-      },
-    ];
+    user!.addresses = [addressData];
 
     await user?.save();
 
@@ -72,7 +54,7 @@ describe('Remove address route test group', () => {
       .expect('Content-Type', /json/)
       .expect(201);
     const user1 = await User.findOne().lean();
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
     expect(res.body.msg).toBe('Removed address successfully');
     expect(user1!.addresses?.length).toBe(0);
   });
@@ -84,7 +66,7 @@ describe('Remove address route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
     expect(res.body.msg).toBe('Invalid address ID');
   });
 });

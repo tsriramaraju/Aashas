@@ -40,13 +40,9 @@ jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
 
 let mongo: any;
 beforeAll(async () => {
-  keys.jwtSecret = 'This almost had me ';
-  process.env.GOOGLE_CLIENT_ID = 'something ';
-  process.env.GOOGLE_CLIENT_SECRET = 'something ';
-  process.env.FACEBOOK_CLIENT_ID = 'something ';
-  process.env.FACEBOOK_CLIENT_SECRET = 'something ';
+  keys.jwtSecret = 'This almost had me';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  process.env.JWT_SECRET = 'This almost had me ';
+  process.env.JWT_SECRET = 'This almost had me';
 
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
@@ -71,22 +67,31 @@ afterAll(async () => {
   await mongo.stop();
   await connection.close();
 });
-
+afterEach(() => {
+  jest.clearAllMocks();
+});
 global.userLogin = async () => {
   const email = 'john@doe.com';
   const password = 'This is secret';
   const name = 'john doe';
+  const user = await new Account({
+    email,
+    password,
+    name,
+    isAdmin: false,
+    lastLogin: Date.now(),
+    authType: authType.email,
+  }).save();
 
-  const response = await request(app)
-    .post('/api/v1/auth/email-register')
-    .send({
-      email,
-      password,
-      name,
-    })
-    .expect(201);
+  const token = generateJWT({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    mobileVerified: user.mobileVerified,
+    isAdmin: user.isAdmin,
+  });
 
-  const token = response.body;
   return token;
 };
 global.adminLogin = async () => {

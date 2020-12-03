@@ -15,18 +15,18 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       await Order.build({
         address: order.address,
         items: order.items,
-        orderDate: order.orderDate.toISOString(),
+        orderDate: order.orderDate.toString(),
         payment: order.payment,
         price: order.price,
         status: order.status,
         userId: order.userId,
-        deliveryDate: order.deliveryDate?.toISOString(),
+        deliveryDate: order.deliveryDate?.toString(),
         email: order.email,
-        estDelivery: order.estDelivery?.toISOString(),
+        estDelivery: order.estDelivery?.toString(),
         mobile: order.mobile,
         note: order.note,
       }).save();
-      console.log('Order created');
+      process.env.NODE_ENV !== 'test' && console.log('Order created');
 
       msg.ack();
     } catch (error) {

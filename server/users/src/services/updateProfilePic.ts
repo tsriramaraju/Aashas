@@ -7,7 +7,10 @@ export const updateProfilePic = async (data: {
   id: Types.ObjectId;
 }) => {
   try {
-    await User.findByIdAndUpdate(data.id, { image: data.pic });
+    const user = await User.findById(data.id);
+    if (!user) throw new Error('User not found');
+    user.image = data.pic;
+    await user.save();
     return 'Image updated';
   } catch (error) {
     throw new DatabaseConnectionError(error.message);

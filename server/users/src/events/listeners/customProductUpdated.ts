@@ -29,7 +29,7 @@ export class CustomProductUpdatedListener extends Listener<CustomProductUpdatedE
       await customProduct.updateOne(product);
 
       await customProduct.save();
-      console.log('Custom product Updated');
+      process.env.NODE_ENV !== 'test' && console.log('Custom product Updated');
       msg.ack();
     } catch (error) {
       console.log(error);

@@ -1,7 +1,6 @@
 import request from 'supertest';
 import { app } from '../../../../app';
 import { OTP } from '../../../../models/OTP';
-
 import { Account } from '../../../../models/Accounts';
 import { decodeJWT } from '../../../../utils/generateJWT';
 import { natsWrapper, verification, jwtPayload } from '@aashas/common';
@@ -88,7 +87,7 @@ describe('Verify Login OTP route test group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Enter valid otp');
   });
 
@@ -106,7 +105,7 @@ describe('Verify Login OTP route test group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('OTP expired, plz generate OTP again');
   });
   it("should return error if mobile doesn't exist", async () => {
@@ -123,7 +122,7 @@ describe('Verify Login OTP route test group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('OTP expired, plz generate OTP again');
   });
 
@@ -141,6 +140,7 @@ describe('Verify Login OTP route test group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Invalid OTP');
   });
 
@@ -153,6 +153,7 @@ describe('Verify Login OTP route test group', () => {
       })
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('invalid request, use only one parameter');
   });
   it('should return bad request error if no mobile and email parameters are submitted', async () => {
@@ -161,6 +162,7 @@ describe('Verify Login OTP route test group', () => {
 
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('invalid request, No valid parameters are found');
   });
 
@@ -194,6 +196,6 @@ describe('Verify Login OTP route test group', () => {
     expect(payload.name).toBe(user1?.name);
 
     expect(users.length).toBe(1);
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
 });

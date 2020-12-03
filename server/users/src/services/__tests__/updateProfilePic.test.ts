@@ -1,4 +1,3 @@
-import e from 'express';
 import { User } from '../../models/Users';
 import { updateProfilePic } from '../updateProfilePic';
 
@@ -12,6 +11,7 @@ describe('Update profile picture service test group', () => {
     const user1 = await User.findOne().lean();
 
     expect(user1?.image).toBe('this is image');
+    expect(user1?.version).toBe(1);
   });
 
   it('should remove profile pic if no input is given', async () => {
@@ -26,6 +26,7 @@ describe('Update profile picture service test group', () => {
 
     const user1 = await User.findOne().lean();
 
-    expect(user1?.image).toBe(null);
+    expect(user1?.image).toBe(undefined);
+    expect(user1?.version).toBe(2);
   });
 });

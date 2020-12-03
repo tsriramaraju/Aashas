@@ -5,7 +5,7 @@ export class ResourceNotFoundError extends CustomError {
   reason = 'Requested resource not found';
 
   constructor(public msg?: string) {
-    super('Resource not found');
+    super(msg ? msg : 'Resource not found');
 
     Object.setPrototypeOf(this, ResourceNotFoundError.prototype);
   }

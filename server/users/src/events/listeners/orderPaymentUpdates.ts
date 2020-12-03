@@ -12,10 +12,17 @@ export class OrderPaymentUpdatedListener extends Listener<OrderPaymentUpdatedEve
     try {
       const { orderID, payment } = data;
 
-      await Order.findByIdAndUpdate(orderID, {
-        payment,
+      const order = await Order.findByEvent({
+        id: orderID,
+        version: data.version,
       });
-      console.log('Order Payment Status updated');
+
+      if (!order) throw new Error('order not found');
+      order.payment = payment;
+      await order.save();
+
+      process.env.NODE_ENV !== 'test' &&
+        console.log('Order Payment Status updated');
 
       msg.ack();
     } catch (error) {

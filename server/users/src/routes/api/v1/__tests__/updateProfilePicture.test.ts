@@ -10,6 +10,7 @@ describe('Update profile picture route test group', () => {
       .expect('Content-Type', /json/)
       .expect(400);
     expect(res.body.msg).toBe('Authentication token is not present');
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(0);
   });
 
   it('should publish event after the process completed successfully', async () => {
@@ -31,7 +32,8 @@ describe('Update profile picture route test group', () => {
     expect(user?.image).toBe(
       'https://avatars2.githubusercontent.com/u/13117711?s=460&u=380dbcf3b070c32863b79fd4596678b2440ba78b&v=4'
     );
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
+    expect(user?.version).toBe(1);
   });
 
   it('should update profile picture with valid input', async () => {
@@ -49,7 +51,8 @@ describe('Update profile picture route test group', () => {
     expect(res.body.msg).toBe('Image updated');
 
     const user = await User.findOne();
-
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
+    expect(user?.version).toBe(1);
     expect(user?.image).toBe(
       'https://avatars2.githubusercontent.com/u/13117711?s=460&u=380dbcf3b070c32863b79fd4596678b2440ba78b&v=4'
     );
@@ -74,7 +77,9 @@ describe('Update profile picture route test group', () => {
     expect(res.body.msg).toBe('Image updated');
 
     const user1 = await User.findOne().lean();
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
+    expect(user1?.version).toBe(2);
 
-    expect(user1?.image).toBe(null);
+    expect(user1?.image).toBe(undefined);
   });
 });

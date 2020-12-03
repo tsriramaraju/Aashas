@@ -21,11 +21,11 @@ describe('Offer created listener test group', () => {
 
     await listener.onMessage(
       {
-        version: 1,
+        version: 2,
         product: prodPreFetch[0],
-        mode: 'email',
+        mode: ['email'],
         data: {
-          body: '',
+          title: '',
           message: '',
         },
       },
@@ -35,5 +35,6 @@ describe('Offer created listener test group', () => {
     const prodPostFetch1 = await Product.find();
     expect(prodPostFetch1!.length).toBe(1);
     expect(prodPostFetch1![0].inOffer).toBe(true);
+    expect(prodPostFetch1![0].version).toBe(2);
   });
 });

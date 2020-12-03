@@ -52,4 +52,4 @@ router.get('/failure', (req, res) => {
   res.redirect('https://www.google.com');
 });
 
-export { router as GoogleRegister };
+export { router as GoogleRegisterRouter };

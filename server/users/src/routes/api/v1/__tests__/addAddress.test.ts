@@ -1,6 +1,7 @@
 import { natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
+import { addressData } from '../../../../dummy data/user';
 import { User } from '../../../../models/Users';
 
 describe('Add address route test group', () => {
@@ -8,13 +9,7 @@ describe('Add address route test group', () => {
     const res = await request(app)
       .post('/api/v1/users/address')
       .send({
-        name: 'office 23',
-        house: 'FF-012, PentHouse',
-        location: 'Sparks Villa',
-        street: 'NEw hamster Road',
-        pin: '530013',
-        city: 'USA',
-        state: 'AP',
+        ...addressData,
         default: true,
       })
       .expect('Content-Type', /json/)
@@ -31,13 +26,7 @@ describe('Add address route test group', () => {
     const res = await request(app)
       .post('/api/v1/users/address')
       .send({
-        name: 'office 23',
-        house: 'FF-012, PentHouse',
-        location: 'Sparks Villa',
-        street: 'NEw hamster Road',
-        pin: '530013',
-        city: 'USA',
-        state: 'AP',
+        ...addressData,
         default: false,
       })
       .set('Authorization', `Bearer ${token}`)
@@ -60,13 +49,7 @@ describe('Add address route test group', () => {
     const res = await request(app)
       .post('/api/v1/users/address')
       .send({
-        name: 'office 23',
-        house: 'FF-012, PentHouse',
-        location: 'Sparks Villa',
-        street: 'NEw hamster Road',
-        pin: '530013',
-        city: 'USA',
-        state: 'AP',
+        ...addressData,
         default: true,
       })
       .set('Authorization', `Bearer ${token}`)
@@ -89,13 +72,7 @@ describe('Add address route test group', () => {
     const res = await request(app)
       .post('/api/v1/users/address')
       .send({
-        name: 'office 23',
-        house: 'FF-012, PentHouse',
-        location: 'Sparks Villa',
-        street: 'NEw hamster Road',
-        pin: '530013',
-        city: 'USA',
-        state: 'AP',
+        ...addressData,
       })
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
@@ -107,8 +84,22 @@ describe('Add address route test group', () => {
 
     expect(res.body.msg).toBe('Successfully added');
   });
-  //  TODO : add validations for tests
-  it('should enter valid parameters', async () => {});
+
+  it('should enter valid parameters', async () => {
+    const token = await global.userLogin();
+
+    const res = await request(app)
+      .post('/api/v1/users/address')
+      .send({
+        ...addressData,
+        name: 123,
+      })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+
+    expect(res.body.msg).toBe('Entered address name is not String');
+  });
 
   it('should publish event after the process completed successfully', async () => {
     const token = await global.userLogin();
@@ -119,13 +110,7 @@ describe('Add address route test group', () => {
     const res = await request(app)
       .post('/api/v1/users/address')
       .send({
-        name: 'office 23',
-        house: 'FF-012, PentHouse',
-        location: 'Sparks Villa',
-        street: 'NEw hamster Road',
-        pin: '530013',
-        city: 'USA',
-        state: 'AP',
+        ...addressData,
         default: true,
       })
       .set('Authorization', `Bearer ${token}`)

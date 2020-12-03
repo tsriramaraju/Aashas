@@ -26,7 +26,7 @@ export class ProductUpdatedListener extends Listener<ProductUpdatedEvent> {
 
       existingProd.updateOne(product);
       await existingProd.save();
-      console.log('product Updated');
+      process.env.NODE_ENV !== 'test' && console.log('product Updated');
 
       msg.ack();
     } catch (error) {

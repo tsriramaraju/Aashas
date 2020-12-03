@@ -1,5 +1,6 @@
 import { isAdmin, ResourceNotFoundError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { bannerValidation } from '../../../middleware/bannerValidation';
 import { createBanner } from '../../../services/createSalesBanner';
 
 const router = Router();
@@ -11,12 +12,16 @@ const router = Router();
  *  @returns   status
  */
 
-router.post('/banner', [isAdmin], async (req: Request, res: Response) => {
-  const banner = req.body;
+router.post(
+  '/banner',
+  [isAdmin, bannerValidation],
+  async (req: Request, res: Response) => {
+    const banner = req.body;
 
-  const bannerDoc = await createBanner(banner);
+    const bannerDoc = await createBanner(banner);
 
-  res.status(201).json({ msg: 'Banner created successfully' });
-});
+    res.status(201).json({ msg: 'Banner created successfully' });
+  }
+);
 
 export { router as createBannerRouter };

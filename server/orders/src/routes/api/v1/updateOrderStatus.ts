@@ -1,12 +1,12 @@
 import {
   BadRequestError,
+  isAdmin,
   natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { OrderStatusUpdatedPublisher } from '../../../events/publishers/orderStatusUpdate';
-import { createOrder } from '../../../services/createOrder';
 import { updateOrder } from '../../../services/updateOrder';
 
 const router = Router();
@@ -17,7 +17,7 @@ const router = Router();
  *  @access    admin
  *  @returns   status
  */
-router.put('/status/:id', async (req: Request, res: Response) => {
+router.put('/status/:id', [isAdmin], async (req: Request, res: Response) => {
   const status = req.body;
   const orderId = req.params.id;
 
@@ -30,14 +30,14 @@ router.put('/status/:id', async (req: Request, res: Response) => {
 
   new OrderStatusUpdatedPublisher(natsWrapper.client).publish({
     version: orderDoc.version,
-    mode: 'email',
+    mode: ['email'],
     orderID: orderDoc.id,
     orderStatus: status,
     data: {
-      body: 'Order created',
+      title: 'Order created',
       message: 'this is message',
+      email: orderDoc.email,
     },
-    //  FIXME : add email or contact
   });
 
   res.status(201).json({ msg: 'Order status updated successfully' });

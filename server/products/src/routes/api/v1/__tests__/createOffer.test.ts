@@ -41,6 +41,7 @@ describe('Create offer route test group', () => {
 
     expect(products[0].inOffer).toBe(true);
     expect(products[0].discount).toBe(12);
+    expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
   });
 
@@ -63,6 +64,7 @@ describe('Create offer route test group', () => {
 
     expect(products[0].inOffer).toBe(true);
     expect(products[0].discount).toBe(12);
+    expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
   });

@@ -24,11 +24,11 @@ router.delete('/', [isUser], async (req: Request, res: Response) => {
 
   new UserDeletePublisher(natsWrapper.client).publish({
     id: id!,
-    mode: 'email',
+    mode: ['email'],
     data: {
-      body: 'User has been deleted',
       message: 'Deleted',
       email: req.currentUser?.email,
+      title: 'User has been deleted',
     },
   });
   res.status(201).json({ msg: 'User deleted successfully' });

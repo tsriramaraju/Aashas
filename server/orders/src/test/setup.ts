@@ -80,6 +80,11 @@ afterAll(async () => {
   await mongo.stop();
   await connection.close();
 });
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 global.userLogin = async () => {
   const email = `${v4()}@test.com`;
   const password = 'This is secret';
@@ -146,9 +151,11 @@ global.createOrder = async (userId: Types.ObjectId) => {
     },
     items: [
       {
-        category: {
-          main: 'asd',
-          sub: 'sad',
+        outfit: {
+          type: categories.kids,
+          occasion: {
+            party: 'sherwani',
+          },
         },
         prodId: Types.ObjectId(),
         title: 'kids casuals',

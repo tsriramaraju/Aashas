@@ -20,10 +20,10 @@ describe('Custom Product created listener test group', () => {
     await listener.onMessage(
       {
         product,
-        mode: 'email',
+        mode: ['email'],
         version: 1,
         data: {
-          body: '',
+          title: '',
           message: '',
         },
       },

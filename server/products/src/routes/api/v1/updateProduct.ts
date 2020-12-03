@@ -23,7 +23,7 @@ const router = Router();
 
 router.put(
   '/:id',
-  [isAdmin],
+  [isAdmin, productValidation],
   async (req: Request, res: Response) => {
     const prodId = req.params.id;
     const productData = req.body as productAttrs;

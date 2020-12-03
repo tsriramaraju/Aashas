@@ -14,6 +14,7 @@ describe('Remove  Favourites service test group', () => {
     await removeFavourites({ userId: user?._id });
     const user1 = await User.findOne().lean();
     expect(user1?.favourites?.length).toBe(undefined);
+    expect(user1?.version).toBe(3);
   });
   it('should remove specific product  if  product id is mentioned', async () => {
     await global.userLogin();
@@ -25,5 +26,6 @@ describe('Remove  Favourites service test group', () => {
     await removeFavourites({ userId: user?._id, prodId: id });
     const user1 = await User.findOne().lean();
     expect(user1?.favourites?.length).toBe(1);
+    expect(user1?.version).toBe(3);
   });
 });

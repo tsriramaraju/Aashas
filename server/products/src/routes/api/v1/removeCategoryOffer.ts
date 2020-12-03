@@ -34,6 +34,7 @@ router.delete(
       outfit,
     };
     const products = await updateCategoryOffer(offer);
+
     if (!products) throw new ResourceNotFoundError('Products not found');
     res.status(201).json({ msg: 'Products updated successfully' });
 

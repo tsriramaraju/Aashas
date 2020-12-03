@@ -12,10 +12,15 @@ export class OrderStatusUpdatedListener extends Listener<OrderStatusUpdatedEvent
     try {
       const { orderID, orderStatus } = data;
 
-      await Order.findByIdAndUpdate(orderID, {
-        status: orderStatus,
+      const order = await Order.findByEvent({
+        id: orderID,
+        version: data.version,
       });
-      console.log('Order Status updated');
+
+      if (!order) throw new Error('order not found');
+      order.status = orderStatus;
+      await order.save();
+      process.env.NODE_ENV !== 'test' && console.log('Order Status updated');
 
       msg.ack();
     } catch (error) {

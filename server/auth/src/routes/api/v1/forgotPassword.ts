@@ -44,11 +44,12 @@ router.post(
     if (resetData) {
       //Publishes reset link event to the user
       new GenerateResetPublisher(natsWrapper.client).publish({
-        mode: 'email',
+        mode: ['email'],
         data: {
           title: 'Please follow this link to reset the password',
           uid: resetData.uid,
           email: resetData.email,
+          message: 'message',
         },
       });
 
@@ -57,4 +58,4 @@ router.post(
   }
 );
 
-export { router as forgotPassword };
+export { router as forgotPasswordRouter };

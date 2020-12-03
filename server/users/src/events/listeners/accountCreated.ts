@@ -28,7 +28,7 @@ export class AccountCreatedListener extends Listener<AccountCreatedEvent> {
 
       new UserCreatedPublisher(natsWrapper.client).publish({
         id: user.id,
-        mode: 'email',
+        mode: ['email'],
         group: queueGroupName,
         data: {
           body: 'User created',

@@ -28,7 +28,7 @@ export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
         discount: product.discount,
         inOffer: product.inOffer,
       }).save();
-      console.log('product created');
+      process.env.NODE_ENV !== 'test' && console.log('product created');
 
       msg.ack();
     } catch (error) {

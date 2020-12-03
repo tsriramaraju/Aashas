@@ -9,14 +9,14 @@ export interface OrderStatusUpdatedEvent {
     version: number;
     clientID?: string;
     group?: string;
-    mode: 'message' | 'email' | 'push notification';
+    mode: ('message' | 'email' | 'push notification')[];
     data: {
-      title?: string;
+      title: string;
       name?: string;
       email?: string;
       mobile?: number;
       message: string;
-      body: string;
+      body?: string;
       img?: string;
     };
   };

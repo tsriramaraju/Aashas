@@ -30,7 +30,7 @@ describe('Mobile signup test groups', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -43,7 +43,7 @@ describe('Mobile signup test groups', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -56,7 +56,7 @@ describe('Mobile signup test groups', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -69,7 +69,7 @@ describe('Mobile signup test groups', () => {
       })
       .expect('Content-Type', /json/)
       .expect(418);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Validation error, please enter valid inputs');
   });
 
@@ -84,6 +84,7 @@ describe('Mobile signup test groups', () => {
       })
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Mobile no. already exists');
   });
 
@@ -103,6 +104,6 @@ describe('Mobile signup test groups', () => {
 
     expect(res.body).toBe('OTP has been sent to your mobile');
 
-    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
 });

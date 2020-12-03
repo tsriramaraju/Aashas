@@ -22,16 +22,18 @@ describe('Order created listener test group', () => {
     await listener.onMessage(
       {
         order,
-        mode: 'email',
+        mode: ['email'],
         version: 1,
         data: {
           body: '',
           message: '',
+          title: '',
         },
       },
       msg
     );
     const ordersPostFetch1 = await Order.find();
     expect(ordersPostFetch1!.length).toBe(1);
+    expect(ordersPostFetch1![0].version).toBe(0);
   });
 });

@@ -18,7 +18,6 @@ security(app);
 process.env.NODE_ENV !== 'test' && loggers(app);
 
 /**
- *
  * Designer service routes
  */
 app.use('/api/v1/designer', router.updateDesignerRouter);

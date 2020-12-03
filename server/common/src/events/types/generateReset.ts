@@ -5,17 +5,18 @@ export interface GenerateResetEvent {
   subject: Subjects.GenerateReset;
   data: {
     id?: Types.ObjectId;
-    mode: 'email' | 'mobile' | 'slack';
+    mode: ('email' | 'mobile')[];
     group?: string;
     clientID?: string;
     data: {
-      title?: string;
+      title: string;
       name?: string;
       email?: string;
       mobile?: number;
       uid: Types.ObjectId;
-      message?: string;
+      message: string;
       img?: string;
+      body?: string;
     };
   };
 }

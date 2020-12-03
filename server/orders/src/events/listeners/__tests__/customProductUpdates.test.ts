@@ -9,7 +9,7 @@ describe('Custom Product Updated listener test group', () => {
 
     const prodPreFetch = await CustomProduct.find();
     expect(prodPreFetch![0].title).not.toBe('new product test');
-    console.log(prodPreFetch[0]);
+
     prodPreFetch[0].title = 'new product test';
 
     expect(prodPreFetch!.length).toBe(1);
@@ -21,10 +21,10 @@ describe('Custom Product Updated listener test group', () => {
       {
         product: prodPreFetch[0],
 
-        mode: 'email',
+        mode: ['email'],
         version: 1,
         data: {
-          body: '',
+          title: '',
           message: '',
         },
       },
@@ -32,7 +32,7 @@ describe('Custom Product Updated listener test group', () => {
     );
 
     const prodPostFetch1 = await CustomProduct.find();
-    console.log(prodPostFetch1);
+
     expect(prodPostFetch1!.length).toBe(1);
     expect(prodPostFetch1![0].title).toBe('new product test');
   });

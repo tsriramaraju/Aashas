@@ -6,7 +6,7 @@ import {
   femaleProductData,
   kidsProductData,
   maleProductData,
-} from '../../../../dummyData/Product';
+} from '../../../../dummy Data/Product';
 import { Product } from '../../../../models/Products';
 
 describe('Create Category offer route test group', () => {
@@ -80,6 +80,22 @@ describe('Create Category offer route test group', () => {
       expect(product.inOffer).toBe(true);
       expect(product.discount).toBe(15);
     });
+
+    const res = await request(app)
+      .delete('/api/v1/products/category/remove')
+      .send(outfit)
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(201);
+    const postFetchCategories = await Product.find({ outfit });
+    expect(postFetchCategories.length).toBe(5);
+
+    postFetchCategories.forEach((product) => {
+      expect(product.inOffer).toBe(false);
+      expect(product.discount).toBe(0);
+      expect(product.version).toBe(1);
+    });
+    expect(res.body.msg).toBe('Products updated successfully');
   });
   it('should publish events valid offer input', async () => {
     const token = await global.adminLogin();
@@ -139,9 +155,11 @@ describe('Create Category offer route test group', () => {
       .expect(201);
     const postFetchCategories = await Product.find({ outfit });
     expect(postFetchCategories.length).toBe(5);
+
     postFetchCategories.forEach((product) => {
       expect(product.inOffer).toBe(false);
       expect(product.discount).toBe(0);
+      expect(product.version).toBe(1);
     });
     expect(res.body.msg).toBe('Products updated successfully');
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(10);

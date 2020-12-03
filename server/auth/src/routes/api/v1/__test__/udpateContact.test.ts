@@ -1,4 +1,4 @@
-import { authType, verification } from '@aashas/common';
+import { authType, natsWrapper, verification } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
 import { Account, OTP } from '../../../../models';
@@ -32,6 +32,7 @@ describe('update Contacts route test group', () => {
       .expect(201);
     const otpData = await OTP.findOne({ email: 'john@test.com' });
     expect(otpData?.email).toBe('john@test.com');
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
 
   it('should update mobile no from email registered user', async () => {
@@ -63,6 +64,7 @@ describe('update Contacts route test group', () => {
       .expect(201);
     const otpData = await OTP.findOne({ mobile: 1234567891 });
     expect(otpData?.mobile).toBe('1234567891');
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
 
   it('should generate valid token on updating email address from mobile registered user', async () => {
@@ -95,7 +97,7 @@ describe('update Contacts route test group', () => {
     expect(otpData?.email).toBe('john@test.com');
 
     const payload = decodeJWT(res.body);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
     expect(payload?.id).toBe(user.id);
   });
 
@@ -129,7 +131,7 @@ describe('update Contacts route test group', () => {
     expect(otpData?.mobile).toBe('1234567891');
 
     const payload = decodeJWT(res.body);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
     expect(payload?.id).toBe(user.id);
   });
 
@@ -144,7 +146,7 @@ describe('update Contacts route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('invalid request, use only one parameter');
   });
   it('should give bad request error if no parameters are given', async () => {
@@ -155,7 +157,7 @@ describe('update Contacts route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('invalid request, No valid parameters are found');
   });
   it('should give resource not found error if mobile no. already exists', async () => {
@@ -184,7 +186,7 @@ describe('update Contacts route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('mobile already exists');
   });
   it('should give resource not found error if email already exists', async () => {
@@ -214,7 +216,7 @@ describe('update Contacts route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(420);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('email already exists');
   });
 
@@ -224,7 +226,7 @@ describe('update Contacts route test group', () => {
 
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Authentication token is not present');
   });
   it('should give authorization error if route is accessed by admin', async () => {
@@ -235,7 +237,7 @@ describe('update Contacts route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(401);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
   });
 });

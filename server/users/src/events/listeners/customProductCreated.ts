@@ -34,7 +34,7 @@ export class CustomProductCreatedListener extends Listener<CustomProductCreatedE
         inOffer: product.inOffer,
         refImages: product.refImages,
       }).save();
-      console.log('Custom product created');
+      process.env.NODE_ENV !== 'test' && console.log('Custom product created');
 
       msg.ack();
     } catch (error) {

@@ -5,7 +5,7 @@ import {
   femaleProductData,
   kidsProductData,
   maleProductData,
-} from '../../../../dummyData/Product';
+} from '../../../../dummy Data/Product';
 import { Product } from '../../../../models/Products';
 
 describe('Create Category offer route test group', () => {
@@ -73,8 +73,10 @@ describe('Create Category offer route test group', () => {
       .expect('Content-Type', /json/)
       .expect(201);
     const postFetchCategories = await Product.find({ outfit });
+
     expect(postFetchCategories.length).toBe(5);
     postFetchCategories.forEach((product) => {
+      expect(product.version).toBe(1);
       expect(product.inOffer).toBe(true);
       expect(product.discount).toBe(12);
     });
@@ -96,18 +98,13 @@ describe('Create Category offer route test group', () => {
     await Product.build(maleProductData).save();
     await Product.build(femaleProductData).save();
     await Product.build(kidsProductData).save();
-
     const preFetch = await Product.find();
     expect(preFetch.length).toBe(7);
-
     const preFetchCategories = await Product.find({ outfit });
-
     expect(preFetchCategories.length).toBe(5);
-
     preFetchCategories.forEach((product) => {
       expect(product.inOffer).toBe(false);
     });
-
     const res = await request(app)
       .post('/api/v1/products/offers-category')
       .send({
@@ -123,6 +120,7 @@ describe('Create Category offer route test group', () => {
     postFetchCategories.forEach((product) => {
       expect(product.inOffer).toBe(true);
       expect(product.discount).toBe(12);
+      expect(product.version).toBe(1);
     });
     expect(res.body.msg).toBe('Products updated successfully');
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(10);

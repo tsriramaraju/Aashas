@@ -15,4 +15,4 @@ router.get('/super/get', [isAdmin], async (req: Request, res: Response) => {
   res.status(201).json(users);
 });
 
-export { router as getAccounts };
+export { router as getAccountsRouter };

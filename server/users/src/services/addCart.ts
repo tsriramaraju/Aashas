@@ -9,10 +9,14 @@ export const addCart = async (ids: {
   try {
     const user = await User.findById(ids.userId);
 
-    const cartExists = user?.cart?.includes(ids.prodId);
+    if (!user) return null;
 
-    if (!cartExists) user?.cart?.unshift(ids.prodId);
-    await user?.save();
+    const cartExists = user.cart?.includes(ids.prodId);
+
+    if (!cartExists) {
+      user.cart?.unshift(ids.prodId);
+      await user.save();
+    }
 
     return 'Cart items added successfully';
   } catch (error) {

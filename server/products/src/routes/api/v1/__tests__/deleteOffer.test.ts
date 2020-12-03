@@ -41,6 +41,7 @@ describe('Delete offer route test group', () => {
 
     expect(products[0].inOffer).toBe(false);
     expect(products[0].discount).toBe(0);
+    expect(products[0].version).toBe(2);
     expect(res.body.msg).toBe('Product updated successfully');
   });
   it('should publish events on valid offer input', async () => {
@@ -63,6 +64,7 @@ describe('Delete offer route test group', () => {
     expect(products[0].inOffer).toBe(false);
     expect(products[0].discount).toBe(0);
     expect(res.body.msg).toBe('Product updated successfully');
+    expect(products[0].version).toBe(2);
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
   });
 

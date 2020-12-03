@@ -1,5 +1,6 @@
 import {
   BadRequestError,
+  isAdmin,
   natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
@@ -16,7 +17,7 @@ const router = Router();
  *  @access    admin
  *  @returns   status
  */
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', [isAdmin], async (req: Request, res: Response) => {
   const orderId = req.params.id;
   if (!Types.ObjectId.isValid(orderId))
     throw new BadRequestError('Invalid order id');
@@ -26,14 +27,14 @@ router.delete('/:id', async (req: Request, res: Response) => {
 
   new OrderDeletedPublisher(natsWrapper.client).publish({
     orderID: orderDoc.id,
-    version: orderDoc.version,
-    mode: 'email',
+    version: orderDoc.version + 1,
+    mode: ['email'],
     order: orderDoc,
     data: {
-      body: 'Order created',
+      title: 'Order created',
       message: 'this is message',
+      email: orderDoc.email,
     },
-    //  FIXME : add email or contact
   });
 
   res.status(201).json({ msg: 'Order Deleted successfully' });

@@ -2,7 +2,7 @@ import { natsWrapper } from '@aashas/common';
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../../../app';
-import { maleProductData } from '../../../../dummyData/Product';
+import { maleProductData } from '../../../../dummy Data/Product';
 import { Product } from '../../../../models/Products';
 
 describe('Update Product route test group', () => {
@@ -36,7 +36,23 @@ describe('Update Product route test group', () => {
     const products = await Product.find();
 
     expect(products[0].title).toBe('males casuals');
+    expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
+  });
+  it('should throw bad request if invalid product details is given', async () => {
+    const token = await global.adminLogin();
+    const product = await global.createProduct();
+    const preFetch = await Product.find();
+    expect(preFetch[0]).not.toBe('males casuals');
+
+    const res = await request(app)
+      .put(`/api/v1/products/${product.id}`)
+      .send({ ...maleProductData, title: 123 })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+
+    expect(res.body.msg).toBe('Entered product title is not String');
   });
   it('should publish events on valid product input', async () => {
     const token = await global.adminLogin();
@@ -53,6 +69,7 @@ describe('Update Product route test group', () => {
     const products = await Product.find();
 
     expect(products[0].title).toBe('males casuals');
+    expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
   });

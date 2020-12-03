@@ -26,7 +26,7 @@ describe('Offer Deleted listener test group', () => {
     await listener.onMessage(
       {
         product: prodPreFetch[0],
-        version: 1,
+        version: 3,
       },
       msg
     );
@@ -35,5 +35,6 @@ describe('Offer Deleted listener test group', () => {
     expect(prodPostFetch1!.length).toBe(1);
     expect(prodPostFetch1![0].inOffer).toBe(false);
     expect(prodPostFetch1![0].discount).toBe(0);
+    expect(prodPostFetch1![0].version).toBe(3);
   });
 });

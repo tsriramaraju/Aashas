@@ -27,10 +27,10 @@ describe('Offer Updated listener test group', () => {
     await listener.onMessage(
       {
         product: prodPreFetch[0],
-        mode: 'email',
-        version: 1,
+        mode: ['email'],
+        version: 3,
         data: {
-          body: '',
+          title: '',
           message: '',
         },
       },
@@ -41,5 +41,6 @@ describe('Offer Updated listener test group', () => {
     expect(prodPostFetch1!.length).toBe(1);
     expect(prodPostFetch1![0].inOffer).toBe(true);
     expect(prodPostFetch1![0].discount).toBe(70);
+    expect(prodPostFetch1![0].version).toBe(3);
   });
 });

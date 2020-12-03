@@ -57,16 +57,49 @@ describe('Update info route test group', () => {
     expect(res.body.msg).toBe('Designer account not found');
   });
 
-  it('should throw Bad request error if invalid parameters are submitted', async () => {
-    // const designer = await global.createDesigner();
-    // expect(designer.name).toBe('John the admin');
-    // const token = global.adminLogin();
-    // const res = await request(app)
-    //   .put('/api/v1/designer')
-    //   .send({ name: 123 })
-    //   .set('Authorization', `Bearer ${token}`)
-    //   .expect('Content-Type', /json/)
-    //   .expect(400);
-    // expect(res.body.msg).toBe('Invalid input');
+  it('should throw Bad request error if invalid name is submitted', async () => {
+    const designer = await global.createDesigner();
+    expect(designer.name).toBe('John the admin');
+    const token = global.adminLogin();
+    const res = await request(app)
+      .put('/api/v1/designer')
+      .send({ name: 123 })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+    expect(res.body.msg).toBe('Entered name is not String');
+  });
+  it('should throw Bad request error if invalid email is submitted', async () => {
+    await global.createDesigner();
+    const token = global.adminLogin();
+    const res = await request(app)
+      .put('/api/v1/designer')
+      .send({ email: 123 })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+    expect(res.body.msg).toBe('Entered email is not valid email');
+  });
+  it('should throw Bad request error if invalid bio is submitted', async () => {
+    await global.createDesigner();
+    const token = global.adminLogin();
+    const res = await request(app)
+      .put('/api/v1/designer')
+      .send({ bio: 123 })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+    expect(res.body.msg).toBe('Entered bio is not String');
+  });
+  it('should throw Bad request error if invalid mobile is submitted', async () => {
+    await global.createDesigner();
+    const token = global.adminLogin();
+    const res = await request(app)
+      .put('/api/v1/designer')
+      .send({ mobile: '123' })
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(400);
+    expect(res.body.msg).toBe('Entered mobile is not Number');
   });
 });

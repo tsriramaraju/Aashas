@@ -25,9 +25,9 @@ export class ProductDeletedListener extends Listener<ProductDeletedEvent> {
         throw new ResourceNotFoundError('Product not found');
       }
 
-      existingProd.remove();
-      await existingProd.save();
-      console.log('product Deleted');
+      await existingProd.remove();
+
+      process.env.NODE_ENV !== 'test' && console.log('product Deleted');
 
       msg.ack();
     } catch (error) {

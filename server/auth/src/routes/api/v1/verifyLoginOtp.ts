@@ -43,4 +43,4 @@ router.post(
   }
 );
 
-export { router as verifyLogin };
+export { router as verifyLoginRouter };
