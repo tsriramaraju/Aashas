@@ -17,21 +17,20 @@ export class OrderDeletedListener extends Listener<OrderDeletedEvent> {
     try {
       const products = data.order.items;
 
-      products.forEach(async (product) => {
+      const promises = products.map(async (product) => {
         const prod = await Product.findById(product.prodId);
 
         if (!prod) throw new Error('product not found');
-        prod.quantity++;
+        ++prod.quantity;
         await prod.save();
 
         new ProductUpdatedPublisher(natsWrapper.client).publish({
           product: prod,
-          version: prod.version + 1,
+          version: prod.version,
         });
       });
+      await Promise.all(promises);
       msg.ack();
-      //  FIXME : needs something to wait
-      await Product.find().lean();
     } catch (error) {
       console.log(error.message);
     }

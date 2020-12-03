@@ -18,21 +18,20 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     try {
       const products = data.order.items;
 
-      products.forEach(async (product) => {
+      const promises = products.map(async (product) => {
         const prod = await Product.findById(product.prodId);
 
         if (!prod) throw new Error('product not found');
 
-        await prod.updateOne({ quantity: prod.quantity - 1 });
+        --prod.quantity;
+        await prod.save();
 
         new ProductUpdatedPublisher(natsWrapper.client).publish({
           product: prod,
-          version: prod.version + 1,
+          version: prod.version,
         });
       });
-      //  FIXME : needs something to wait
-      await Product.find().lean();
-
+      await Promise.all(promises);
       msg.ack();
     } catch (error) {
       console.log(error.message);
