@@ -8,7 +8,10 @@ import {
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { index } from '../../../config/algolia';
-import { ProductDeletedPublisher } from '../../../events';
+import {
+  BuildWebsitePublisher,
+  ProductDeletedPublisher,
+} from '../../../events';
 
 import { deleteProduct } from '../../../services/deleteProduct';
 
@@ -31,7 +34,6 @@ router.delete('/delete/:id', [isAdmin], async (req: Request, res: Response) => {
   if (!product) throw new ResourceNotFoundError('No Product found');
 
   res.status(201).json({ msg: 'Product deleted successfully' });
-  //  TODO : publish build website event
 
   new ProductDeletedPublisher(natsWrapper.client).publish({
     productID: product.id,
@@ -44,6 +46,10 @@ router.delete('/delete/:id', [isAdmin], async (req: Request, res: Response) => {
   } catch (error) {
     throw new ServerError(error);
   }
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'Product deleted',
+  });
 });
 
 export { router as deleteProductRouter };

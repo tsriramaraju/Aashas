@@ -10,6 +10,7 @@ import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { index } from '../../../config/algolia';
 import {
+  BuildWebsitePublisher,
   OfferCreatedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
@@ -43,7 +44,11 @@ router.post('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
 
   if (!product) throw new ResourceNotFoundError('Product not found');
   res.status(201).json({ msg: 'Product updated successfully' });
-  //  TODO : publish build website event
+
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'Offer created',
+  });
 
   new ProductUpdatedPublisher(natsWrapper.client).publish({
     product,

@@ -9,6 +9,7 @@ import {
 import { Router, Request, Response } from 'express';
 import { index } from '../../../config/algolia';
 import {
+  BuildWebsitePublisher,
   OfferCreatedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
@@ -71,7 +72,10 @@ router.post(
       }
     });
     await Promise.all(promises);
-    //  TODO : publish build website event
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Category Offer created',
+    });
   }
 );
 

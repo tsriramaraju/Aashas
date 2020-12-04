@@ -10,7 +10,10 @@ import {
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { index } from '../../../config/algolia';
-import { ProductUpdatedPublisher } from '../../../events';
+import {
+  BuildWebsitePublisher,
+  ProductUpdatedPublisher,
+} from '../../../events';
 import { productValidation } from '../../../middlewares/productValidation';
 import { updateProduct } from '../../../services/updateProduct';
 
@@ -36,7 +39,6 @@ router.put(
     const product = await updateProduct(Types.ObjectId(prodId), productData);
     if (!product) throw new ResourceNotFoundError('Product not found');
     res.status(201).json({ msg: 'Product updated successfully' });
-    //  TODO : publish build website event
 
     new ProductUpdatedPublisher(natsWrapper.client).publish({
       product,
@@ -57,6 +59,10 @@ router.put(
     } catch (error) {
       throw new ServerError(error);
     }
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Product updated',
+    });
   }
 );
 

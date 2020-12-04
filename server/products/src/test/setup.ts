@@ -54,6 +54,8 @@ beforeAll(async () => {
   keys.algoliaKey = 'This almost had me ';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';
+  process.env.ALGOLIA_APP_ID = 'some fix';
+  process.env.ALGOLIA_API_KEY = 'some fix';
 
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();

@@ -10,6 +10,7 @@ import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { index } from '../../../config/algolia';
 import {
+  BuildWebsitePublisher,
   OfferUpdatedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
@@ -73,6 +74,10 @@ router.put('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
   } catch (error) {
     throw new ServerError(error);
   }
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'Offer updated',
+  });
 });
 
 export { router as updateOfferRouter };

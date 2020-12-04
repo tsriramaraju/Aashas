@@ -10,6 +10,7 @@ import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { index } from '../../../config/algolia';
 import {
+  BuildWebsitePublisher,
   OfferDeletedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
@@ -40,8 +41,6 @@ router.delete('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
   if (!product) throw new ResourceNotFoundError('Product not found');
   res.status(201).json({ msg: 'Product updated successfully' });
 
-  //  TODO : publish build website event
-
   new ProductUpdatedPublisher(natsWrapper.client).publish({
     product,
     version: product.version,
@@ -66,6 +65,10 @@ router.delete('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
   } catch (error) {
     throw new ServerError(error);
   }
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'offer Deleted',
+  });
 });
 
 export { router as deleteOfferRouter };

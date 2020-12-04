@@ -9,6 +9,7 @@ import {
 import { Router, Request, Response } from 'express';
 import { index } from '../../../config/algolia';
 import {
+  BuildWebsitePublisher,
   OfferDeletedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
@@ -67,8 +68,12 @@ router.delete(
         throw new ServerError(error);
       }
     });
-    //  TODO : publish build website event
+
     await Promise.all(promises);
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Offer removed',
+    });
   }
 );
 

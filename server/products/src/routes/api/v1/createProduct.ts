@@ -6,7 +6,10 @@ import {
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { index } from '../../../config/algolia';
-import { ProductCreatedPublisher } from '../../../events';
+import {
+  BuildWebsitePublisher,
+  ProductCreatedPublisher,
+} from '../../../events';
 
 import { productValidation } from '../../../middlewares/productValidation';
 import { createProduct } from '../../../services/createProduct';
@@ -29,7 +32,11 @@ router.post(
 
     res.status(201).json({ msg: 'Product added successfully' });
 
-    //  TODO : publish build website
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Product created',
+    });
+
     new ProductCreatedPublisher(natsWrapper.client).publish({
       product: productDoc,
       version: productDoc.version,
