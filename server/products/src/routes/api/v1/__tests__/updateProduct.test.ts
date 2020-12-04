@@ -71,7 +71,7 @@ describe('Update Product route test group', () => {
     expect(products[0].title).toBe('males casuals');
     expect(products[0].version).toBe(1);
     expect(res.body.msg).toBe('Product updated successfully');
-    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
   });
 
   it('should return Resource not found error if no product is found ', async () => {

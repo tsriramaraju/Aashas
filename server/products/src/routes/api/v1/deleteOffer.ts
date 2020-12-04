@@ -59,16 +59,17 @@ router.delete('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
     keywords: product.keywords,
     gender: product.gender,
   };
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'offer Deleted',
+  });
+
   try {
     const algoliaRes = await index.saveObject(productObj);
     console.log(algoliaRes);
   } catch (error) {
     throw new ServerError(error);
   }
-  new BuildWebsitePublisher(natsWrapper.client).publish({
-    immediate: false,
-    message: 'offer Deleted',
-  });
 });
 
 export { router as deleteOfferRouter };

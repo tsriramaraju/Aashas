@@ -92,6 +92,6 @@ describe('Delete products test group', () => {
 
     expect(postFetch.length).toBe(2);
     expect(res.body.msg).toBe('Product deleted successfully');
-    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
   });
 });

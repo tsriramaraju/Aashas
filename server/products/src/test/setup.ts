@@ -18,6 +18,7 @@ import { Product } from '../models/Products';
 import { CustomProduct } from '../models/CustomProducts';
 import { v4 } from 'uuid';
 import { Order } from '../models/Orders';
+import { RequestOptions } from 'http';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -31,6 +32,15 @@ jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
             }
           ),
       },
+    },
+  };
+});
+
+jest.mock('../config/algolia.ts', () => {
+  return {
+    index: {
+      saveObject: jest.fn(),
+      deleteObject: jest.fn(),
     },
   };
 });
@@ -54,8 +64,6 @@ beforeAll(async () => {
   keys.algoliaKey = 'This almost had me ';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';
-  process.env.ALGOLIA_APP_ID = 'some fix';
-  process.env.ALGOLIA_API_KEY = 'some fix';
 
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
