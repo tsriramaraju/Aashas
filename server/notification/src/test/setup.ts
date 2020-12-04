@@ -1,21 +1,24 @@
 import { keys } from '../config/keys';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connection, connect, Types } from 'mongoose';
+import { NotificationDoc } from '@aashas/common';
 
 declare global {
   namespace NodeJS {
     interface Global {
-      userLogin(): Promise<string>;
+      createNotification(): Promise<NotificationDoc>;
     }
   }
 }
 
+const userId = Types.ObjectId();
+
 let mongo: any;
 beforeAll(async () => {
-  keys.jwtSecret = 'This almost had me ';
+  keys.jwtSecret = 'This almost had me';
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  process.env.JWT_SECRET = 'This almost had me ';
+  process.env.JWT_SECRET = 'This almost had me';
 
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();

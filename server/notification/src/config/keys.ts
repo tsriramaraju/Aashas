@@ -5,9 +5,9 @@
  */
 
 export const keys = {
-  port: process.env.NOTIFICATION_PORT,
+  port: process.env.ORDERS_PORT,
 
-  mongoURL: process.env.NOTIFICATION_MONGO_URL,
+  mongoURL: process.env.ORDERS_MONGO_URL,
 
   jwtSecret: process.env.JWT_SECRET,
 

@@ -1,7 +1,6 @@
 import 'colors';
 import 'express-async-errors';
 import express, { json } from 'express';
-
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
 
 /**
@@ -18,7 +17,7 @@ security(app);
 process.env.NODE_ENV !== 'test' && loggers(app);
 
 /**
- * Notifications service routes
+ * Designer service routes
  */
 
 /**
