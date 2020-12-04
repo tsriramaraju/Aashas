@@ -1,4 +1,4 @@
-import { salesBannerAttrs } from '@aashas/common';
+import { natsWrapper, salesBannerAttrs } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
 import { SalesBanner } from '../../../../models/SalesBanner';
@@ -24,6 +24,7 @@ describe('Create banner test group', () => {
       .expect('Content-Type', /json/)
       .expect(401);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
 
   it('should create banner on successful entry', async () => {
@@ -45,6 +46,7 @@ describe('Create banner test group', () => {
     expect(banners![0].img).toBe(banner.img);
     expect(banners![0].title).toBe(banner.title);
     expect(banners![0].type).toBe(banner.type);
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
 
   it('should throw bad request error on not entering title', async () => {
@@ -58,7 +60,7 @@ describe('Create banner test group', () => {
       .send({})
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Please enter title');
   });
   it('should throw bad request error on entering invalid title', async () => {
@@ -72,7 +74,7 @@ describe('Create banner test group', () => {
       .send({ ...banner, title: 123 })
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Entered title is not String');
   });
   it('should throw bad request error on not entering image', async () => {
@@ -86,6 +88,7 @@ describe('Create banner test group', () => {
       .send(removeProperty(banner, 'img'))
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
 
     expect(res.body.msg).toBe('Please enter img');
   });
@@ -100,7 +103,7 @@ describe('Create banner test group', () => {
       .send({ ...banner, img: 123 })
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Entered img is not String');
   });
   it('should throw bad request error on not entering discount', async () => {
@@ -114,7 +117,7 @@ describe('Create banner test group', () => {
       .send(removeProperty(banner, 'discount'))
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Please enter discount');
   });
   it('should throw bad request error on entering invalid discount', async () => {
@@ -128,7 +131,7 @@ describe('Create banner test group', () => {
       .send({ ...banner, discount: '123' })
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Entered discount is not Number');
   });
   it('should throw bad request error on not entering type', async () => {
@@ -142,7 +145,7 @@ describe('Create banner test group', () => {
       .send(removeProperty(banner, 'type'))
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Please enter type');
   });
   it('should throw bad request error on entering invalid type', async () => {
@@ -156,7 +159,7 @@ describe('Create banner test group', () => {
       .send({ ...banner, type: '123' })
       .expect('Content-Type', /json/)
       .expect(400);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Entered type is not valid discount type');
   });
 });

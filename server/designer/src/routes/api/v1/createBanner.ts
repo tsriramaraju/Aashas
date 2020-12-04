@@ -1,5 +1,6 @@
-import { isAdmin, ResourceNotFoundError } from '@aashas/common';
+import { isAdmin, natsWrapper, ResourceNotFoundError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { BuildWebsitePublisher } from '../../../events';
 import { bannerValidation } from '../../../middleware/bannerValidation';
 import { createBanner } from '../../../services/createSalesBanner';
 
@@ -21,6 +22,11 @@ router.post(
     const bannerDoc = await createBanner(banner);
 
     res.status(201).json({ msg: 'Banner created successfully' });
+
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Sales banner created',
+    });
   }
 );
 

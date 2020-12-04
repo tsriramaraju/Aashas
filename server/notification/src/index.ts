@@ -2,6 +2,7 @@ import { ConnectionOptions } from 'mongoose';
 import { app } from './app';
 import { connectDB, natsWrapper } from '@aashas/common';
 import { keys } from './config/keys';
+import { initializeListeners } from './events/listeners';
 
 const start = async () => {
   /**
@@ -42,6 +43,8 @@ const start = async () => {
     console.log(error);
     process.exit();
   }
+
+  initializeListeners();
 
   app.listen(keys.port, () => {
     console.log(`Listening in port ${keys.port}`.green);

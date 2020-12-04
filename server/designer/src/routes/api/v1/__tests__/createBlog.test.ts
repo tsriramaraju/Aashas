@@ -1,4 +1,4 @@
-import { blog } from '@aashas/common';
+import { blog, natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
 import { Designer } from '../../../../models/Designer';
@@ -22,6 +22,7 @@ describe('Create blogs  route test group', () => {
       .expect('Content-Type', /json/)
       .expect(401);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
 
   it('should return success message on creating blog successfully', async () => {
@@ -35,7 +36,7 @@ describe('Create blogs  route test group', () => {
       .send(blog)
       .expect('Content-Type', /json/)
       .expect(201);
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
     expect(res.body.msg).toBe('Successfully added');
 
     const postFetch = await Designer.find().lean();
@@ -54,6 +55,7 @@ describe('Create blogs  route test group', () => {
       .send(blog)
       .expect('Content-Type', /json/)
       .expect(420);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Designer account not found');
   });
 });

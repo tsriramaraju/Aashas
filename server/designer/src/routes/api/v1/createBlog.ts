@@ -1,5 +1,6 @@
-import { isAdmin, ResourceNotFoundError } from '@aashas/common';
+import { isAdmin, natsWrapper, ResourceNotFoundError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { BuildWebsitePublisher } from '../../../events';
 import { createBlog } from '../../../services/createBlog';
 import { getDesigner } from '../../../services/getDesigner';
 
@@ -21,6 +22,11 @@ router.post('/blogs', [isAdmin], async (req: Request, res: Response) => {
   if (!status) throw new ResourceNotFoundError('Designer account not found');
 
   res.status(201).json({ msg: status });
+
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'Blog created',
+  });
 });
 
 export { router as createBlogRouter };

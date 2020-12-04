@@ -2,6 +2,7 @@ import 'colors';
 import 'express-async-errors';
 import express, { json } from 'express';
 import { errorHandler, loggers, NotFoundError, security } from '@aashas/common';
+import * as routes from './routes/api/v1';
 
 /**
  * initiate express app and body parser for json requests
@@ -17,8 +18,11 @@ security(app);
 process.env.NODE_ENV !== 'test' && loggers(app);
 
 /**
- * Designer service routes
+ * Notification service routes
  */
+
+app.use('/api/v1/notification', routes.getNotificationsRouter);
+app.use('/api/v1/notification', routes.pushNotificationRouter);
 
 /**
  * 404 route

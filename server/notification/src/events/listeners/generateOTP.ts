@@ -19,7 +19,7 @@ export class GenerateOTPListener extends Listener<GenerateOTPEvent> {
           subject: notificationData.title,
         });
       }
-      if (mode === 'mobile') {
+      if (mode === 'message') {
         mobileNotification({
           mobile: notificationData.mobile!,
           message: notificationData.body!,
