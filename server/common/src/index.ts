@@ -41,6 +41,8 @@ export * from './events/types/orders/orderStatusUpdated';
 export * from './events/types/payments/paymentSuccess';
 export * from './events/types/payments/paymentFailed';
 
+export * from './events/types/website/buildWebsite';
+
 /**
  * Exporting Event types
  */

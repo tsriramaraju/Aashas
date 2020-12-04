@@ -16,4 +16,8 @@ export const keys = {
   natsURL: process.env.NATS_URL,
 
   natsClientID: process.env.NATS_CLIENT_ID,
+
+  algoliaID: process.env.ALGOLIA_APP_ID,
+
+  algoliaKey: process.env.ALGOLIA_API_KEY,
 };

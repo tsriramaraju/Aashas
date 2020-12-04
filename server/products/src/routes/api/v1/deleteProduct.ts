@@ -3,10 +3,15 @@ import {
   isAdmin,
   natsWrapper,
   ResourceNotFoundError,
+  ServerError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
-import { ProductDeletedPublisher } from '../../../events';
+import { index } from '../../../config/algolia';
+import {
+  BuildWebsitePublisher,
+  ProductDeletedPublisher,
+} from '../../../events';
 
 import { deleteProduct } from '../../../services/deleteProduct';
 
@@ -29,14 +34,22 @@ router.delete('/delete/:id', [isAdmin], async (req: Request, res: Response) => {
   if (!product) throw new ResourceNotFoundError('No Product found');
 
   res.status(201).json({ msg: 'Product deleted successfully' });
-  //  TODO : publish build website event
 
   new ProductDeletedPublisher(natsWrapper.client).publish({
     productID: product.id,
     version: product.version + 1,
   });
 
-  //  TODO : algolia
+  try {
+    const algoliaRes = await index.deleteObject(product.id.toString());
+    console.log(algoliaRes);
+  } catch (error) {
+    throw new ServerError(error);
+  }
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'Product deleted',
+  });
 });
 
 export { router as deleteProductRouter };

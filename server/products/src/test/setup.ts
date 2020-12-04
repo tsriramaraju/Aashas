@@ -18,6 +18,7 @@ import { Product } from '../models/Products';
 import { CustomProduct } from '../models/CustomProducts';
 import { v4 } from 'uuid';
 import { Order } from '../models/Orders';
+import { RequestOptions } from 'http';
 
 jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
   return {
@@ -31,6 +32,15 @@ jest.mock('@aashas/common/build/loaders/natsWrapper', () => {
             }
           ),
       },
+    },
+  };
+});
+
+jest.mock('../config/algolia.ts', () => {
+  return {
+    index: {
+      saveObject: jest.fn(),
+      deleteObject: jest.fn(),
     },
   };
 });
@@ -50,7 +60,8 @@ declare global {
 let mongo: any;
 beforeAll(async () => {
   keys.jwtSecret = 'This almost had me ';
-
+  keys.algoliaID = 'This almost had me ';
+  keys.algoliaKey = 'This almost had me ';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   process.env.JWT_SECRET = 'This almost had me ';
 

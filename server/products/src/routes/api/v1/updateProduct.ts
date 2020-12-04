@@ -5,10 +5,15 @@ import {
   productAttrs,
   ProductDoc,
   ResourceNotFoundError,
+  ServerError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
-import { ProductUpdatedPublisher } from '../../../events';
+import { index } from '../../../config/algolia';
+import {
+  BuildWebsitePublisher,
+  ProductUpdatedPublisher,
+} from '../../../events';
 import { productValidation } from '../../../middlewares/productValidation';
 import { updateProduct } from '../../../services/updateProduct';
 
@@ -34,15 +39,31 @@ router.put(
     const product = await updateProduct(Types.ObjectId(prodId), productData);
     if (!product) throw new ResourceNotFoundError('Product not found');
     res.status(201).json({ msg: 'Product updated successfully' });
-    //  TODO : publish build website event
 
     new ProductUpdatedPublisher(natsWrapper.client).publish({
       product,
       version: product.version,
     });
+    const productObj = {
+      objectID: product.id,
+      title: product.title,
+      description: product.description,
+      color: product.color,
+      outfit: product.outfit,
+      keywords: product.keywords,
+      gender: product.gender,
+    };
+    try {
+      const algoliaRes = await index.saveObject(productObj);
+      console.log(algoliaRes);
+    } catch (error) {
+      throw new ServerError(error);
+    }
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Product updated',
+    });
   }
-
-  //  TODO : algolia
 );
 
 export { router as updateProductRouter };

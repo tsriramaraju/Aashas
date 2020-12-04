@@ -123,7 +123,7 @@ describe('Create Category offer route test group', () => {
       expect(product.version).toBe(1);
     });
     expect(res.body.msg).toBe('Products updated successfully');
-    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(10);
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(11);
   });
 
   it('should return Resource not found error if no product is found ', async () => {

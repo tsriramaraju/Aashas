@@ -4,9 +4,12 @@ import {
   isAdmin,
   natsWrapper,
   ResourceNotFoundError,
+  ServerError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { index } from '../../../config/algolia';
 import {
+  BuildWebsitePublisher,
   OfferCreatedPublisher,
   ProductUpdatedPublisher,
 } from '../../../events';
@@ -37,7 +40,7 @@ router.post(
     if (!products) throw new ResourceNotFoundError('Products not found');
     res.status(201).json({ msg: 'Products updated successfully' });
 
-    products.forEach((product) => {
+    const promises = products.map(async (product) => {
       new ProductUpdatedPublisher(natsWrapper.client).publish({
         product,
         version: product.version,
@@ -52,13 +55,28 @@ router.post(
           message: 'hello',
         },
       });
+      const productObj = {
+        objectID: product.id,
+        title: product.title,
+        description: product.description,
+        color: product.color,
+        outfit: product.outfit,
+        keywords: product.keywords,
+        gender: product.gender,
+      };
+      try {
+        const algoliaRes = await index.saveObject(productObj);
+        console.log(algoliaRes);
+      } catch (error) {
+        throw new ServerError(error);
+      }
     });
-    //  TODO : publish build website event
+    await Promise.all(promises);
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Category Offer created',
+    });
   }
-
-  //  TODO : publish events
-
-  //  TODO : algolia
 );
 
 export { router as createCategoryOfferRouter };

@@ -71,7 +71,7 @@ describe('Update offer route test group', () => {
     expect(products[0].discount).toBe(15);
     expect(products[0].version).toBe(2);
     expect(res.body.msg).toBe('Product updated successfully');
-    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(3);
   });
 
   it('should return Resource not found error if no product is found ', async () => {

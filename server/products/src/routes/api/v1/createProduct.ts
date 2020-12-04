@@ -1,6 +1,15 @@
-import { isAdmin, natsWrapper, productAttrs } from '@aashas/common';
+import {
+  isAdmin,
+  natsWrapper,
+  productAttrs,
+  ServerError,
+} from '@aashas/common';
 import { Router, Request, Response } from 'express';
-import { ProductCreatedPublisher } from '../../../events';
+import { index } from '../../../config/algolia';
+import {
+  BuildWebsitePublisher,
+  ProductCreatedPublisher,
+} from '../../../events';
 
 import { productValidation } from '../../../middlewares/productValidation';
 import { createProduct } from '../../../services/createProduct';
@@ -23,13 +32,31 @@ router.post(
 
     res.status(201).json({ msg: 'Product added successfully' });
 
-    //  TODO : publish build website
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: false,
+      message: 'Product created',
+    });
+
     new ProductCreatedPublisher(natsWrapper.client).publish({
       product: productDoc,
       version: productDoc.version,
     });
 
-    //  TODO : algolia
+    const productObj = {
+      objectID: productDoc.id,
+      title: productDoc.title,
+      description: productDoc.description,
+      color: productDoc.color,
+      outfit: productDoc.outfit,
+      keywords: productDoc.keywords,
+      gender: productDoc.gender,
+    };
+    try {
+      const algoliaRes = await index.saveObject(productObj);
+      console.log(algoliaRes);
+    } catch (error) {
+      throw new ServerError(error);
+    }
   }
 );
 

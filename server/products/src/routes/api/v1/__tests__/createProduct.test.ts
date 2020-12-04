@@ -216,6 +216,6 @@ describe('Create product route test group', () => {
     const products = await Product.find();
     expect(products.length).toBe(1);
     expect(res.body.msg).toBe('Product added successfully');
-    expect(natsWrapper.client.publish).toBeCalledTimes(1);
+    expect(natsWrapper.client.publish).toBeCalledTimes(2);
   });
 });
