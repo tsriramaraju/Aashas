@@ -1,12 +1,11 @@
 import { ServerError } from '@aashas/common';
 
-export const emailNotification = (data: {
-  email: string;
-  subject: string;
-  body: string;
+export const mobileNotification = (data: {
+  mobile: number;
+  message: string;
 }) => {
   try {
-    //  TODO : email server
+    //  TODO : mobile server
     console.log(data);
   } catch (error) {
     throw new ServerError(error);

@@ -1,13 +1,13 @@
 import { ServerError } from '@aashas/common';
 
-export const emailNotification = (data: {
-  email: string;
-  subject: string;
-  body: string;
+export const slackNotification = (data: {
+  mobile: number;
+  message: string;
 }) => {
   try {
-    //  TODO : email server
+    //  TODO : slack server
     console.log(data);
+    //  TODO : add later
   } catch (error) {
     throw new ServerError(error);
   }

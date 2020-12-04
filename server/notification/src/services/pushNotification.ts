@@ -1,12 +1,8 @@
 import { ServerError } from '@aashas/common';
 
-export const emailNotification = (data: {
-  email: string;
-  subject: string;
-  body: string;
-}) => {
+export const pushNotification = (data: { id: string; message: string }) => {
   try {
-    //  TODO : email server
+    //  TODO : notification server
     console.log(data);
   } catch (error) {
     throw new ServerError(error);

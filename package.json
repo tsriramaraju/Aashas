@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "update": "npm i @aashas/common@latest && npm run update --prefix server/auth && npm run update --prefix server/users && npm run update --prefix server/products && npm run update --prefix server/orders && npm run update --prefix server/designer && npm run update --prefix server/notification ",
+    "install": " npm i --prefix server/auth && npm i --prefix server/users && npm i --prefix server/products && npm i --prefix server/orders && npm i --prefix server/designer && npm i --prefix server/notification ",
     "update:m": "npm i @aashas/common@latest && npm run update --prefix server/auth && npm run update --prefix server/users && npm run update --prefix server/products && npm run update --prefix server/orders && npm run update --prefix server/designer && npm run update --prefix server/notification  &&  git add .&& git commit -m \" updated common module   \" ",
     "pub": "npm run pub --prefix server/common",
     "pub-main": "npm run pub-main --prefix server/common",
