@@ -1,5 +1,6 @@
-import { isAdmin, ResourceNotFoundError } from '@aashas/common';
+import { isAdmin, natsWrapper, ResourceNotFoundError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { BuildWebsitePublisher } from '../../../events';
 import { designerValidation } from '../../../middleware/designerValidation';
 import { updateInfo } from '../../../services/updateInfo';
 
@@ -25,6 +26,11 @@ router.put(
       throw new ResourceNotFoundError('Designer account not found');
 
     res.status(201).json({ msg: 'Info updated successfully' });
+
+    new BuildWebsitePublisher(natsWrapper.client).publish({
+      immediate: true,
+      message: 'Designer info updated',
+    });
   }
 );
 

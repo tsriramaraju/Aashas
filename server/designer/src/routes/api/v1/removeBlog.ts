@@ -1,10 +1,12 @@
 import {
   BadRequestError,
   isAdmin,
+  natsWrapper,
   ResourceNotFoundError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
+import { BuildWebsitePublisher } from '../../../events';
 import { createBlog } from '../../../services/createBlog';
 import { getDesigner } from '../../../services/getDesigner';
 import { removeBlog } from '../../../services/removeBlog';
@@ -34,6 +36,11 @@ router.delete('/blogs/:id', [isAdmin], async (req: Request, res: Response) => {
     throw new ResourceNotFoundError(status);
 
   res.status(201).json({ msg: status });
+
+  new BuildWebsitePublisher(natsWrapper.client).publish({
+    immediate: false,
+    message: 'Blog removed',
+  });
 });
 
 export { router as removeBlogRouter };

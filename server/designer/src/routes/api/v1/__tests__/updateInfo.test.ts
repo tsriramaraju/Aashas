@@ -1,3 +1,4 @@
+import { natsWrapper } from '@aashas/common';
 import request from 'supertest';
 import { app } from '../../../../app';
 import { Designer } from '../../../../models/Designer';
@@ -12,6 +13,7 @@ describe('Update info route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(401);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
   });
 
@@ -28,6 +30,7 @@ describe('Update info route test group', () => {
     expect(res.body.msg).toBe('Info updated successfully');
     const postFetch = await Designer.find();
     expect(postFetch[0].name).toBe('updated');
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
   });
 
   it('should update info if admin updates with valid parameters', async () => {
@@ -41,7 +44,7 @@ describe('Update info route test group', () => {
       .expect('Content-Type', /json/)
       .expect(201);
     expect(res.body.msg).toBe('Info updated successfully');
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
     const postFetch = await Designer.find();
     expect(postFetch[0].name).toBe('updated');
     expect(postFetch[0].email).toBe('updated@test.com');
@@ -54,6 +57,7 @@ describe('Update info route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(420);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Designer account not found');
   });
 
@@ -67,6 +71,7 @@ describe('Update info route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Entered name is not String');
   });
   it('should throw Bad request error if invalid email is submitted', async () => {
@@ -79,6 +84,7 @@ describe('Update info route test group', () => {
       .expect('Content-Type', /json/)
       .expect(400);
     expect(res.body.msg).toBe('Entered email is not valid email');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
   it('should throw Bad request error if invalid bio is submitted', async () => {
     await global.createDesigner();
@@ -90,6 +96,7 @@ describe('Update info route test group', () => {
       .expect('Content-Type', /json/)
       .expect(400);
     expect(res.body.msg).toBe('Entered bio is not String');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
   it('should throw Bad request error if invalid mobile is submitted', async () => {
     await global.createDesigner();
@@ -101,5 +108,6 @@ describe('Update info route test group', () => {
       .expect('Content-Type', /json/)
       .expect(400);
     expect(res.body.msg).toBe('Entered mobile is not Number');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
 });

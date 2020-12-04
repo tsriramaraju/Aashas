@@ -1,4 +1,4 @@
-import { blog } from '@aashas/common';
+import { blog, natsWrapper } from '@aashas/common';
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../../../app';
@@ -21,6 +21,7 @@ describe('Create blogs  route test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(401);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
   });
 
@@ -41,7 +42,7 @@ describe('Create blogs  route test group', () => {
       .expect(201);
 
     expect(res.body.msg).toBe('Successfully removed');
-
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
     const deleteFetch = await Designer.find().lean();
 
     expect(deleteFetch[0].blogs.length).toBe(0);
@@ -55,6 +56,7 @@ describe('Create blogs  route test group', () => {
       .expect('Content-Type', /json/)
       .expect(420);
     expect(res.body.msg).toBe('Designer account not found');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
 
   it('should throw Resource not found error if no blog id is found', async () => {
@@ -66,6 +68,7 @@ describe('Create blogs  route test group', () => {
       .expect('Content-Type', /json/)
       .expect(420);
     expect(res.body.msg).toBe('Blog not found');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
   it('should throw Bad Request error if id is invalid', async () => {
     const designer = await global.createDesigner();
@@ -76,5 +79,6 @@ describe('Create blogs  route test group', () => {
       .expect('Content-Type', /json/)
       .expect(400);
     expect(res.body.msg).toBe('Invalid blog id');
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
   });
 });

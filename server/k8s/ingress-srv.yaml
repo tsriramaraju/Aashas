@@ -30,3 +30,7 @@ spec:
             backend:
               serviceName: designer-srv
               servicePort: 3006
+          - path: /api/v1/notification/?(.*)
+            backend:
+              serviceName: notification-srv
+              servicePort: 3007

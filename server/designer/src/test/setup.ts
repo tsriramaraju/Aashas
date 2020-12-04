@@ -68,6 +68,10 @@ afterAll(async () => {
   await connection.close();
 });
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 global.createDesigner = async () => {
   const designer = await Designer.build({
     id: userId,

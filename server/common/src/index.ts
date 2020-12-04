@@ -60,6 +60,7 @@ export * from './interfaces/CustomProductsModel';
 export * from './interfaces/ProductsModel';
 export * from './interfaces/DesignerModel';
 export * from './interfaces/SalesBannerModel';
+export * from './interfaces/NotificationModel';
 export * from './interfaces/payLoads';
 
 /**

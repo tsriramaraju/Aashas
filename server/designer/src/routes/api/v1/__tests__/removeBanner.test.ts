@@ -1,4 +1,4 @@
-import { salesBannerAttrs } from '@aashas/common';
+import { natsWrapper, salesBannerAttrs } from '@aashas/common';
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../../../app';
@@ -22,6 +22,7 @@ describe('Remove banner test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(401);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Sorry, You are not authorized for this request');
   });
 
@@ -43,6 +44,7 @@ describe('Remove banner test group', () => {
       .expect(201);
     const postBanners = await SalesBanner.find();
     expect(postBanners!.length).toBe(1);
+    expect(natsWrapper.client.publish).toBeCalledTimes(1);
     expect(res.body.msg).toBe('Banner deleted successfully');
   });
 
@@ -54,6 +56,7 @@ describe('Remove banner test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(420);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Banner not found');
   });
   it('should throw Bad Request error if id is invalid', async () => {
@@ -64,6 +67,7 @@ describe('Remove banner test group', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(400);
+    expect(natsWrapper.client.publish).toBeCalledTimes(0);
     expect(res.body.msg).toBe('Invalid banner id');
   });
 });
