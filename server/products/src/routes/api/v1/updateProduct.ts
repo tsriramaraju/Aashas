@@ -5,9 +5,11 @@ import {
   productAttrs,
   ProductDoc,
   ResourceNotFoundError,
+  ServerError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
+import { index } from '../../../config/algolia';
 import { ProductUpdatedPublisher } from '../../../events';
 import { productValidation } from '../../../middlewares/productValidation';
 import { updateProduct } from '../../../services/updateProduct';
@@ -40,9 +42,22 @@ router.put(
       product,
       version: product.version,
     });
+    const productObj = {
+      objectID: product.id,
+      title: product.title,
+      description: product.description,
+      color: product.color,
+      outfit: product.outfit,
+      keywords: product.keywords,
+      gender: product.gender,
+    };
+    try {
+      const algoliaRes = await index.saveObject(productObj);
+      console.log(algoliaRes);
+    } catch (error) {
+      throw new ServerError(error);
+    }
   }
-
-  //  TODO : algolia
 );
 
 export { router as updateProductRouter };

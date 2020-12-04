@@ -4,8 +4,10 @@ import {
   natsWrapper,
   outfit,
   ResourceNotFoundError,
+  ServerError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
+import { index } from '../../../config/algolia';
 import {
   OfferDeletedPublisher,
   ProductUpdatedPublisher,
@@ -38,7 +40,7 @@ router.delete(
     if (!products) throw new ResourceNotFoundError('Products not found');
     res.status(201).json({ msg: 'Products updated successfully' });
 
-    products.forEach((product) => {
+    const promises = products.map(async (product) => {
       new ProductUpdatedPublisher(natsWrapper.client).publish({
         product,
         version: product.version,
@@ -48,11 +50,26 @@ router.delete(
         version: product.version,
         product: product,
       });
+
+      const productObj = {
+        objectID: product.id,
+        title: product.title,
+        description: product.description,
+        color: product.color,
+        outfit: product.outfit,
+        keywords: product.keywords,
+        gender: product.gender,
+      };
+      try {
+        const algoliaRes = await index.saveObject(productObj);
+        console.log(algoliaRes);
+      } catch (error) {
+        throw new ServerError(error);
+      }
     });
     //  TODO : publish build website event
+    await Promise.all(promises);
   }
-
-  //  TODO : algolia
 );
 
 export { router as removeCategoryOfferRouter };

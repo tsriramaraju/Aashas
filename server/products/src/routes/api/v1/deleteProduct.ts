@@ -3,9 +3,11 @@ import {
   isAdmin,
   natsWrapper,
   ResourceNotFoundError,
+  ServerError,
 } from '@aashas/common';
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
+import { index } from '../../../config/algolia';
 import { ProductDeletedPublisher } from '../../../events';
 
 import { deleteProduct } from '../../../services/deleteProduct';
@@ -36,7 +38,12 @@ router.delete('/delete/:id', [isAdmin], async (req: Request, res: Response) => {
     version: product.version + 1,
   });
 
-  //  TODO : algolia
+  try {
+    const algoliaRes = await index.deleteObject(product.id.toString());
+    console.log(algoliaRes);
+  } catch (error) {
+    throw new ServerError(error);
+  }
 });
 
 export { router as deleteProductRouter };
