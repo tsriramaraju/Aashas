@@ -1,14 +1,15 @@
-import { GenerateOTPEvent, Listener, Subjects } from '@aashas/common';
+import { CustomProductUpdatedEvent, Listener, Subjects } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
 import { emailNotification } from '../../services/emailNotification';
 import { mobileNotification } from '../../services/mobileNotification';
+import { pushNotification } from '../../services/pushNotification';
 import { queueGroupName } from '../queueGroupName';
 
-export class GenerateOTPListener extends Listener<GenerateOTPEvent> {
+export class CustomProductUpdatedListener extends Listener<CustomProductUpdatedEvent> {
   queueGroupName = queueGroupName;
-  readonly subject = Subjects.GenerateOTP;
+  readonly subject = Subjects.CustomProductUpdated;
 
-  async onMessage(data: GenerateOTPEvent['data'], msg: Message) {
+  async onMessage(data: CustomProductUpdatedEvent['data'], msg: Message) {
     const notificationData = data.data;
 
     data.mode.forEach((mode) => {
@@ -19,9 +20,15 @@ export class GenerateOTPListener extends Listener<GenerateOTPEvent> {
           subject: notificationData.title,
         });
       }
-      if (mode === 'mobile') {
+      if (mode === 'message') {
         mobileNotification({
           mobile: notificationData.mobile!,
+          message: notificationData.body!,
+        });
+      }
+      if (mode === 'push notification') {
+        pushNotification({
+          id: data.clientID!,
           message: notificationData.body!,
         });
       }
