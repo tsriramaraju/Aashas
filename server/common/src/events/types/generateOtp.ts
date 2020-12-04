@@ -4,7 +4,7 @@ export interface GenerateOTPEvent {
   subject: Subjects.GenerateOTP;
   data: {
     id?: Mongoose.Types.ObjectId;
-    mode: ('email' | 'mobile' | 'push notification')[];
+    mode: ('email' | 'message' | 'push notification')[];
     group?: string;
     clientID?: string;
     data: {
