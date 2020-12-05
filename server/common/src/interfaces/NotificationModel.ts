@@ -1,4 +1,4 @@
-import { Model, Document, Types } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 /**
  * An interface that describes the properties
@@ -22,7 +22,6 @@ interface NotificationModel extends Model<NotificationDoc> {
  * hat a Notification Document has
  */
 interface NotificationDoc extends Document {
-  id: Types.ObjectId;
   group: string;
   message: string;
 }

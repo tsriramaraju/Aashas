@@ -42,7 +42,7 @@ describe('Delete user service test group', () => {
     expect(res).toBe(true);
   });
   it('should return null if no user exist', async () => {
-    const res = await deleteUser(Types.ObjectId());
+    const res = await deleteUser(Types.ObjectId().toString());
 
     expect(res).toBe(null);
   });

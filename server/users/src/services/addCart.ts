@@ -1,11 +1,7 @@
-import { DatabaseConnectionError } from '@aashas/common';
-import { Types } from 'mongoose';
+import { DatabaseConnectionError, UserDoc } from '@aashas/common';
 import { User } from '../models/Users';
 
-export const addCart = async (ids: {
-  userId: Types.ObjectId;
-  prodId: Types.ObjectId;
-}) => {
+export const addCart = async (ids: { userId: string; prodId: string }) => {
   try {
     const user = await User.findById(ids.userId);
 

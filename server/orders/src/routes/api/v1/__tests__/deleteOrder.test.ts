@@ -7,7 +7,7 @@ import { Order } from '../../../../models/Orders';
 describe('Create Order route test group', () => {
   it('should be accessible only by the admin', async () => {
     const token = await global.userLogin();
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
     const preFetch = await Order.find();
     expect(preFetch.length).toBe(1);
     const res = await request(app)
@@ -22,7 +22,7 @@ describe('Create Order route test group', () => {
 
   it('should Delete order on valid input', async () => {
     const token = await global.adminLogin();
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
     const preFetch = await Order.find();
     expect(preFetch.length).toBe(1);
     const res = await request(app)
@@ -68,7 +68,7 @@ describe('Create Order route test group', () => {
 
   it('should publish event on successful order deletion ', async () => {
     const token = await global.adminLogin();
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
     const preFetch = await Order.find();
     expect(preFetch.length).toBe(1);
     const res = await request(app)

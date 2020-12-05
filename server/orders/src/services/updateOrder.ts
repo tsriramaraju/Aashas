@@ -3,12 +3,11 @@ import {
   orderStatusUpdate,
   paymentStatusUpdate,
 } from '@aashas/common';
-import { Types } from 'mongoose';
 
 import { Order } from '../models/Orders';
 
 export const updateOrder = async (
-  orderId: Types.ObjectId,
+  orderId: string,
   update: paymentStatusUpdate | orderStatusUpdate
 ) => {
   try {

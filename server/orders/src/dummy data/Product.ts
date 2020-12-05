@@ -1,11 +1,4 @@
-import {
-  categories,
-  femaleType,
-  kidsType,
-  maleType,
-  productAttrs,
-  size,
-} from '@aashas/common';
+import { categories, productAttrs, size } from '@aashas/common';
 
 export const maleProductData: productAttrs = {
   title: 'males casuals',

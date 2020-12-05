@@ -29,7 +29,7 @@ router.put(
     if (!Types.ObjectId.isValid(prodId))
       throw new BadRequestError('Invalid product id');
 
-    const product = await updateCustomProduct(Types.ObjectId(prodId), {
+    const product = await updateCustomProduct(prodId, {
       ...productData,
     });
     if (!product) throw new ResourceNotFoundError('Custom Product not found');

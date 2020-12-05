@@ -1,10 +1,10 @@
 import { DatabaseConnectionError } from '@aashas/common';
-import { Types } from 'mongoose';
+
 import { User } from '../models/Users';
 
 export const removeFavourites = async (ids: {
-  userId: Types.ObjectId;
-  prodId?: Types.ObjectId;
+  userId: string;
+  prodId?: string;
 }) => {
   try {
     const user = await User.findById(ids.userId);
@@ -12,7 +12,7 @@ export const removeFavourites = async (ids: {
     if (ids.prodId) {
       if (user?.favourites) {
         updatesFavourites = user?.favourites?.filter(
-          (prod) => prod.toHexString() !== ids.prodId!.toHexString()
+          (prod) => prod.toString() !== ids.prodId!.toString()
         );
       }
     }

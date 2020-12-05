@@ -15,12 +15,12 @@ describe('Remove single Favourite items route test group', () => {
   it('should remove selected item from the Favourite', async () => {
     const token = await global.userLogin();
     const preUser = await User.findOne({});
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toString().toString();
     preUser!.favourites = [
-      Types.ObjectId(),
+      Types.ObjectId().toString(),
       id,
-      Types.ObjectId(),
-      Types.ObjectId(),
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
     ];
     await preUser?.save();
     expect(preUser!.favourites!.length).toBe(4);
@@ -46,7 +46,7 @@ describe('Remove single Favourite items route test group', () => {
 
   it("should return success message even if the product isn't found in Favourite ", async () => {
     const token = await global.userLogin();
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toString();
     const res = await request(app)
       .delete(`/api/v1/users/favourites/${id}`)
       .set('Authorization', `Bearer ${token}`)

@@ -9,11 +9,11 @@ describe('Add Cart items service test group', () => {
     expect(user?.cart?.length).toBe(0);
 
     const status = await addCart({
-      prodId: Types.ObjectId(),
+      prodId: Types.ObjectId().toString(),
       userId: user?._id,
     });
     await addCart({
-      prodId: Types.ObjectId(),
+      prodId: Types.ObjectId().toString(),
       userId: user?._id,
     });
 
@@ -29,7 +29,7 @@ describe('Add Cart items service test group', () => {
     const user = await User.findOne().lean();
     expect(user?.cart?.length).toBe(0);
 
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toString();
     const status = await addCart({ prodId: id, userId: user?._id });
     const status1 = await addCart({ prodId: id, userId: user?._id });
     await addCart({ prodId: id, userId: user?._id });

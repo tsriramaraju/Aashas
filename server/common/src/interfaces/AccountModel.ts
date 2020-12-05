@@ -1,4 +1,4 @@
-import { Types, Model, Document } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import { authType, verification } from './enums';
 
 /**
@@ -53,7 +53,6 @@ interface AccountModel extends Model<AccountDoc> {
  * hat a Account Document has
  */
 interface AccountDoc extends Document {
-  id: Types.ObjectId;
   email: string;
   password: string;
   name: string;

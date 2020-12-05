@@ -24,7 +24,7 @@ router.put('/status/:id', [isAdmin], async (req: Request, res: Response) => {
   if (!Types.ObjectId.isValid(orderId))
     throw new BadRequestError('Invalid order id');
 
-  const orderDoc = await updateOrder(Types.ObjectId(orderId), status);
+  const orderDoc = await updateOrder(orderId, status);
 
   if (!orderDoc) throw new ResourceNotFoundError('Order not available');
 

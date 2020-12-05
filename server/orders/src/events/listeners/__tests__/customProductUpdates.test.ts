@@ -6,7 +6,7 @@ import { CustomProductUpdatedListener } from '../customProductUpdated';
 
 describe('Custom Product Updated listener test group', () => {
   it('should update existing Custom product on receiving Custom product updated event', async () => {
-    await global.createCustomProduct(Types.ObjectId());
+    await global.createCustomProduct(Types.ObjectId().toHexString());
 
     const prodPreFetch = await CustomProduct.find();
     expect(prodPreFetch![0].title).not.toBe('new product test');

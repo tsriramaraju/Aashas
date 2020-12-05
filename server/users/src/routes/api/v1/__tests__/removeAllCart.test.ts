@@ -16,10 +16,10 @@ describe('Remove All Cart items route test group', () => {
     const token = await global.userLogin();
     const preUser = await User.findOne({});
     preUser!.cart = [
-      Types.ObjectId(),
-      Types.ObjectId(),
-      Types.ObjectId(),
-      Types.ObjectId(),
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
     ];
     await preUser?.save();
     expect(preUser!.cart!.length).toBe(4);

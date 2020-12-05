@@ -6,7 +6,7 @@ import { PaymentSuccessListener } from '../paymentSuccess';
 
 describe('Payment Success listener test group', () => {
   it('should update payment mode and publish event on receiving payment success event', async () => {
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
 
     expect(order.payment.status).toBe(paymentStatus.pending);
 

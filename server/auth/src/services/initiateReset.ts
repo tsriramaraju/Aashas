@@ -8,7 +8,7 @@ import { DatabaseConnectionError } from '@aashas/common';
  */
 export const initiateReset = async (email: string) => {
   try {
-    const resetID = Types.ObjectId();
+    const resetID = Types.ObjectId().toHexString();
 
     /**
      * check for existing document with given email

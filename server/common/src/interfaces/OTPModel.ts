@@ -1,4 +1,4 @@
-import { Model, Document, Types } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 /**
  * An interface that describes the properties
@@ -24,7 +24,6 @@ interface OTPModel extends Model<OTPDoc> {
  * hat a OTP Document has
  */
 interface OTPDoc extends Document {
-  id: Types.ObjectId;
   otp: number;
   email?: string;
   mobile?: number;

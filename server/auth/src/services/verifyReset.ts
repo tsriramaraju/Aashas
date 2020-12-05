@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import { hashPassword } from '../utils';
 import { Reset, Account } from '../models';
 import {
@@ -13,11 +12,7 @@ import {
  * @param pass new password
  * @param email user email
  */
-export const verifyReset = async (
-  id: Types.ObjectId,
-  pass: string,
-  email: string
-) => {
+export const verifyReset = async (id: string, pass: string, email: string) => {
   const resetData = await Reset.findOne({ uid: id });
 
   //Makes sure reset id isn't expired

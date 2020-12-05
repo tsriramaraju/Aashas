@@ -1,4 +1,4 @@
-import { DatabaseConnectionError, orderAttrs } from '@aashas/common';
+import { DatabaseConnectionError } from '@aashas/common';
 import { Order } from '../models/Orders';
 
 export const getOrders = async () => {

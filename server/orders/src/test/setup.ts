@@ -44,8 +44,8 @@ declare global {
       userLogin(): Promise<string>;
       adminLogin(): Promise<string>;
       createProduct(): Promise<ProductDoc>;
-      createCustomProduct(userId: Types.ObjectId): Promise<CustomProductDoc>;
-      createOrder(userId: Types.ObjectId): Promise<OrderDoc>;
+      createCustomProduct(userId: string): Promise<CustomProductDoc>;
+      createOrder(userId: string): Promise<OrderDoc>;
     }
   }
 }
@@ -93,7 +93,7 @@ global.userLogin = async () => {
   const mobile = Math.random();
 
   const user = await User.build({
-    id: Types.ObjectId(),
+    id: Types.ObjectId().toHexString(),
     name,
     isAdmin: false,
     authType: authType.email,
@@ -138,7 +138,7 @@ global.adminLogin = async () => {
   return token;
 };
 
-global.createOrder = async (userId: Types.ObjectId) => {
+global.createOrder = async (userId: string) => {
   const order = await Order.build({
     address: {
       name: 'office 23',
@@ -157,7 +157,7 @@ global.createOrder = async (userId: Types.ObjectId) => {
             party: 'sherwani',
           },
         },
-        prodId: Types.ObjectId(),
+        prodId: Types.ObjectId().toHexString(),
         title: 'kids casuals',
         description:
           "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
@@ -221,7 +221,7 @@ global.createProduct = async (outfit?: outfit) => {
   }).save();
   return product;
 };
-global.createCustomProduct = async (userId: Types.ObjectId) => {
+global.createCustomProduct = async (userId: string) => {
   const product = await CustomProduct.build({
     title: 'kids casuals',
     status: verification.yes,

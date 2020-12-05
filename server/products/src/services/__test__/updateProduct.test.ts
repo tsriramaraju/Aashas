@@ -14,7 +14,7 @@ describe('Update Product service test group', () => {
   });
 
   it('should return null if no product is found', async () => {
-    const res = await updateProduct(Types.ObjectId(), {
+    const res = await updateProduct(Types.ObjectId().toHexString(), {
       ...maleProductData,
       title: 'hello',
     });

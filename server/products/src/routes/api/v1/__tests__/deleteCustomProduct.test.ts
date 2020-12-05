@@ -17,7 +17,9 @@ describe('Delete custom product route test group', () => {
   });
 
   it('should delete custom product', async () => {
-    const custom = await global.createCustomProduct(Types.ObjectId());
+    const custom = await global.createCustomProduct(
+      Types.ObjectId().toHexString()
+    );
     const token = await global.userLogin();
     const res = await request(app)
       .delete(`/api/v1/products/custom/${custom.id}`)
@@ -30,7 +32,7 @@ describe('Delete custom product route test group', () => {
   });
 
   it('should return Resource not found error if no product is found ', async () => {
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toHexString();
     const token = await global.userLogin();
 
     const res = await request(app)

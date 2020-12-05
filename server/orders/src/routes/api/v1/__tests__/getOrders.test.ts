@@ -5,13 +5,13 @@ import { app } from '../../../../app';
 describe('Get list of all orders', () => {
   it('should be accessible only by the admin', async () => {
     const token = await global.adminLogin();
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
 
     const res = await request(app)
       .get(`/api/v1/orders/`)
@@ -25,13 +25,13 @@ describe('Get list of all orders', () => {
 
   it('should give list of all available orders', async () => {
     const token = await global.userLogin();
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
-    await global.createOrder(Types.ObjectId());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
+    await global.createOrder(Types.ObjectId().toHexString());
 
     const res = await request(app)
       .get(`/api/v1/orders/`)

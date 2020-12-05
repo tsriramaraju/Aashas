@@ -3,12 +3,12 @@ import {
   DatabaseConnectionError,
   ResourceNotFoundError,
 } from '@aashas/common';
-import { Types } from 'mongoose';
+
 import { User } from '../models/Users';
 
 export const removeAddress = async (ids: {
-  userId: Types.ObjectId;
-  addressId: Types.ObjectId;
+  userId: string;
+  addressId: string;
 }) => {
   try {
     const user = await User.findById(ids.userId);
@@ -16,7 +16,7 @@ export const removeAddress = async (ids: {
     if (!user) throw new ResourceNotFoundError('User not found');
 
     const updatedAddresses = user.addresses?.filter(
-      (value) => value._id?.toHexString() !== ids.addressId.toHexString()
+      (value) => value._id?.toString() !== ids.addressId.toString()
     );
     user.addresses = updatedAddresses;
 
@@ -24,9 +24,7 @@ export const removeAddress = async (ids: {
       Object.keys(user.defaultAddress!).length === 0 &&
       user.defaultAddress!.constructor === Object
     ) {
-      if (
-        user.defaultAddress!._id!.toHexString() === ids.addressId.toHexString()
-      )
+      if (user.defaultAddress!._id!.toString() === ids.addressId.toString())
         user.defaultAddress = undefined;
     }
 

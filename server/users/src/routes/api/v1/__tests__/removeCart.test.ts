@@ -15,8 +15,13 @@ describe('Remove single Cart items route test group', () => {
   it('should remove selected item from the cart', async () => {
     const token = await global.userLogin();
     const preUser = await User.findOne({});
-    const id = Types.ObjectId();
-    preUser!.cart = [Types.ObjectId(), id, Types.ObjectId(), Types.ObjectId()];
+    const id = Types.ObjectId().toString();
+    preUser!.cart = [
+      Types.ObjectId().toString(),
+      id,
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
+    ];
     await preUser?.save();
     expect(preUser!.cart!.length).toBe(4);
     const res = await request(app)
@@ -41,7 +46,7 @@ describe('Remove single Cart items route test group', () => {
 
   it("should return success message even if the product isn't found in cart ", async () => {
     const token = await global.userLogin();
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toString();
     const res = await request(app)
       .delete(`/api/v1/users/cart/${id}`)
       .set('Authorization', `Bearer ${token}`)

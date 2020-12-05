@@ -11,7 +11,10 @@ describe('Create blog service test group', () => {
   });
 
   it('should return null if designer is not found', async () => {
-    const status = await createBlog({ id: Types.ObjectId(), blog: blogData });
+    const status = await createBlog({
+      id: Types.ObjectId().toHexString(),
+      blog: blogData,
+    });
     expect(status).toBe(null);
   });
 });

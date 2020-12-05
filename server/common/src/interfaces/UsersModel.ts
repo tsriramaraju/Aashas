@@ -1,4 +1,5 @@
-import { Model, Types, Document } from 'mongoose';
+import { Model, Document } from 'mongoose';
+import { ProductDoc, CustomProductDoc } from '..';
 import { authType } from './enums';
 
 /**
@@ -6,7 +7,7 @@ import { authType } from './enums';
  */
 
 interface address {
-  _id?: Types.ObjectId;
+  _id?: string;
   name: string;
   house: string;
   location: string;
@@ -21,20 +22,19 @@ interface address {
  * that are required to create a new User model
  */
 interface userAttrs {
-  id: Types.ObjectId;
+  id: string;
   name: string;
   email?: string;
   mobile?: number;
   image?: string;
-
   isAdmin: boolean;
   authType: authType;
   addresses?: address[];
   defaultAddress?: address;
-  cart?: Types.ObjectId[];
-  orders?: Types.ObjectId[];
-  favourites?: Types.ObjectId[];
-  customProducts?: Types.ObjectId[];
+  cart?: string[];
+  orders?: string[];
+  favourites?: string[];
+  customProducts?: string[];
 }
 
 /**
@@ -43,10 +43,7 @@ interface userAttrs {
  */
 interface UserModel extends Model<UserDoc> {
   build(attrs: userAttrs): UserDoc;
-  findByEvent(event: {
-    id: Types.ObjectId;
-    version: number;
-  }): Promise<UserDoc | null>;
+  findByEvent(event: { id: string; version: number }): Promise<UserDoc | null>;
 }
 
 /**
@@ -54,7 +51,6 @@ interface UserModel extends Model<UserDoc> {
  * hat a User Document has
  */
 interface UserDoc extends Document {
-  id: Types.ObjectId;
   name: string;
   email?: string;
   mobile?: number;
@@ -64,10 +60,10 @@ interface UserDoc extends Document {
   authType: authType;
   addresses?: address[];
   defaultAddress?: address;
-  cart?: Types.ObjectId[];
-  orders?: Types.ObjectId[];
-  favourites?: Types.ObjectId[];
-  customProducts?: Types.ObjectId[];
+  cart?: string[];
+  orders?: string[];
+  favourites?: string[];
+  customProducts?: string[];
 }
 
 export { userAttrs, UserDoc, UserModel, address };

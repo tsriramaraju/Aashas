@@ -1,7 +1,7 @@
-import { Model, Types, Document } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import { size } from '..';
 import { verification } from './enums';
-import { outfit, productAttrs } from './ProductsModel';
+import { outfit } from './ProductsModel';
 
 /**
  * An interface that describes the properties
@@ -9,7 +9,7 @@ import { outfit, productAttrs } from './ProductsModel';
  */
 interface customProductsAttrs {
   refImages: String[];
-  userId?: Types.ObjectId;
+  userId?: string;
   title: string;
   description: string;
   size: size[];
@@ -22,7 +22,7 @@ interface customProductsAttrs {
 }
 interface customProductRequestAttrs {
   refImages: String[];
-  userId?: Types.ObjectId;
+  userId?: string;
   title?: string;
   description?: string;
   size?: size[];
@@ -41,7 +41,7 @@ interface CustomProductModel extends Model<CustomProductDoc> {
   build(attrs: customProductsAttrs): CustomProductDoc;
   request(attrs: customProductRequestAttrs): CustomProductDoc;
   findByEvent(event: {
-    id: Types.ObjectId;
+    id: string;
     version: number;
   }): Promise<CustomProductDoc | null>;
 }
@@ -51,8 +51,7 @@ interface CustomProductModel extends Model<CustomProductDoc> {
  * hat a Custom Product Document has
  */
 interface CustomProductDoc extends Document {
-  id: Types.ObjectId;
-  userId: Types.ObjectId;
+  userId: string;
   status: verification;
   title: string;
   description: string;

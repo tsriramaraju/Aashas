@@ -7,7 +7,7 @@ import { Order } from '../../../../models/Orders';
 describe('Update order Status test group', () => {
   it('should be accessible only by the user', async () => {
     const token = await global.userLogin();
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
 
     expect(order.status).toBe('working on it');
 
@@ -24,7 +24,7 @@ describe('Update order Status test group', () => {
 
   it('should Update existing order status with valid inputs', async () => {
     const token = await global.adminLogin();
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
 
     expect(order.status).toBe('working on it');
 
@@ -57,7 +57,7 @@ describe('Update order Status test group', () => {
   it("should throw resource not found error if order don't exist", async () => {
     const token = await global.adminLogin();
     const res = await request(app)
-      .put(`/api/v1/orders/status/${Types.ObjectId()}`)
+      .put(`/api/v1/orders/status/${Types.ObjectId().toHexString()}`)
       .send({ status: 'shipped' })
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)

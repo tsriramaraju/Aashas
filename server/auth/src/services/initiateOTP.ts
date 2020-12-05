@@ -15,7 +15,7 @@ import {
 export const initiateOTP = async (
   id: string | number,
   name: string,
-  userID?: Types.ObjectId
+  userID?: string
 ) => {
   try {
     const otpValue = generateOTP();

@@ -28,7 +28,7 @@ describe('Create blogs  route test group', () => {
   it('should return success message on deleting blog successfully', async () => {
     const designer = await global.createDesigner();
     expect(designer.name).toBe('John the admin');
-    designer.blogs = [{ _id: Types.ObjectId(), ...blog }];
+    designer.blogs = [{ _id: Types.ObjectId().toHexString(), ...blog }];
     await designer.save();
 
     const preFetch = await Designer.find().lean();

@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const userId = Types.ObjectId();
+const userId = Types.ObjectId().toHexString();
 
 let mongo: any;
 beforeAll(async () => {

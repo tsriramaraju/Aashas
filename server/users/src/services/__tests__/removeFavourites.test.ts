@@ -8,8 +8,14 @@ describe('Remove  Favourites service test group', () => {
     await global.userLogin();
     const user = await User.findOne().lean();
 
-    await addFavourite({ prodId: Types.ObjectId(), userId: user?._id });
-    await addFavourite({ prodId: Types.ObjectId(), userId: user?._id });
+    await addFavourite({
+      prodId: Types.ObjectId().toString(),
+      userId: user?._id,
+    });
+    await addFavourite({
+      prodId: Types.ObjectId().toString(),
+      userId: user?._id,
+    });
 
     await removeFavourites({ userId: user?._id });
     const user1 = await User.findOne().lean();
@@ -19,9 +25,12 @@ describe('Remove  Favourites service test group', () => {
   it('should remove specific product  if  product id is mentioned', async () => {
     await global.userLogin();
     const user = await User.findOne().lean();
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toString();
     await addFavourite({ prodId: id, userId: user?._id });
-    await addFavourite({ prodId: Types.ObjectId(), userId: user?._id });
+    await addFavourite({
+      prodId: Types.ObjectId().toString(),
+      userId: user?._id,
+    });
 
     await removeFavourites({ userId: user?._id, prodId: id });
     const user1 = await User.findOne().lean();

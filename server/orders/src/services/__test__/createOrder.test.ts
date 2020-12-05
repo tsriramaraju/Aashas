@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import { orderData } from '../../dummy data/orders';
 import { Order } from '../../models/Orders';
 import { createOrder } from '../createOrder';

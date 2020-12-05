@@ -1,8 +1,7 @@
 import { DatabaseConnectionError, salesBannerAttrs } from '@aashas/common';
-import { Types } from 'mongoose';
 import { SalesBanner } from '../models/SalesBanner';
 
-export const removeBanner = (id: Types.ObjectId) => {
+export const removeBanner = (id: string) => {
   try {
     const banner = SalesBanner.findByIdAndDelete(id);
 

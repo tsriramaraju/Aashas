@@ -2,7 +2,6 @@ import { keys } from '../config/keys';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { connection, connect, Types } from 'mongoose';
 import {
-  authType,
   categories,
   CustomProductDoc,
   OrderDoc,
@@ -51,8 +50,8 @@ declare global {
       userLogin(): Promise<string>;
       adminLogin(): Promise<string>;
       createProduct(outfit?: outfit): Promise<ProductDoc>;
-      createCustomProduct(userId: Types.ObjectId): Promise<CustomProductDoc>;
-      createOrder(prodID: Types.ObjectId): Promise<OrderDoc>;
+      createCustomProduct(userId: string): Promise<CustomProductDoc>;
+      createOrder(prodID: string): Promise<OrderDoc>;
     }
   }
 }
@@ -100,7 +99,7 @@ global.userLogin = async () => {
   const mobile = Math.random();
 
   const token = generateJWT({
-    id: Types.ObjectId(),
+    id: Types.ObjectId().toHexString(),
     name,
     email,
     mobile,
@@ -116,7 +115,7 @@ global.adminLogin = async () => {
   const name = 'john doe';
 
   const token = generateJWT({
-    id: Types.ObjectId(),
+    id: Types.ObjectId().toHexString(),
     name,
     email,
     emailVerified: verification.yes,
@@ -156,7 +155,7 @@ global.createProduct = async (outfit?: outfit) => {
   }).save();
   return product;
 };
-global.createCustomProduct = async (userId: Types.ObjectId) => {
+global.createCustomProduct = async (userId: string) => {
   const product = await CustomProduct.build({
     title: 'kids casuals',
     description:
@@ -188,7 +187,7 @@ global.createCustomProduct = async (userId: Types.ObjectId) => {
   return product;
 };
 
-global.createOrder = async (prodId: Types.ObjectId) => {
+global.createOrder = async (prodId: string) => {
   const order = await Order.build({
     address: {
       name: 'office 23',
@@ -237,7 +236,7 @@ global.createOrder = async (prodId: Types.ObjectId) => {
       totalAmount: 12,
     },
     status: 'working on it',
-    userId: Types.ObjectId(),
+    userId: Types.ObjectId().toHexString(),
   }).save();
   return order;
 };

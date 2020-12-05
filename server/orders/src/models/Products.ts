@@ -1,5 +1,5 @@
 import { productAttrs, ProductDoc, ProductModel, size } from '@aashas/common';
-import { model, Schema, Types } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const productSchema = new Schema(
@@ -53,7 +53,7 @@ productSchema.statics.build = (attrs: productAttrs) => {
 };
 
 productSchema.statics.findByEvent = (event: {
-  id: Types.ObjectId;
+  id: string;
   version: number;
 }) => {
   return Product.findOne({

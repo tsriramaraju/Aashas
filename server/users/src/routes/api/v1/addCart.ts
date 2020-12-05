@@ -14,7 +14,7 @@ const router = Router();
  */
 
 router.post('/cart', [isUser], async (req: Request, res: Response) => {
-  const product = req.body.product as Types.ObjectId;
+  const product = req.body.product;
 
   if (!product) throw new BadRequestError('Product id not found');
   if (!Types.ObjectId.isValid(product))

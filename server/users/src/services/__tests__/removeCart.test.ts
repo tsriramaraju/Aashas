@@ -8,8 +8,8 @@ describe('Remove  Cart service test group', () => {
     await global.userLogin();
     const user = await User.findOne().lean();
 
-    await addCart({ prodId: Types.ObjectId(), userId: user?._id });
-    await addCart({ prodId: Types.ObjectId(), userId: user?._id });
+    await addCart({ prodId: Types.ObjectId().toString(), userId: user?._id });
+    await addCart({ prodId: Types.ObjectId().toString(), userId: user?._id });
 
     await removeCart({ userId: user?._id });
     const user1 = await User.findOne().lean();
@@ -19,9 +19,9 @@ describe('Remove  Cart service test group', () => {
   it('should remove specific product  if  product id is mentioned', async () => {
     await global.userLogin();
     const user = await User.findOne().lean();
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toString();
     await addCart({ prodId: id, userId: user?._id });
-    await addCart({ prodId: Types.ObjectId(), userId: user?._id });
+    await addCart({ prodId: Types.ObjectId().toString(), userId: user?._id });
 
     await removeCart({ userId: user?._id, prodId: id });
     const user1 = await User.findOne().lean();

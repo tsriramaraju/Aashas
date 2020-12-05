@@ -66,7 +66,7 @@ router.post(
       };
       try {
         const algoliaRes = await index.saveObject(productObj);
-        console.log(algoliaRes);
+        process.env.NODE_ENV !== 'test' && console.log(algoliaRes);
       } catch (error) {
         throw new ServerError(error);
       }

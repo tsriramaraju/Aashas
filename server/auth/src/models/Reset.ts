@@ -5,7 +5,7 @@ const resetSchema = new Schema(
   {
     uid: { type: Types.ObjectId, required: true },
     email: { type: String, unique: true },
-    date: { type: Date, default: Date.now(), expires: '15m' },
+    date: { type: String, default: Date.now().toString(), expires: '15m' },
   },
   {
     toJSON: {

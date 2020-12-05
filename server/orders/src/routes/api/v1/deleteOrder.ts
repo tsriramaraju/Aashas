@@ -21,7 +21,7 @@ router.delete('/:id', [isAdmin], async (req: Request, res: Response) => {
   const orderId = req.params.id;
   if (!Types.ObjectId.isValid(orderId))
     throw new BadRequestError('Invalid order id');
-  const orderDoc = await deleteOrder(Types.ObjectId(orderId));
+  const orderDoc = await deleteOrder(orderId);
 
   if (!orderDoc) throw new ResourceNotFoundError('Order not available');
 

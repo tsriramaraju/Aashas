@@ -19,7 +19,7 @@ export const orderData = {
           party: 'sherwani',
         },
       },
-      prodId: Types.ObjectId(),
+      prodId: Types.ObjectId().toHexString(),
       title: 'kids casuals',
       description:
         "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",
@@ -49,7 +49,7 @@ export const orderData = {
     totalAmount: 12,
   },
   status: 'working on it',
-  userId: Types.ObjectId(),
+  userId: Types.ObjectId().toHexString(),
 };
 
 export const priceData = {
@@ -68,7 +68,7 @@ export const itemsData = {
       party: 'sherwani',
     },
   },
-  prodId: Types.ObjectId(),
+  prodId: Types.ObjectId().toHexString(),
   title: 'kids casuals',
   description:
     "A story woven from the twines of Crimson petals dropping down from the roof on to an earthy wall – a beautiful sight captured at the dawn. A childhood memory.\nDesigner/'s love for bougainvillea and the childhood image has inspired this collection. Each design is an untold story and a hand crafted bridal, fusion and luxury pret wear. The hand painted flowers and twines have been translated into prints and  embroidery creating a vintage look in layers. This is a bright, , fun collection ranging from pastel to dark colours.",

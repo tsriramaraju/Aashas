@@ -21,8 +21,8 @@ describe('Delete account service test group', () => {
     expect(resp).toBe(true);
   });
   it('should expect false by deleting in valid account', async () => {
-    const data = await build();
-    const id = Types.ObjectId();
+    await build();
+    const id = Types.ObjectId().toHexString();
 
     const resp = await deleteAccount(id);
     expect(resp).toBe(false);

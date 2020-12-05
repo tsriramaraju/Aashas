@@ -6,7 +6,7 @@ import {
   paymentStatus,
   size,
 } from '@aashas/common';
-import { model, Schema, Types } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const ordersSchema = new Schema(
@@ -32,7 +32,7 @@ const ordersSchema = new Schema(
     mobile: Number,
     items: [
       {
-        prodId: { type: Types.ObjectId, required: true },
+        prodId: { type: String, required: true },
         title: { type: String, required: true },
         description: { type: String, required: true },
         size: {
@@ -88,10 +88,7 @@ const ordersSchema = new Schema(
 ordersSchema.set('versionKey', 'version');
 ordersSchema.plugin(updateIfCurrentPlugin);
 
-ordersSchema.statics.findByEvent = (event: {
-  id: Types.ObjectId;
-  version: number;
-}) => {
+ordersSchema.statics.findByEvent = (event: { id: string; version: number }) => {
   return Order.findOne({
     _id: event.id,
     version: event.version - 1,

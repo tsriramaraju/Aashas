@@ -19,7 +19,7 @@ router.delete('/cart/:id', [isUser], async (req: Request, res: Response) => {
     throw new BadRequestError('Invalid product id');
 
   const status = await removeCart({
-    prodId: Types.ObjectId(product),
+    prodId: product,
     userId: req.currentUser!.id,
   });
   res.status(201).json({ msg: status });
