@@ -26,6 +26,10 @@ spec:
             backend:
               serviceName: orders-srv
               servicePort: 3004
+          - path: /api/v1/payments/?(.*)
+            backend:
+              serviceName: payments-srv
+              servicePort: 3005
           - path: /api/v1/designer/?(.*)
             backend:
               serviceName: designer-srv
