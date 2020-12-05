@@ -16,12 +16,15 @@ build:
       context: designer
     - image: tsriramaraju/notification
       context: notification
+    - image: tsriramaraju/payments
+      context: payments
 deploy:
   kubectl:
     manifests:
       - k8s/auth-depl.yaml
       - k8s/users-depl.yaml
       - k8s/products-depl.yaml
+      - k8s/payments-depl.yaml
       - k8s/notification-depl.yaml
       - k8s/designer-depl.yaml
       - k8s/orders-depl.yaml

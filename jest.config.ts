@@ -12,6 +12,7 @@ const config: Config.InitialOptions = {
     '<rootDir>/server/orders/jest.config.js',
     '<rootDir>/server/designer/jest.config.js',
     '<rootDir>/server/notification/jest.config.js',
+    '<rootDir>/server/payments/jest.config.js',
   ],
 };
 export default config;

@@ -1,4 +1,5 @@
 import { natsWrapper } from '@aashas/common';
+import { AccountCreatedListener } from './accountCreated';
 import { CustomProductCreatedListener } from './customProductCreated';
 import { CustomProductDeletedListener } from './customProductDeleted';
 import { CustomProductUpdatedListener } from './customProductUpdated';
@@ -30,4 +31,6 @@ export const initializeListeners = () => {
   new OrderDeletedListener(natsWrapper.client).listen();
   new OrderPaymentUpdatedListener(natsWrapper.client).listen();
   new OrderStatusUpdatedListener(natsWrapper.client).listen();
+
+  new AccountCreatedListener(natsWrapper.client).listen();
 };

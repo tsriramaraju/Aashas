@@ -3,5 +3,5 @@ coverage
 .vscode
 .vscodecounter
 commands.txt
-env.txt
+secrets.env
 build
