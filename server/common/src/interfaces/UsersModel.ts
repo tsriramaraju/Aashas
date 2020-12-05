@@ -60,10 +60,10 @@ interface UserDoc extends Document {
   authType: authType;
   addresses?: address[];
   defaultAddress?: address;
-  cart?: ProductDoc[] | string;
-  orders?: ProductDoc[] | string;
-  favourites?: ProductDoc[] | string;
-  customProducts?: CustomProductDoc[] | string;
+  cart?: ProductDoc[] | string[];
+  orders?: ProductDoc[] | string[];
+  favourites?: ProductDoc[] | string[];
+  customProducts?: CustomProductDoc[] | string[];
 }
 
 export { userAttrs, UserDoc, UserModel, address };
