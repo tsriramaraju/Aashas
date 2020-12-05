@@ -53,7 +53,7 @@ interface AccountModel extends Model<AccountDoc> {
  * hat a Account Document has
  */
 interface AccountDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   email: string;
   password: string;
   name: string;

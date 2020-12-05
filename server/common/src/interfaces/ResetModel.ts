@@ -22,7 +22,7 @@ interface ResetModel extends Model<ResetDoc> {
  * hat a reset Document has
  */
 interface ResetDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   uid: Types.ObjectId;
   email: string;
 }

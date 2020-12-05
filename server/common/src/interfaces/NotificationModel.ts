@@ -22,7 +22,7 @@ interface NotificationModel extends Model<NotificationDoc> {
  * hat a Notification Document has
  */
 interface NotificationDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   group: string;
   message: string;
 }

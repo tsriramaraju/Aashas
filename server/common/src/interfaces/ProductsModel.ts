@@ -84,7 +84,7 @@ interface ProductModel extends Model<ProductDoc> {
  * hat a Product Document has
  */
 interface ProductDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   title: string;
   description: string;
   size: size[];

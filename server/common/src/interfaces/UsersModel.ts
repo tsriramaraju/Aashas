@@ -54,7 +54,7 @@ interface UserModel extends Model<UserDoc> {
  * hat a User Document has
  */
 interface UserDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   name: string;
   email?: string;
   mobile?: number;

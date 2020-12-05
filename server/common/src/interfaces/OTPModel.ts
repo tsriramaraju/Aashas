@@ -24,7 +24,7 @@ interface OTPModel extends Model<OTPDoc> {
  * hat a OTP Document has
  */
 interface OTPDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   otp: number;
   email?: string;
   mobile?: number;

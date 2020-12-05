@@ -42,7 +42,7 @@ interface DesignerModel extends Model<DesignerDoc> {
  * hat a Designer Document has
  */
 interface DesignerDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   name: string;
   email: string;
   mobile: number;

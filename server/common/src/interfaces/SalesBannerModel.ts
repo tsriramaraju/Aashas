@@ -24,7 +24,7 @@ interface SalesBannerModel extends Model<SalesBannerDoc> {
  * hat a Sales banner Document has
  */
 interface SalesBannerDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   title: string;
   img: string;
   type: 'percentage' | 'price';

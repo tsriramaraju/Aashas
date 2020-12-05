@@ -60,7 +60,7 @@ interface OrderModel extends Model<OrderDoc> {
  * hat a Order Document has
  */
 interface OrderDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   userId: Types.ObjectId;
   payment: {
     status: paymentStatus;

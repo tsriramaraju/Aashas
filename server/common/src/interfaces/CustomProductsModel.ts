@@ -51,7 +51,7 @@ interface CustomProductModel extends Model<CustomProductDoc> {
  * hat a Custom Product Document has
  */
 interface CustomProductDoc extends Document {
-  id: Types.ObjectId;
+  // id: Types.ObjectId;
   userId: Types.ObjectId;
   status: verification;
   title: string;
