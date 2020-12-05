@@ -1,4 +1,4 @@
-import { Types, Model, Document } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 /**
  * An interface that describes the properties
@@ -7,7 +7,7 @@ import { Types, Model, Document } from 'mongoose';
 interface designerAttrs {
   name: string;
   email: string;
-  id: Types.ObjectId;
+  id: string;
   mobile: number;
   image: string;
   bio: string;
@@ -42,14 +42,13 @@ interface DesignerModel extends Model<DesignerDoc> {
  * hat a Designer Document has
  */
 interface DesignerDoc extends Document {
-  // id: Types.ObjectId;
   name: string;
   email: string;
   mobile: number;
   image: string;
   bio: string;
   blogs: {
-    _id: Types.ObjectId;
+    _id: string;
     title: string;
     image: string;
     content: string;

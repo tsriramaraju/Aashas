@@ -1,10 +1,9 @@
-import { Types } from 'mongoose';
 import { Subjects } from '../subjects';
 
 export interface GenerateResetEvent {
   subject: Subjects.GenerateReset;
   data: {
-    id?: Types.ObjectId;
+    id?: string;
     mode: ('email' | 'mobile')[];
     group?: string;
     clientID?: string;
@@ -13,7 +12,7 @@ export interface GenerateResetEvent {
       name?: string;
       email?: string;
       mobile?: number;
-      uid: Types.ObjectId;
+      uid: string;
       message: string;
       img?: string;
       body?: string;

@@ -1,10 +1,9 @@
-import { Types } from 'mongoose';
 import { Subjects } from '../../subjects';
 
 export interface OrderStatusUpdatedEvent {
   subject: Subjects.OrderStatusUpdated;
   data: {
-    orderID: Types.ObjectId;
+    orderID: string;
     orderStatus: string;
     version: number;
     clientID?: string;

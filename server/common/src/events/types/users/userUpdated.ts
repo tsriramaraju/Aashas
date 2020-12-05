@@ -1,10 +1,9 @@
 import { Subjects } from '../../subjects';
-import Mongoose from 'mongoose';
 
 export interface UserUpdatedEvent {
   subject: Subjects.UserUpdated;
   data: {
-    id: Mongoose.Types.ObjectId;
+    id: string;
     clientID?: string;
     group?: string;
     mode: ('message' | 'email' | 'push notification')[];

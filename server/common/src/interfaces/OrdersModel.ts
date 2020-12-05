@@ -1,4 +1,4 @@
-import { Model, Types, Document } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import { paymentStatus, paymentModes, size } from './enums';
 import { outfit } from './ProductsModel';
 import { address } from './UsersModel';
@@ -8,7 +8,7 @@ import { address } from './UsersModel';
  * that are required to create a new Order model
  */
 interface orderAttrs {
-  userId: Types.ObjectId;
+  userId: string;
   payment: {
     status: paymentStatus;
     method?: paymentModes;
@@ -16,7 +16,7 @@ interface orderAttrs {
   email?: string;
   mobile?: number;
   items: {
-    prodId: Types.ObjectId;
+    prodId: string;
     title: string;
     description: string;
     size: size;
@@ -49,10 +49,7 @@ interface orderAttrs {
  */
 interface OrderModel extends Model<OrderDoc> {
   build(attrs: orderAttrs): OrderDoc;
-  findByEvent(event: {
-    id: Types.ObjectId;
-    version: number;
-  }): Promise<OrderDoc | null>;
+  findByEvent(event: { id: string; version: number }): Promise<OrderDoc | null>;
 }
 
 /**
@@ -60,8 +57,7 @@ interface OrderModel extends Model<OrderDoc> {
  * hat a Order Document has
  */
 interface OrderDoc extends Document {
-  // id: Types.ObjectId;
-  userId: Types.ObjectId;
+  userId: string;
   payment: {
     status: paymentStatus;
     method?: paymentModes;
@@ -69,7 +65,7 @@ interface OrderDoc extends Document {
   email?: string;
   mobile?: number;
   items: {
-    prodId: Types.ObjectId;
+    prodId: string;
     title: string;
     description: string;
     size: size;

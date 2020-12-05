@@ -1,10 +1,9 @@
-import { Types } from 'mongoose';
 import { Subjects } from '../../subjects';
 
 export interface CustomProductDeletedEvent {
   subject: Subjects.CustomProductDeleted;
   data: {
-    productID: Types.ObjectId;
+    productID: string;
     version: number;
     clientID?: string;
     group?: string;

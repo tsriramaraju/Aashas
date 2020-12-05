@@ -1,4 +1,4 @@
-import { Model, Document, Types } from 'mongoose';
+import { Model, Document } from 'mongoose';
 import { categories } from '..';
 import { size } from './enums';
 
@@ -74,7 +74,7 @@ interface CategoryOffer {
 interface ProductModel extends Model<ProductDoc> {
   build(attrs: productAttrs): ProductDoc;
   findByEvent(event: {
-    id: Types.ObjectId;
+    id: string;
     version: number;
   }): Promise<ProductDoc | null>;
 }
@@ -84,7 +84,6 @@ interface ProductModel extends Model<ProductDoc> {
  * hat a Product Document has
  */
 interface ProductDoc extends Document {
-  // id: Types.ObjectId;
   title: string;
   description: string;
   size: size[];

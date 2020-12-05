@@ -1,9 +1,9 @@
 import { Subjects } from '../subjects';
-import Mongoose from 'mongoose';
+
 export interface GenerateOTPEvent {
   subject: Subjects.GenerateOTP;
   data: {
-    id?: Mongoose.Types.ObjectId | string;
+    id?: string;
     mode: ('email' | 'message' | 'push notification')[];
     group?: string;
     clientID?: string;
