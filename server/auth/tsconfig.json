@@ -72,9 +72,9 @@
   "include": [
     "./src/**/*",
     "./@types",
-    "../common/src/loaders/loggers.ts",
-    "src/config",
-    "../users/src/index.ts"
+    // "../common/src/loaders/loggers.ts",
+    "src/config"
+    // "../users/src/index.ts"
   ],
   "exclude": ["node_modules", "tests"]
 }
