@@ -6,7 +6,7 @@ import {
   size,
   verification,
 } from '@aashas/common';
-import { model, Schema, Types } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const customProductSchema = new Schema(
@@ -56,7 +56,7 @@ customProductSchema.set('versionKey', 'version');
 customProductSchema.plugin(updateIfCurrentPlugin);
 
 customProductSchema.statics.findByEvent = (event: {
-  id: Types.ObjectId;
+  id: string;
   version: number;
 }) => {
   return CustomProduct.findOne({

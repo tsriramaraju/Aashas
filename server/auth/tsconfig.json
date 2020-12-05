@@ -69,12 +69,12 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": [
-    "./src/**/*",
-    "./@types",
-    // "../common/src/loaders/loggers.ts",
-    "src/config"
-    // "../users/src/index.ts"
-  ],
+  // "include": [
+  //   "./src/**/*",
+  //   "./@types",
+  //   // "../common/src/loaders/loggers.ts",
+  //   "src/config"
+  //   // "../users/src/index.ts"
+  // ],
   "exclude": ["node_modules", "tests"]
 }

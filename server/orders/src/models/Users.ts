@@ -1,5 +1,5 @@
 import { UserDoc, UserModel, authType, userAttrs } from '@aashas/common';
-import { model, Schema, Types } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const userSchema = new Schema(
@@ -31,7 +31,7 @@ const userSchema = new Schema(
       },
     ],
     defaultAddress: {
-      _id: { type: Types.ObjectId, unique: true, sparse: true },
+      _id: { type: String, unique: true, sparse: true },
       name: { type: String },
       house: { type: String },
       location: { type: String },
@@ -62,10 +62,7 @@ userSchema.set('toJSON', {
 userSchema.statics.build = (attrs: userAttrs) => {
   return new User({ _id: attrs.id, ...attrs });
 };
-userSchema.statics.findByEvent = (event: {
-  id: Types.ObjectId;
-  version: number;
-}) => {
+userSchema.statics.findByEvent = (event: { id: string; version: number }) => {
   return User.findOne({
     _id: event.id,
     version: event.version - 1,

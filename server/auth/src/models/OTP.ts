@@ -7,7 +7,7 @@ const otpSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     mobile: { type: String, unique: true, sparse: true },
-    date: { type: Date, default: Date.now(), expires: '15m' },
+    date: { type: String, default: Date.now().toString(), expires: '15m' },
   },
   {
     toJSON: {
