@@ -16,10 +16,10 @@ describe('Remove All Favourite items route test group', () => {
     const token = await global.userLogin();
     const preUser = await User.findOne({});
     preUser!.favourites = [
-      Types.ObjectId(),
-      Types.ObjectId(),
-      Types.ObjectId(),
-      Types.ObjectId(),
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
+      Types.ObjectId().toString(),
     ];
     await preUser?.save();
     expect(preUser!.favourites!.length).toBe(4);

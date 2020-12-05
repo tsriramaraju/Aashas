@@ -1,8 +1,7 @@
 import { DatabaseConnectionError } from '@aashas/common';
-import { Types } from 'mongoose';
 import { User } from '../models/Users';
 
-export const getOrder = async (id: Types.ObjectId) => {
+export const getOrder = async (id: string) => {
   try {
     const orders = await User.findById(id).select('orders').populate('orders');
 

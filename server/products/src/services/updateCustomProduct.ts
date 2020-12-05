@@ -1,9 +1,8 @@
 import { customProductsAttrs, DatabaseConnectionError } from '@aashas/common';
-import { Types } from 'mongoose';
 import { CustomProduct } from '../models/CustomProducts';
 
 export const updateCustomProduct = async (
-  prodId: Types.ObjectId,
+  prodId: string,
   productData: customProductsAttrs
 ) => {
   try {

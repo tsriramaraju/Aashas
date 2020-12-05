@@ -31,7 +31,7 @@ describe('User deleted even listener test group', () => {
     const msg = { ack: () => {} } as Message;
     await listener.onMessage(
       {
-        id: Types.ObjectId(),
+        id: Types.ObjectId().toHexString(),
         mode: ['email'],
         data: {
           message: '0',

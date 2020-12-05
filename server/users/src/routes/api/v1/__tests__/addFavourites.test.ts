@@ -53,7 +53,7 @@ describe('Add Favourites items route test group', () => {
       .expect(201);
     const postUser = await User.findOne({}).lean();
     expect(postUser!.favourites!.length).toBe(1);
-    expect(postUser!.favourites![0].toHexString()).toBe(
+    expect(postUser!.favourites![0].toString()).toBe(
       '5fbb538e83f2340019cc44e1'
     );
     expect(res.body.msg).toBe('Favourite added successfully');
@@ -72,7 +72,7 @@ describe('Add Favourites items route test group', () => {
       .expect(201);
     const postUser = await User.findOne({}).lean();
     expect(postUser!.favourites!.length).toBe(1);
-    expect(postUser!.favourites![0].toHexString()).toBe(
+    expect(postUser!.favourites![0].toString()).toBe(
       '5fbb538e83f2340019cc44e1'
     );
     expect(res.body.msg).toBe('Favourite added successfully');
@@ -84,7 +84,7 @@ describe('Add Favourites items route test group', () => {
       .expect(201);
     const postUser1 = await User.findOne({}).lean();
     expect(postUser1!.favourites!.length).toBe(1);
-    expect(postUser1!.favourites![0].toHexString()).toBe(
+    expect(postUser1!.favourites![0].toString()).toBe(
       '5fbb538e83f2340019cc44e1'
     );
     expect(res2.body.msg).toBe('Favourite added successfully');

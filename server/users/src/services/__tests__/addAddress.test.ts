@@ -56,7 +56,7 @@ describe('Add address Service test group', () => {
   it('should return null if no user is found', async () => {
     const res = await addAddress({
       address: addressData,
-      id: Types.ObjectId(),
+      id: Types.ObjectId().toString(),
     });
     expect(res).toBe(null);
   });

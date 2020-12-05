@@ -11,7 +11,7 @@ describe('Initiate Reset service test group', () => {
   });
 
   it('should return existing Reset Document if email record is found', async () => {
-    const resetID = Types.ObjectId();
+    const resetID = Types.ObjectId().toHexString();
     await Reset.build({
       uid: resetID,
       email: 'johndoe@test.com',

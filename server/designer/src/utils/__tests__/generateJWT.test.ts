@@ -5,7 +5,7 @@ import { BadRequestError, jwtPayload, verification } from '@aashas/common';
 describe('JSON web token  test group', () => {
   it('should create JWT token on valid parameters', () => {
     const payload: jwtPayload = {
-      id: mongoose.Types.ObjectId(),
+      id: mongoose.Types.ObjectId().toHexString(),
       name: 'john doe',
       email: 'john@test.com',
       emailVerified: verification.yes,
@@ -20,7 +20,7 @@ describe('JSON web token  test group', () => {
 
   it('should match with JWT payload', () => {
     const payload = {
-      id: mongoose.Types.ObjectId(),
+      id: mongoose.Types.ObjectId().toHexString(),
       name: 'john doe',
       email: 'john@test.com',
       emailVerified: verification.yes,

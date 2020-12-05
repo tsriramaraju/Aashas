@@ -25,7 +25,9 @@ describe('Create custom product route test group', () => {
 
   it('should Update product if all valid details are provided', async () => {
     const token = await global.adminLogin();
-    const product = await global.createCustomProduct(Types.ObjectId());
+    const product = await global.createCustomProduct(
+      Types.ObjectId().toHexString()
+    );
     const res = await request(app)
       .put(`/api/v1/products/custom-create/${product.id}`)
       .send(customBuildData)
@@ -42,7 +44,9 @@ describe('Create custom product route test group', () => {
 
   it('should publish events on valid product input', async () => {
     const token = await global.adminLogin();
-    const product = await global.createCustomProduct(Types.ObjectId());
+    const product = await global.createCustomProduct(
+      Types.ObjectId().toHexString()
+    );
     const preFetch = await CustomProduct.find();
 
     const res = await request(app)
@@ -59,7 +63,7 @@ describe('Create custom product route test group', () => {
   });
 
   it('should return Resource not found error if no product is found ', async () => {
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toHexString();
     const token = await global.adminLogin();
 
     const res = await request(app)

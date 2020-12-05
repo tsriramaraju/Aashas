@@ -37,7 +37,7 @@ router.delete('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
     inOffer: false,
   };
 
-  const product = await updateProduct(Types.ObjectId(prodId), offer);
+  const product = await updateProduct(prodId, offer);
   if (!product) throw new ResourceNotFoundError('Product not found');
   res.status(201).json({ msg: 'Product updated successfully' });
 
@@ -66,7 +66,7 @@ router.delete('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
 
   try {
     const algoliaRes = await index.saveObject(productObj);
-    console.log(algoliaRes);
+    process.env.NODE_ENV !== 'test' && console.log(algoliaRes);
   } catch (error) {
     throw new ServerError(error);
   }

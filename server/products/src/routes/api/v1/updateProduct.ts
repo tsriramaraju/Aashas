@@ -36,7 +36,7 @@ router.put(
     if (!Types.ObjectId.isValid(prodId))
       throw new BadRequestError('Invalid product id');
 
-    const product = await updateProduct(Types.ObjectId(prodId), productData);
+    const product = await updateProduct(prodId, productData);
     if (!product) throw new ResourceNotFoundError('Product not found');
     res.status(201).json({ msg: 'Product updated successfully' });
 
@@ -55,7 +55,7 @@ router.put(
     };
     try {
       const algoliaRes = await index.saveObject(productObj);
-      console.log(algoliaRes);
+      process.env.NODE_ENV !== 'test' && console.log(algoliaRes);
     } catch (error) {
       throw new ServerError(error);
     }

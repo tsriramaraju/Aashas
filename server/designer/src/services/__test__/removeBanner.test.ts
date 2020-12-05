@@ -22,7 +22,7 @@ describe('Remove banner service test group', () => {
     await global.createSalesBanner();
     const response = await SalesBanner.find();
     expect(response.length).toBe(4);
-    await removeBanner(Types.ObjectId());
+    await removeBanner(Types.ObjectId().toHexString());
     const response1 = await SalesBanner.find();
     expect(response1.length).toBe(4);
   });

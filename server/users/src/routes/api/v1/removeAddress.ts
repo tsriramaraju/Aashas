@@ -23,7 +23,7 @@ router.delete('/address/:id', [isUser], async (req: Request, res: Response) => {
     throw new BadRequestError('Invalid address ID');
 
   const status = await removeAddress({
-    addressId: Types.ObjectId(addressId),
+    addressId: addressId,
     userId: id,
   });
 

@@ -53,7 +53,7 @@ describe('Add Cart items route test group', () => {
       .expect(201);
     const postUser = await User.findOne({}).lean();
     expect(postUser!.cart!.length).toBe(1);
-    expect(postUser!.cart![0].toHexString()).toBe('5fbb538e83f2340019cc44e1');
+    expect(postUser!.cart![0].toString()).toBe('5fbb538e83f2340019cc44e1');
     expect(res.body.msg).toBe('Cart items added successfully');
   });
 
@@ -70,7 +70,7 @@ describe('Add Cart items route test group', () => {
       .expect(201);
     const postUser = await User.findOne({}).lean();
     expect(postUser!.cart!.length).toBe(1);
-    expect(postUser!.cart![0].toHexString()).toBe('5fbb538e83f2340019cc44e1');
+    expect(postUser!.cart![0].toString()).toBe('5fbb538e83f2340019cc44e1');
     expect(res.body.msg).toBe('Cart items added successfully');
     const res2 = await request(app)
       .post('/api/v1/users/cart')
@@ -80,7 +80,7 @@ describe('Add Cart items route test group', () => {
       .expect(201);
     const postUser1 = await User.findOne({}).lean();
     expect(postUser1!.cart!.length).toBe(1);
-    expect(postUser1!.cart![0].toHexString()).toBe('5fbb538e83f2340019cc44e1');
+    expect(postUser1!.cart![0].toString()).toBe('5fbb538e83f2340019cc44e1');
     expect(res2.body.msg).toBe('Cart items added successfully');
   });
 });

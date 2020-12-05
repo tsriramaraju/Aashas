@@ -35,7 +35,7 @@ declare global {
   }
 }
 
-const userId = Types.ObjectId();
+const userId = Types.ObjectId().toHexString();
 
 let mongo: any;
 beforeAll(async () => {
@@ -109,7 +109,7 @@ global.userLogin = () => {
   const email = 'john@doe.com';
   const name = 'john doe';
   const token = generateJWT({
-    id: Types.ObjectId(),
+    id: Types.ObjectId().toHexString(),
     name,
     email,
     emailVerified: verification.yes,

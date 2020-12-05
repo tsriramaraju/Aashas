@@ -4,7 +4,7 @@ import { User } from '../models/Users';
 
 export const updateProfilePic = async (data: {
   pic?: string | undefined;
-  id: Types.ObjectId;
+  id: string;
 }) => {
   try {
     const user = await User.findById(data.id);

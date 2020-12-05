@@ -4,12 +4,12 @@ import { updateOrder } from '../updateOrder';
 
 describe('Update order service test group', () => {
   it('should Update existing order status', async () => {
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
     const res = await updateOrder(order.id, { status: 'shipping' });
     expect(res!.status).toBe('shipping');
   });
   it('should Update existing order payment status', async () => {
-    const order = await global.createOrder(Types.ObjectId());
+    const order = await global.createOrder(Types.ObjectId().toHexString());
     const res = await updateOrder(order.id, {
       payment: { status: paymentStatus.paid },
     });
@@ -17,7 +17,9 @@ describe('Update order service test group', () => {
   });
 
   it("should return null if order don't exist", async () => {
-    const res = await updateOrder(Types.ObjectId(), { status: 'shipping' });
+    const res = await updateOrder(Types.ObjectId().toHexString(), {
+      status: 'shipping',
+    });
     expect(res).toBe(null);
   });
 });

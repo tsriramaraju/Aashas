@@ -3,13 +3,13 @@ import { Types } from 'mongoose';
 import { User } from '../models/Users';
 
 export const addAddress = async (data: {
-  id: Types.ObjectId;
+  id: string;
   address: address;
   defaultAddress?: boolean;
 }) => {
   try {
     const user = await User.findById(data.id);
-    const addressID = Types.ObjectId();
+    const addressID = Types.ObjectId().toString();
 
     if (!user) return null;
 

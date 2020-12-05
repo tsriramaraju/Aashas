@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import { bannerData } from '../../dummy data/bannerData';
 import { SalesBanner } from '../../models/SalesBanner';
 import { createBanner } from '../createSalesBanner';

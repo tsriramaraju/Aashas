@@ -31,7 +31,7 @@ router.delete(
     if (!Types.ObjectId.isValid(productID))
       throw new BadRequestError('Invalid product id');
 
-    const product = await deleteCustomProduct(Types.ObjectId(productID));
+    const product = await deleteCustomProduct(productID);
 
     if (!product) throw new ResourceNotFoundError('No Product found');
 

@@ -5,7 +5,7 @@ import { DatabaseConnectionError } from '@aashas/common';
 /**
  * Retrieves list of all the available  accounts
  */
-export const getAccounts = async (id?: Types.ObjectId) => {
+export const getAccounts = async (id?: string) => {
   try {
     return await Account.find(id == undefined ? {} : { _id: id });
   } catch (error) {

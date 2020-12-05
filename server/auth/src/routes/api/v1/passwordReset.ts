@@ -30,7 +30,7 @@ router.post(
       throw new TamperedRequestError('Please use valid reset link');
     }
 
-    const user = await verifyReset(Types.ObjectId(id), password, email);
+    const user = await verifyReset(id, password, email);
 
     if (user) {
       const payload: jwtPayload = {

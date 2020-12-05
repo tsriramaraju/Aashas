@@ -6,7 +6,7 @@ import { AccountCreatedListener } from '../accountCreated';
 
 describe('Account created listener test group', () => {
   const eventData = {
-    id: Types.ObjectId(),
+    id: Types.ObjectId().toString(),
     authMode: authType.email,
     name: 'John doe',
     email: 'John@gmail.com',

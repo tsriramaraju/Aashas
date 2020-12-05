@@ -12,7 +12,7 @@ describe('Delete Product service test group', () => {
   });
 
   it('should return null on deleting non existing product', async () => {
-    const res = await deleteProduct(Types.ObjectId());
+    const res = await deleteProduct(Types.ObjectId().toHexString());
     expect(res).toBe(null);
     const post = await Product.findOne();
     expect(post).toBe(null);

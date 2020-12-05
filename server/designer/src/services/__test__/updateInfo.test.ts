@@ -15,7 +15,9 @@ describe('Update info service test group', () => {
   });
 
   it('should return null if no designer found', async () => {
-    const update = await updateInfo(Types.ObjectId(), { name: 'update' });
+    const update = await updateInfo(Types.ObjectId().toHexString(), {
+      name: 'update',
+    });
     expect(update).toBe(null);
   });
 });

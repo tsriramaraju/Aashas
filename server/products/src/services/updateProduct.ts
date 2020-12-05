@@ -1,9 +1,9 @@
 import { DatabaseConnectionError, offer, productAttrs } from '@aashas/common';
-import { Types } from 'mongoose';
+
 import { Product } from '../models/Products';
 
 export const updateProduct = async (
-  prodId: Types.ObjectId,
+  prodId: string,
   productData: productAttrs | offer
 ) => {
   try {

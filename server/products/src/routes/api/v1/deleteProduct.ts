@@ -29,7 +29,7 @@ router.delete('/delete/:id', [isAdmin], async (req: Request, res: Response) => {
   if (!Types.ObjectId.isValid(productID))
     throw new BadRequestError('Invalid product id');
 
-  const product = await deleteProduct(Types.ObjectId(productID));
+  const product = await deleteProduct(productID);
 
   if (!product) throw new ResourceNotFoundError('No Product found');
 
@@ -42,7 +42,7 @@ router.delete('/delete/:id', [isAdmin], async (req: Request, res: Response) => {
 
   try {
     const algoliaRes = await index.deleteObject(product.id.toString());
-    console.log(algoliaRes);
+    process.env.NODE_ENV !== 'test' && console.log(algoliaRes);
   } catch (error) {
     throw new ServerError(error);
   }

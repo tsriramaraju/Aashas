@@ -7,8 +7,7 @@ import {
 import { Router, Request, Response } from 'express';
 import { Types } from 'mongoose';
 import { BuildWebsitePublisher } from '../../../events';
-import { createBlog } from '../../../services/createBlog';
-import { getDesigner } from '../../../services/getDesigner';
+
 import { removeBlog } from '../../../services/removeBlog';
 
 const router = Router();
@@ -29,7 +28,7 @@ router.delete('/blogs/:id', [isAdmin], async (req: Request, res: Response) => {
 
   const status = await removeBlog({
     userId: id,
-    blogId: Types.ObjectId(blogId),
+    blogId: blogId,
   });
 
   if (status !== 'Successfully removed')

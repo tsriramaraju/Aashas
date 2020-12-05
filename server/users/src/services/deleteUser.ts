@@ -1,9 +1,8 @@
-import { DatabaseConnectionError, OrderDoc } from '@aashas/common';
-import { Types } from 'mongoose';
+import { DatabaseConnectionError } from '@aashas/common';
 
 import { User } from '../models/Users';
 
-export const deleteUser = async (id: Types.ObjectId) => {
+export const deleteUser = async (id: string) => {
   try {
     const user = await User.findById(id).populate('orders');
 

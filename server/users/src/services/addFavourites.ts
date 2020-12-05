@@ -1,11 +1,7 @@
 import { DatabaseConnectionError } from '@aashas/common';
-import { Types } from 'mongoose';
 import { User } from '../models/Users';
 
-export const addFavourite = async (ids: {
-  userId: Types.ObjectId;
-  prodId: Types.ObjectId;
-}) => {
+export const addFavourite = async (ids: { userId: string; prodId: string }) => {
   try {
     const user = await User.findById(ids.userId);
     if (!user) return null;

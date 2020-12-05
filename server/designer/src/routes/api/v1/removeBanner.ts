@@ -24,7 +24,7 @@ router.delete('/banner/:id', [isAdmin], async (req: Request, res: Response) => {
   if (!Types.ObjectId.isValid(id))
     throw new BadRequestError('Invalid banner id');
 
-  const bannerDoc = await removeBanner(Types.ObjectId(id));
+  const bannerDoc = await removeBanner(id);
 
   if (!bannerDoc) throw new ResourceNotFoundError('Banner not found');
 

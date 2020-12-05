@@ -1,7 +1,6 @@
-import { Types } from 'mongoose';
 import { Product } from '../models/Products';
 
-export const deleteProduct = async (id: Types.ObjectId) => {
+export const deleteProduct = async (id: string) => {
   try {
     const product = await Product.findById(id);
     if (!product) return null;

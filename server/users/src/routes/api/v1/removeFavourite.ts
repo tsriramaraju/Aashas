@@ -21,7 +21,7 @@ router.delete(
       throw new BadRequestError('Invalid product id');
 
     const status = await removeFavourites({
-      prodId: Types.ObjectId(product),
+      prodId: product,
       userId: req.currentUser!.id,
     });
     res.status(201).json({ msg: status });

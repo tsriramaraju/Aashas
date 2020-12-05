@@ -6,7 +6,7 @@ import { removeBlog } from '../removeBlog';
 describe('Remove blog service test group', () => {
   it('should remove blog successfully on valid input', async () => {
     const designer = await global.createDesigner();
-    const id = Types.ObjectId();
+    const id = Types.ObjectId().toHexString();
     designer.blogs.unshift({ _id: id, ...blogData });
     const blog = await designer.save();
     const preFetch = await Designer.findOne().lean();
@@ -24,8 +24,8 @@ describe('Remove blog service test group', () => {
 
   it('should return designer not found error on entering  non existing designer input', async () => {
     const res = await removeBlog({
-      userId: Types.ObjectId(),
-      blogId: Types.ObjectId(),
+      userId: Types.ObjectId().toHexString(),
+      blogId: Types.ObjectId().toHexString(),
     });
 
     expect(res).toBe('Designer account not found');
@@ -35,7 +35,7 @@ describe('Remove blog service test group', () => {
     const designer = await global.createDesigner();
     const res = await removeBlog({
       userId: designer.id,
-      blogId: Types.ObjectId(),
+      blogId: Types.ObjectId().toHexString(),
     });
 
     expect(res).toBe('Blog not found');
