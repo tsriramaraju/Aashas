@@ -5,7 +5,7 @@ export interface AccountCreatedEvent {
   subject: Subjects.AccountCreated;
 
   data: {
-    id: Mongoose.Types.ObjectId;
+    id: Mongoose.Types.ObjectId | string;
     authMode: authType;
     name: string;
     email?: string;

@@ -1,8 +1,9 @@
 import { verify } from 'jsonwebtoken';
-import { BadRequestError, jwtPayload, ServerError } from '..';
+import { BadRequestError, ServerError } from '..';
 import { Request } from 'express';
+import { jwtPayload } from '@aashas/common/build/interfaces/payLoads';
 
-export const currentUser = (req: Request) => {
+export const currentUserService = (req: Request) => {
   let token;
   if (!req.headers) {
     throw new BadRequestError('Invalid headers');
@@ -28,6 +29,7 @@ export const currentUser = (req: Request) => {
       | { payload: jwtPayload };
 
     if (typeof decodedData == 'object') return decodedData.payload;
+
     return null;
   } catch (error) {
     throw new ServerError(error);

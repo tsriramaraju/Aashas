@@ -1,5 +1,5 @@
-import { Types } from 'mongoose';
 import { verification } from '@aashas/common';
+import { Types } from 'mongoose';
 
 /**
  * Payload structure for requests body
@@ -22,7 +22,7 @@ interface mobilePayload {
  * JWT payload structure
  */
 interface jwtPayload {
-  id: Types.ObjectId;
+  id: string | Types.ObjectId;
   name: string;
   email?: string;
   emailVerified: verification;

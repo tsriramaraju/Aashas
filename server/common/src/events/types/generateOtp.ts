@@ -3,7 +3,7 @@ import Mongoose from 'mongoose';
 export interface GenerateOTPEvent {
   subject: Subjects.GenerateOTP;
   data: {
-    id?: Mongoose.Types.ObjectId;
+    id?: Mongoose.Types.ObjectId | string;
     mode: ('email' | 'message' | 'push notification')[];
     group?: string;
     clientID?: string;
