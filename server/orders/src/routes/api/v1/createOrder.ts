@@ -26,7 +26,7 @@ router.post(
       order: orderDoc,
       data: {
         title: 'Order created',
-        message: 'this is message',
+        message: `${orderDoc.items[0].title} Order created `,
         email: orderDoc.email,
       },
     });

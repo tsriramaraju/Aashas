@@ -42,7 +42,7 @@ router.put(
       version: product.version,
       mode: ['email'],
       data: {
-        message: 'Custom product created',
+        message: `${product.title} custom product created `,
         title: 'custom product title',
         email: req.currentUser?.email,
       },

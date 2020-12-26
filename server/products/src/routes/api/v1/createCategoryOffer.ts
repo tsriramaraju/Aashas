@@ -52,7 +52,7 @@ router.post(
         mode: ['email'],
         data: {
           title: 'category offer created',
-          message: 'hello',
+          message: `${product.title} offer created `,
         },
       });
       const productObj = {

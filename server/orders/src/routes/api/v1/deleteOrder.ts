@@ -32,7 +32,7 @@ router.delete('/:id', [isAdmin], async (req: Request, res: Response) => {
     order: orderDoc,
     data: {
       title: 'Order created',
-      message: 'this is message',
+      message: `${orderDoc.items[0].title} Order deleted `,
       email: orderDoc.email,
     },
   });

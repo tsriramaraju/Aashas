@@ -2,6 +2,7 @@ import { GenerateOTPEvent, Listener, Subjects } from '@aashas/common';
 import { Message } from 'node-nats-streaming';
 import { emailNotification } from '../../services/emailNotification';
 import { mobileNotification } from '../../services/mobileNotification';
+import { pushNotification } from '../../services/pushNotification';
 import { queueGroupName } from '../queueGroupName';
 
 export class GenerateOTPListener extends Listener<GenerateOTPEvent> {
@@ -9,24 +10,17 @@ export class GenerateOTPListener extends Listener<GenerateOTPEvent> {
   readonly subject = Subjects.GenerateOTP;
 
   async onMessage(data: GenerateOTPEvent['data'], msg: Message) {
-    const notificationData = data.data;
+    try {
+      const notificationData = data.data;
 
-    data.mode.forEach((mode) => {
-      if (mode === 'email') {
-        emailNotification({
-          email: notificationData.email!,
-          body: notificationData.body!,
-          subject: notificationData.title,
-        });
-      }
-      if (mode === 'message') {
-        mobileNotification({
-          mobile: notificationData.mobile!,
-          message: notificationData.body!,
-        });
-      }
-    });
+      await pushNotification({
+        id: data.clientID!,
+        message: notificationData.message!,
+      });
 
-    msg.ack();
+      msg.ack();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

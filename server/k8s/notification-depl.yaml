@@ -34,5 +34,5 @@ spec:
   ports:
     - name: notification
       protocol: TCP
-      port: 3007
-      targetPort: 3007
+      port: 3006
+      targetPort: 3006

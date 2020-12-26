@@ -1,5 +1,7 @@
 import { notificationAttrs, ServerError } from '@aashas/common';
 import { Notification } from '../models/Notification';
+import axios from 'axios';
+import { keys } from '../config/keys';
 
 export const mobileNotification = async (data: {
   mobile: number;
@@ -12,8 +14,14 @@ export const mobileNotification = async (data: {
       message: data.message,
     };
     await Notification.build(notificationData).save();
-    //  TODO : mobile server
-    console.log(data);
+    const slackData = {
+      text: data.message,
+    };
+
+    const res = await axios.post(keys.slack!, slackData, {
+      headers: { 'Content-type': 'application/json' },
+    });
+    console.log(res.data);
   } catch (error) {
     throw new ServerError(error);
   }

@@ -44,7 +44,7 @@ router.post(
           title: 'Please enter 4 digit OTP for verification',
           otp: otpData.otp,
           email: otpData.email,
-          message: 'message',
+          message: `OTP is ${otpData.otp}`,
         },
       });
 
