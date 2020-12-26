@@ -1,6 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: 'Aashas',
+    description: 'this is commerce site',
+    siteUrl: 'http://localhost:9000/',
   },
   plugins: [
     'gatsby-plugin-sharp',
