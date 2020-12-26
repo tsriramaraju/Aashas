@@ -43,7 +43,6 @@ router.put('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
   const product = await updateProduct(prodId, offer);
   if (!product) throw new ResourceNotFoundError('Product not found');
   res.status(201).json({ msg: 'Product updated successfully' });
-  //  TODO : publish build website event
 
   new ProductUpdatedPublisher(natsWrapper.client).publish({
     product,
@@ -55,7 +54,7 @@ router.put('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
     product: product,
     mode: ['email'],
     data: {
-      message: 'hello',
+      message: `${product.title} offer updated `,
       title: 'Offer added',
     },
   });

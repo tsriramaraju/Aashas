@@ -81,7 +81,7 @@ router.post(
         otp: otpData.otp,
         email: otpData.email,
         title: 'Please enter 4 digit OTP to verify the email',
-        message: 'this is message',
+        message: `OTP is ${otpData.otp}`,
       },
     });
     res.status(201).json(generateJWT(payload));

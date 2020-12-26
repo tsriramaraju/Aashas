@@ -10,30 +10,17 @@ export class OrderStatusUpdatedListener extends Listener<OrderStatusUpdatedEvent
   readonly subject = Subjects.OrderStatusUpdated;
 
   async onMessage(data: OrderStatusUpdatedEvent['data'], msg: Message) {
-    const notificationData = data.data;
+    try {
+      const notificationData = data.data;
 
-    data.mode.forEach((mode) => {
-      if (mode === 'email') {
-        emailNotification({
-          email: notificationData.email!,
-          body: notificationData.body!,
-          subject: notificationData.title,
-        });
-      }
-      if (mode === 'message') {
-        mobileNotification({
-          mobile: notificationData.mobile!,
-          message: notificationData.body!,
-        });
-      }
-      if (mode === 'push notification') {
-        pushNotification({
-          id: data.clientID!,
-          message: notificationData.body!,
-        });
-      }
-    });
+      await pushNotification({
+        id: data.clientID!,
+        message: notificationData.body!,
+      });
 
-    msg.ack();
+      msg.ack();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

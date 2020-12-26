@@ -13,7 +13,7 @@ const router = Router();
  */
 
 router.delete('/', [isUser], async (req: Request, res: Response) => {
-  const { id } = req.currentUser!;
+  const { id, name } = req.currentUser!;
 
   const isDeleted = await deleteUser(id!);
 
@@ -28,7 +28,7 @@ router.delete('/', [isUser], async (req: Request, res: Response) => {
     data: {
       message: 'Deleted',
       email: req.currentUser?.email,
-      title: 'User has been deleted',
+      title: `${name} deleted`,
     },
   });
   res.status(201).json({ msg: 'User deleted successfully' });

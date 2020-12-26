@@ -35,7 +35,7 @@ router.put('/status/:id', [isAdmin], async (req: Request, res: Response) => {
     orderStatus: status,
     data: {
       title: 'Order created',
-      message: 'this is message',
+      message: `${orderDoc.items[0].title} Order status updated to ${status} `,
       email: orderDoc.email,
     },
   });

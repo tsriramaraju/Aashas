@@ -35,7 +35,7 @@ router.delete('/address/:id', [isUser], async (req: Request, res: Response) => {
     group: queueGroupName,
     data: {
       body: `Removed address successfully`,
-      message: 'Address removed successfully',
+      message: `Removed address successfully`,
       email,
       title: 'Address removed ',
     },

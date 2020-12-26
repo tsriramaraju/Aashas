@@ -58,7 +58,7 @@ router.post(
       group: queueGroupName,
       data: {
         body: `${name} added to the address book`,
-        message: 'Address added successfully',
+        message: `${name} added to the address book`,
         email,
         title: 'Address added ',
       },

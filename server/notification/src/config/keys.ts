@@ -16,4 +16,6 @@ export const keys = {
   natsURL: process.env.NATS_URL,
 
   natsClientID: process.env.NATS_CLIENT_ID,
+
+  slack: process.env.SLACK_URL,
 };

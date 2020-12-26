@@ -43,7 +43,7 @@ export class PaymentFailedListener extends Listener<PaymentFailedEvent> {
         payment: res.payment,
         data: {
           title: 'Payment Failed',
-          message: 'This is message',
+          message: `${res.items[0].title} Order payment failed `,
         },
       });
 

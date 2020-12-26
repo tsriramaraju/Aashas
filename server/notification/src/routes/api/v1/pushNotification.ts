@@ -1,6 +1,5 @@
 import { isAdmin, ServerError } from '@aashas/common';
 import { Router, Request, Response } from 'express';
-import { getNotification } from '../../../services/getNotifications';
 import { pushNotification } from '../../../services/pushNotification';
 
 const router = Router();
@@ -12,7 +11,7 @@ const router = Router();
  *  @returns   status
  */
 
-router.post('/', [isAdmin], async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   const data = req.body as {
     id: string;
     message: string;

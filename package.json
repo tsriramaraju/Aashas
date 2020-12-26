@@ -9,6 +9,7 @@
     "update:m": "npm i @aashas/common@latest && npm run update --prefix server/auth && npm run update --prefix server/users && npm run update --prefix server/products && npm run update --prefix server/orders && npm run update --prefix server/designer && npm run update --prefix server/notification  &&  git add .&& git commit -m \" updated common module   \" ",
     "pub": "npm run pub --prefix server/common",
     "pub-main": "npm run pub-main --prefix server/common",
+    "clear": "npm start --prefix \"database script\" ",
     "test": "jest --no-cache",
     "test:watch": "jest --watchAll --no-cache",
     "test:open": "jest --detectOpenHandles"

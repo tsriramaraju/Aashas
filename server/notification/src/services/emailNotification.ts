@@ -1,5 +1,7 @@
 import { notificationAttrs, ServerError } from '@aashas/common';
 import { Notification } from '../models/Notification';
+import axios from 'axios';
+import { keys } from '../config/keys';
 
 export const emailNotification = async (data: {
   email: string;
@@ -14,8 +16,14 @@ export const emailNotification = async (data: {
     };
     await Notification.build(notificationData).save();
 
-    //  TODO : email server
-    console.log(data);
+    const slackData = {
+      text: data.body,
+    };
+
+    const res = await axios.post(keys.slack!, slackData, {
+      headers: { 'Content-type': 'application/json' },
+    });
+    console.log(res.data);
   } catch (error) {
     throw new ServerError(error);
   }

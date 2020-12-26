@@ -61,7 +61,7 @@ router.post('/offers/:id', [isAdmin], async (req: Request, res: Response) => {
     mode: ['email'],
     data: {
       body: 'Offer added',
-      message: 'hello',
+      message: `${product.title} offer created `,
       title: 'Offer created',
     },
   });

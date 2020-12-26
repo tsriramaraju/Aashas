@@ -46,7 +46,7 @@ export class PaymentSuccessListener extends Listener<PaymentSuccessEvent> {
         data: {
           title: 'Payment successful',
 
-          message: 'This is message',
+          message: `${res.items[0].title} Order success `,
         },
       });
 
