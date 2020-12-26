@@ -6,3 +6,5 @@ commands.txt
 secrets.env
 .env
 build
+.cache
+public
