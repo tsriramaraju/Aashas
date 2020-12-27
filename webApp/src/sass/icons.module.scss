@@ -1,0 +1,18 @@
+@use 'config';
+
+.icon {
+  height: 50%;
+  width: 50%;
+  fill: config.$primary-color;
+}
+
+.text {
+  overflow: visible;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0px;
+  line-height: 1.2;
+  font-size: 1rem;
+  font-weight: 500;
+  color: config.$secondary-color;
+  text-align: center;
+}

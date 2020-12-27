@@ -1,13 +1,17 @@
 import * as React from 'react';
+import style from '../../../sass/icons.module.scss';
+type HomeProps = {
+  className?: string;
+  changeNav: (nav: string) => void;
+};
 
-export function Home(props: any) {
+export function Home(props: HomeProps) {
   return (
-    <>
+    <div {...props} onClick={() => props.changeNav('home')}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 323.53 288.57"
-        width="100%"
-        height="100%"
+        className={style.icon}
       >
         <g id="Layer_2" data-name="Layer 2">
           <g id="Layer_1-2" data-name="Layer 1">
@@ -24,6 +28,7 @@ export function Home(props: any) {
           </g>
         </g>
       </svg>
-    </>
+      <p className={style.text}>Home</p>
+    </div>
   );
 }

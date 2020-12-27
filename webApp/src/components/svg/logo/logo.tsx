@@ -1,13 +1,17 @@
 import * as React from 'react';
+type LogoProps = {
+  width?: string;
+  height?: string;
+  className?: string;
+};
 
-export function Logo(props: any) {
+export function Logo(props: LogoProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 412.55 110.52"
       {...props}
     >
-      <title>WordLogo</title>
       <g id="Layer_2" data-name="Layer 2">
         <g id="Logo">
           <g id="Word_Logo_final" data-name="Word Logo final">
