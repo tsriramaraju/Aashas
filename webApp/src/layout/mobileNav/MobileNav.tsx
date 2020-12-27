@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Custom, Home, Icon, Shop, User } from '../../components/svg';
-
 import styles from './mobileNav.module.scss';
 import { AnimateSharedLayout, motion } from 'framer-motion';
 

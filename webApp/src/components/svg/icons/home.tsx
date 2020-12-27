@@ -1,5 +1,6 @@
 import * as React from 'react';
 import style from '../../../sass/icons.module.scss';
+
 import { motion } from 'framer-motion';
 type HomeProps = {
   className?: string;

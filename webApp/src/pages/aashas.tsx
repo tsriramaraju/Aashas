@@ -2,12 +2,12 @@ import React from 'react';
 import '../sass/index.module.scss';
 
 import { Layout } from '../layout';
-const IndexPage = () => {
+const Aashas = () => {
   return (
     <Layout>
-      <p>home</p>
+      <p>Aashas</p>
     </Layout>
   );
 };
 
-export default IndexPage;
+export default Aashas;
