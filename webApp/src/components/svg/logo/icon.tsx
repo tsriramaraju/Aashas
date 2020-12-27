@@ -1,18 +1,21 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { storeState } from '../../../interfaces/storeInterfaces';
 import style from '../../../sass/icons.module.scss';
 type IconProps = {
   className?: string;
   changeNav: (nav: string) => void;
-  location: string;
+  location?: string;
+  currentNav?: string;
 };
 
-export function Icon(props: IconProps) {
+const IconElement = (props: IconProps) => {
   return (
     <div {...props} onClick={() => props.changeNav('aashas')}>
       <div
         className={
-          props.location === 'aashas' ? style.menuSelected : style.menu
+          props.currentNav === 'aashas' ? style.menuSelected : style.menu
         }
       >
         <svg
@@ -289,9 +292,16 @@ export function Icon(props: IconProps) {
         </svg>
         <p className={style.text}>Aashas</p>
       </div>
-      {props.location === 'aashas' && (
+      {props.currentNav === 'aashas' && (
         <motion.div layoutId="border" className={style.border} />
       )}
     </div>
   );
-}
+};
+const mapStateToProps = (state: storeState) => ({
+  currentNav: state.path,
+});
+
+const Icon = connect(mapStateToProps)(IconElement);
+
+export { Icon };

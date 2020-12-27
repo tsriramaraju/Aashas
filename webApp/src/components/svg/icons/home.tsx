@@ -1,18 +1,20 @@
 import * as React from 'react';
 import style from '../../../sass/icons.module.scss';
-
+import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
+import { storeState } from '../../../interfaces/storeInterfaces';
 type HomeProps = {
   className?: string;
   changeNav: (nav: string) => void;
-  location: string;
+  location?: string;
+  currentNav?: string;
 };
 
-export function Home(props: HomeProps) {
+const HomeElement = (props: HomeProps) => {
   return (
     <motion.div {...props} onClick={() => props.changeNav('home')}>
       <div
-        className={props.location === 'home' ? style.menuSelected : style.menu}
+        className={props.currentNav === '' ? style.menuSelected : style.menu}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -36,9 +38,17 @@ export function Home(props: HomeProps) {
         </svg>
         <p className={style.text}>Home</p>
       </div>
-      {props.location === 'home' && (
+      {props.currentNav === '' && (
         <motion.div layoutId="border" className={style.border} />
       )}
     </motion.div>
   );
-}
+};
+
+const mapStateToProps = (state: storeState) => ({
+  currentNav: state.path,
+});
+
+const Home = connect(mapStateToProps)(HomeElement);
+
+export { Home };

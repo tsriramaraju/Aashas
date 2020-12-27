@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import { profile } from './profile';
+import { storeState } from '../../interfaces/storeInterfaces';
+import { path } from './path';
 
-export default combineReducers({
-  profile,
+export default combineReducers<storeState>({
+  path: path,
 });

@@ -1,20 +1,23 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { storeState } from '../../../interfaces/storeInterfaces';
 
 import style from '../../../sass/icons.module.scss';
 
 type CustomProps = {
   className?: string;
   changeNav: (nav: string) => void;
-  location: string;
+  location?: string;
+  currentNav?: string;
 };
 
-export function Custom(props: CustomProps) {
+const CustomElement = (props: CustomProps) => {
   return (
     <div {...props} onClick={() => props.changeNav('custom')}>
       <div
         className={
-          props.location === 'custom' ? style.menuSelected : style.menu
+          props.currentNav === 'custom' ? style.menuSelected : style.menu
         }
       >
         <svg
@@ -33,9 +36,16 @@ export function Custom(props: CustomProps) {
         </svg>
         <p className={style.text}>Custom</p>
       </div>
-      {props.location === 'custom' && (
+      {props.currentNav === 'custom' && (
         <motion.div layoutId="border" className={style.border} />
       )}
     </div>
   );
-}
+};
+const mapStateToProps = (state: storeState) => ({
+  currentNav: state.path,
+});
+
+const Custom = connect(mapStateToProps)(CustomElement);
+
+export { Custom };

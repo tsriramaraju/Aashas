@@ -1,18 +1,27 @@
 import { motion } from 'framer-motion';
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { storeState } from '../../../interfaces/storeInterfaces';
 import style from '../../../sass/icons.module.scss';
 type UserProps = {
   stroke: string;
   className?: string;
   changeNav: (nav: string) => void;
-  location: string;
+  location?: string;
+  currentNav?: string;
 };
 
-export function User({ stroke, className, changeNav, location }: UserProps) {
+const UserElement = ({
+  stroke,
+  className,
+  changeNav,
+  currentNav,
+  location,
+}: UserProps) => {
   return (
     <motion.div className={className} onClick={() => changeNav('user')} animate>
       <motion.div
-        className={location === 'user' ? style.menuSelected : style.menu}
+        className={currentNav === 'user' ? style.menuSelected : style.menu}
       >
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,9 +57,16 @@ export function User({ stroke, className, changeNav, location }: UserProps) {
           User
         </motion.p>
       </motion.div>
-      {location === 'user' && (
+      {currentNav === 'user' && (
         <motion.div layoutId="border" className={style.border} />
       )}
     </motion.div>
   );
-}
+};
+const mapStateToProps = (state: storeState) => ({
+  currentNav: state.path,
+});
+
+const User = connect(mapStateToProps)(UserElement);
+
+export { User };

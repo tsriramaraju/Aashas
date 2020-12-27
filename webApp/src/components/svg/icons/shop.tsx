@@ -1,18 +1,22 @@
 import * as React from 'react';
 import style from '../../../sass/icons.module.scss';
-
+import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
+import { storeState } from '../../../interfaces/storeInterfaces';
 type ShopProps = {
   className?: string;
   changeNav: (nav: string) => void;
-  location: string;
+  location?: string;
+  currentNav?: string;
 };
 
-export function Shop(props: ShopProps) {
+const ShopElement = (props: ShopProps) => {
   return (
     <motion.div {...props} onClick={() => props.changeNav('shop')} animate>
       <motion.div
-        className={props.location === 'shop' ? style.menuSelected : style.menu}
+        className={
+          props.currentNav === 'shop' ? style.menuSelected : style.menu
+        }
       >
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,9 +37,17 @@ export function Shop(props: ShopProps) {
           shop
         </motion.p>
       </motion.div>
-      {props.location === 'shop' && (
+      {props.currentNav === 'shop' && (
         <motion.div layoutId="border" className={style.border} />
       )}
     </motion.div>
   );
-}
+};
+
+const mapStateToProps = (state: storeState) => ({
+  currentNav: state.path,
+});
+
+const Shop = connect(mapStateToProps)(ShopElement);
+
+export { Shop };
