@@ -16,3 +16,29 @@
   color: config.$secondary-color;
   text-align: center;
 }
+
+.border {
+  border-bottom: 3px solid config.$accent-primary-color;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+.menu {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  opacity: 0.4;
+}
+.menuSelected {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  opacity: 1;
+}

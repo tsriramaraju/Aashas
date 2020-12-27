@@ -28,6 +28,66 @@
   flex-shrink: 0;
   width: 40%;
   height: 90%;
+
+  // .words {
+  //   fill: config.$white-color;
+  //   stroke: config.$primary-color;
+  //   stroke-width: 1;
+  //   stroke-dasharray: 335;
+  //   stroke-dashoffset: 335;
+  //   animation: draw 5s forwards;
+  // }
+  // .letterH {
+  //   fill: config.$white-color;
+  //   stroke: config.$secondary-color;
+  //   stroke-width: 1;
+  //   stroke-dasharray: 425;
+  //   stroke-dashoffset: 425;
+  //   animation: drawH 5s forwards;
+  // }
+  // .trimPaths {
+  //   fill: rgba(255, 255, 255, 0);
+  //   stroke: config.$white-color;
+  //   stroke-width: 0.11;
+  //   stroke-dasharray: 15;
+  //   stroke-dashoffset: 15;
+  //   animation: drawTrim 5s forwards;
+  //   animation-delay: 5s;
+  // }
+
+  // @keyframes draw {
+  //   70% {
+  //     // stroke-dashoffset: 0;
+  //     stroke-width: 00.5;
+  //     fill: config.$white-color;
+  //   }
+  //   100% {
+  //     stroke-dashoffset: 0;
+  //     stroke-width: 0;
+  //     fill: config.$primary-color;
+  //   }
+  // }
+
+  // @keyframes drawH {
+  //   70% {
+  //     // stroke-dashoffset: 0;
+  //     stroke-width: 0.5;
+  //     fill: config.$white-color;
+  //   }
+  //   100% {
+  //     stroke-dashoffset: 0;
+  //     stroke-width: 0;
+  //     fill: config.$secondary-color;
+  //   }
+  // }
+  // @keyframes drawTrim {
+  //   100% {
+  //     stroke-dashoffset: 0;
+
+  //     stroke-width: 0;
+  //     fill: config.$white-color;
+  //   }
+  // }
 }
 
 .icons {
