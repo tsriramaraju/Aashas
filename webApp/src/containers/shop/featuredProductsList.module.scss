@@ -1,0 +1,11 @@
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100vw;
+  height: 25vh;
+  gap: 25px;
+  display: flex;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

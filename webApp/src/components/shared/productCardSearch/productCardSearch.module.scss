@@ -1,0 +1,42 @@
+@use '../../../sass/config';
+
+.card {
+  background-color: bisque;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.imgContainer {
+  height: 100%;
+  width: 35%;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+}
+
+.detailsContainer {
+  height: 100%;
+  width: 65%;
+  background-color: config.$white-color;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.title {
+  height: 100%;
+  font-size: 1.5em;
+  color: config.$secondary-color;
+  font-weight: 500;
+}
+.description {
+  font-size: 0.8em;
+  color: config.$text-color;
+  font-weight: 200;
+  letter-spacing: 0.65px;
+}

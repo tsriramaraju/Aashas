@@ -1,8 +1,6 @@
 @use '../../../sass/config';
 
 .productCard {
-  width: 30vw;
-  height: 22.5vh;
   overflow: hidden;
   border-radius: 13px;
 }
@@ -35,8 +33,7 @@
 
 .title {
   letter-spacing: 0px;
-  font-size: 1em;
-  color: config.$primary-color;
+
   font-family: 'Gill Sans', sans-serif;
   text-align: center;
 }
