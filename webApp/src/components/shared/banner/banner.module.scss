@@ -1,0 +1,11 @@
+.banner {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.image {
+  height: 100%;
+  width: 100%;
+  flex-shrink: 0;
+}

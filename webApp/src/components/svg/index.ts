@@ -9,3 +9,6 @@ export * from './icons/user';
 //logo
 export * from './logo/icon';
 export * from './logo/logo';
+
+//patterns
+export * from './patterns/home';
