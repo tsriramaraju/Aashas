@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Custom, Home, Icon, Shop, User } from '../../components/svg';
 import styles from './mobileNav.module.scss';
-import { motion } from 'framer-motion';
+
 import { storeState } from '../../interfaces/storeInterfaces';
 import { connect } from 'react-redux';
 import { navigate as navigateAction } from '../../redux/actions/path';
@@ -13,14 +13,14 @@ type MobileNavProps = {
 };
 
 const MobileNavElement = (props: MobileNavProps) => {
-  const [nav, setNav] = useState('home');
-
   useEffect(() => {
-    setNav(props.currentNav);
+    if (typeof window !== 'undefined') {
+      props.navigateAction(window.location.pathname.substring(1));
+      navigate(window.location.pathname);
+    }
   }, []);
 
   const changNav = (nav: string) => {
-    setNav(nav);
     if (nav === 'home') {
       props.navigateAction('');
       navigate(`/`);
@@ -31,34 +31,33 @@ const MobileNavElement = (props: MobileNavProps) => {
   };
 
   return (
-    <motion.div animate className={styles.nav}>
+    <div className={styles.nav}>
       <Home
-        className={nav === '' ? styles.selected : styles.item}
+        className={props.currentNav === '' ? styles.selected : styles.item}
         changeNav={changNav}
-        // location={nav}
       />
       <Shop
-        className={nav === 'shop' ? styles.selected : styles.item}
+        className={props.currentNav === 'shop' ? styles.selected : styles.item}
         changeNav={changNav}
-        // location={nav}
       />
       <Custom
-        className={nav === 'custom' ? styles.selected : styles.item}
+        className={
+          props.currentNav === 'custom' ? styles.selected : styles.item
+        }
         changeNav={changNav}
-        // location={nav}
       />
       <Icon
-        className={nav === 'aashas' ? styles.selected : styles.item}
+        className={
+          props.currentNav === 'aashas' ? styles.selected : styles.item
+        }
         changeNav={changNav}
-        // location={nav}
       />
       <User
         stroke="#47556E"
-        className={nav === 'user' ? styles.selected : styles.item}
+        className={props.currentNav === 'user' ? styles.selected : styles.item}
         changeNav={changNav}
-        // location={nav}
       />
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,7 +1,6 @@
 import * as React from 'react';
 type LogoProps = {
-  width?: string;
-  height?: string;
+  onClick?: () => void;
   className?: string;
 };
 
