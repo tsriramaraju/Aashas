@@ -1,0 +1,40 @@
+@use '../../sass/config';
+
+.contactContainer {
+  width: 95%;
+  height: 35vh;
+
+  display: flex;
+}
+
+.contactDetails {
+  width: 50%;
+  height: 100%;
+}
+
+.contactDetail {
+  width: 100%;
+  height: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.contactHeading {
+  font-size: 1.5em;
+  color: config.$secondary-color;
+}
+.contactText {
+  width: 70%;
+  font-size: 1em;
+  text-align: center;
+  color: config.$text-color;
+  opacity: 0.6;
+}
+
+.mapContainer {
+  height: 100%;
+  width: 50%;
+  background-color: rgb(131, 115, 187);
+}
