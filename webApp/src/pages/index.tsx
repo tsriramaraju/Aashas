@@ -7,7 +7,7 @@ import { Banner } from '../components/shared/banner/Banner';
 
 const IndexPage = () => {
   return (
-    <section className={styles.home}>
+    <div className={styles.home}>
       <HomePattern className={styles.pattern} />
       <h1 className={styles.heading}>Design your way of life</h1>
       <div style={{ height: '1.5vh' }} />
@@ -23,7 +23,7 @@ const IndexPage = () => {
       <ProductsList />
       <div style={{ height: '5vh' }} />
       <Banner />
-    </section>
+    </div>
   );
 };
 
