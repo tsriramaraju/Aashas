@@ -13,7 +13,7 @@ const IndexPage = () => {
       <div style={{ height: '1.5vh' }} />
       <h4 className={styles.subHeading}>
         An occasion for every party in the town, just don't fit the dress, let
-        the dress fit you
+        the dress fit yousss
       </h4>
       <div style={{ height: '2.5vh' }} />
       <Button onclick={() => {}} width="50vw">

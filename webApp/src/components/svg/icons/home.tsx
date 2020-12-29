@@ -12,7 +12,7 @@ type HomeProps = {
 
 const HomeElement = (props: HomeProps) => {
   return (
-    <motion.div {...props} onClick={() => props.changeNav('home')}>
+    <div {...props} onClick={() => props.changeNav('home')}>
       <div
         className={props.currentNav === '' ? style.menuSelected : style.menu}
       >
@@ -41,7 +41,7 @@ const HomeElement = (props: HomeProps) => {
       {props.currentNav === '' && (
         <motion.div layoutId="border" className={style.border} />
       )}
-    </motion.div>
+    </div>
   );
 };
 

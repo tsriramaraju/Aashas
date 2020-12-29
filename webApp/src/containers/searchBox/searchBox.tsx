@@ -46,7 +46,14 @@ const SearchBox = ({ onClick }: props) => {
         </motion.svg>
       </div>
       <div className={style.resultBox}>
-        <ProductCardSearch
+        {/* <ProductCardSearch
+          description="Featuring a midnight blue eplum top with a turquoise dhoti pant. The peplum top is embellished with rich zardosi embroidery of sequins and dabka"
+          title="Product title"
+          img="https://images.unsplash.com/flagged/photo-1580141043903-ef7df571364b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
+          height="30%"
+          width="100%"
+        /> */}
+        {/* <ProductCardSearch
           description="Featuring a midnight blue eplum top with a turquoise dhoti pant. The peplum top is embellished with rich zardosi embroidery of sequins and dabka"
           title="Product title"
           img="https://images.unsplash.com/flagged/photo-1580141043903-ef7df571364b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
@@ -73,14 +80,7 @@ const SearchBox = ({ onClick }: props) => {
           img="https://images.unsplash.com/flagged/photo-1580141043903-ef7df571364b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
           height="30%"
           width="100%"
-        />
-        <ProductCardSearch
-          description="Featuring a midnight blue eplum top with a turquoise dhoti pant. The peplum top is embellished with rich zardosi embroidery of sequins and dabka"
-          title="Product title"
-          img="https://images.unsplash.com/flagged/photo-1580141043903-ef7df571364b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
-          height="30%"
-          width="100%"
-        />
+        /> */}
       </div>
     </motion.div>
   );

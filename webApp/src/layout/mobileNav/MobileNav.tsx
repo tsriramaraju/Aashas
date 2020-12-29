@@ -6,6 +6,7 @@ import { storeState } from '../../interfaces/storeInterfaces';
 import { connect } from 'react-redux';
 import { navigate as navigateAction } from '../../redux/actions/path';
 import { navigate } from 'gatsby';
+import { AnimateSharedLayout } from 'framer-motion';
 
 type MobileNavProps = {
   currentNav: string;
@@ -15,7 +16,9 @@ type MobileNavProps = {
 const MobileNavElement = (props: MobileNavProps) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      props.navigateAction(window.location.pathname.substring(1));
+      props.navigateAction(
+        window.location.pathname.substring(1).replace(/\//, '')
+      );
       navigate(window.location.pathname);
     }
   }, []);
@@ -31,33 +34,39 @@ const MobileNavElement = (props: MobileNavProps) => {
   };
 
   return (
-    <div className={styles.nav}>
-      <Home
-        className={props.currentNav === '' ? styles.selected : styles.item}
-        changeNav={changNav}
-      />
-      <Shop
-        className={props.currentNav === 'shop' ? styles.selected : styles.item}
-        changeNav={changNav}
-      />
-      <Custom
-        className={
-          props.currentNav === 'custom' ? styles.selected : styles.item
-        }
-        changeNav={changNav}
-      />
-      <Icon
-        className={
-          props.currentNav === 'aashas' ? styles.selected : styles.item
-        }
-        changeNav={changNav}
-      />
-      <User
-        stroke="#47556E"
-        className={props.currentNav === 'user' ? styles.selected : styles.item}
-        changeNav={changNav}
-      />
-    </div>
+    <AnimateSharedLayout>
+      <div className={styles.nav}>
+        <Home
+          className={props.currentNav === '' ? styles.selected : styles.item}
+          changeNav={changNav}
+        />
+        <Shop
+          className={
+            props.currentNav === 'shop' ? styles.selected : styles.item
+          }
+          changeNav={changNav}
+        />
+        <Custom
+          className={
+            props.currentNav === 'custom' ? styles.selected : styles.item
+          }
+          changeNav={changNav}
+        />
+        <Icon
+          className={
+            props.currentNav === 'aashas' ? styles.selected : styles.item
+          }
+          changeNav={changNav}
+        />
+        <User
+          stroke="#47556E"
+          className={
+            props.currentNav === 'user' ? styles.selected : styles.item
+          }
+          changeNav={changNav}
+        />
+      </div>
+    </AnimateSharedLayout>
   );
 };
 

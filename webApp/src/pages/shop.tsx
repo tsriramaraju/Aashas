@@ -3,7 +3,7 @@ import SearchIcon from '../components/search/searchIcon';
 import { FeaturedProductsList, ProductsListShop } from '../containers';
 import Filter from '../containers/shop/filter';
 import styles from '../sass/shop.module.scss';
-import { motion } from 'framer-motion';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import SearchBox from '../containers/searchBox/searchBox';
 
 const ShopPage = () => {
@@ -14,19 +14,21 @@ const ShopPage = () => {
   };
 
   return (
-    <motion.section className={styles.shop}>
-      {search ? (
-        <SearchBox onClick={toggleSearch} />
-      ) : (
-        <>
-          <FeaturedProductsList />
-          <Filter />
-          <ProductsListShop />
-          <SearchIcon onClick={toggleSearch} />
-          <div style={{ height: '11vh' }} />
-        </>
-      )}
-    </motion.section>
+    <AnimateSharedLayout>
+      <section className={styles.shop}>
+        {search ? (
+          <SearchBox onClick={toggleSearch} />
+        ) : (
+          <>
+            <FeaturedProductsList />
+            <Filter />
+            <ProductsListShop />
+            <SearchIcon onClick={toggleSearch} />
+            <div style={{ height: '11vh' }} />
+          </>
+        )}
+      </section>
+    </AnimateSharedLayout>
   );
 };
 
