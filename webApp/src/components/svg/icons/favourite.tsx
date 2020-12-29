@@ -15,10 +15,10 @@ export function Favourite(props: FavouriteProps) {
         <g
           id="Layer_2"
           data-name="Layer 2"
-          fill="none"
+          // fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4px"
+          // strokeWidth="4px"
         >
           <g id="Layer_1-2" data-name="Layer 1">
             <path

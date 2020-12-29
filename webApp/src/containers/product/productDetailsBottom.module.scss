@@ -1,0 +1,32 @@
+@use '../../sass/config';
+.productDetailsBottomCard {
+  height: 70%;
+  width: 100%;
+}
+
+.chips {
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.box {
+  height: 90%;
+  padding: 15px;
+}
+
+.heading {
+  font-size: 1.5em;
+  color: config.$secondary-color;
+  height: 35px;
+  font-weight: 400;
+}
+
+.text {
+  font-size: 1em;
+  color: config.$text-color;
+  letter-spacing: 1px;
+  line-height: 22px;
+  font-weight: 100;
+}

@@ -1,7 +1,12 @@
 import React from 'react';
+import ProductPage from '../template/productPage/productPage';
 
 const Custom = () => {
-  return <p>Custom</p>;
+  return (
+    <section>
+      <ProductPage />
+    </section>
+  );
 };
 
 export default Custom;

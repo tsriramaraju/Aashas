@@ -14,3 +14,17 @@
   font-weight: 200;
   font-size: 1em;
 }
+.chipSelected {
+  flex-shrink: 0;
+  color: config.$white-color;
+  background-color: config.$accent-primary-color;
+  border-radius: 10px;
+  height: 4vh;
+  width: 25vw;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 4vh;
+  letter-spacing: 1px;
+  font-weight: 200;
+  font-size: 1em;
+}

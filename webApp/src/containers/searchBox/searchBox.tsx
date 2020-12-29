@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './searchBox.module.scss';
 import { motion } from 'framer-motion';
-import SearchIcon from '../../components/search/searchIcon';
-import { ProductCardSearch } from '../../components/shared/productCardSearch/productCardSearch';
+// import SearchIcon from '../../components/search/searchIcon';
+// import { ProductCardSearch } from '../../components/shared/productCardSearch/productCardSearch';
 type props = {
   onClick: () => void;
 };
