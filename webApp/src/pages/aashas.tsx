@@ -6,6 +6,7 @@ import styles from '../sass/aashas.module.scss';
 const Aashas = () => {
   return (
     <section className={styles.aashas}>
+      <div style={{ height: '7vh' }} />
       <AashasProfile />
       <h2 className={styles.heading}>About</h2>
       <p className={styles.text}>
@@ -30,6 +31,7 @@ const Aashas = () => {
       <div className={styles.blog} style={{ backgroundColor: '#E63946' }}>
         How to select wedding dress
       </div>
+      <div style={{ height: '10vh' }} />
     </section>
   );
 };

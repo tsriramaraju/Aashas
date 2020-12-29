@@ -15,6 +15,7 @@ const ShopPage = () => {
 
   return (
     <AnimateSharedLayout>
+      <div style={{ height: '7vh' }} />
       <section className={styles.shop}>
         {search ? (
           <SearchBox onClick={toggleSearch} />
@@ -26,6 +27,7 @@ const ShopPage = () => {
             <SearchIcon onClick={toggleSearch} />
           </>
         )}
+        <div style={{ height: '10vh' }} />
       </section>
     </AnimateSharedLayout>
   );

@@ -1,3 +1,4 @@
+import { navigate } from 'gatsby';
 import React from 'react';
 import styles from './productCard.module.scss';
 type props = {
@@ -18,8 +19,15 @@ const ProductCard = ({
   fontSize = '1.2em',
 }: props) => {
   // TODO : change image later to gatsby images
+
   return (
-    <div className={styles.productCard} style={{ height, width }}>
+    <div
+      className={styles.productCard}
+      style={{ height, width }}
+      onClick={() => {
+        navigate('/product');
+      }}
+    >
       <div className={styles.imgContainer}>
         <img className={styles.img} src={img} alt="image" />
       </div>

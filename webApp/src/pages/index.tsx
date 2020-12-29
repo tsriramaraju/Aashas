@@ -8,6 +8,7 @@ import { Banner } from '../components/shared/banner/Banner';
 const IndexPage = () => {
   return (
     <div className={styles.home}>
+      <div style={{ height: '7vh' }} />
       <HomePattern className={styles.pattern} />
       <h1 className={styles.heading}>Design your way of life</h1>
       <div style={{ height: '1.5vh' }} />
@@ -23,6 +24,7 @@ const IndexPage = () => {
       <ProductsList />
       <div style={{ height: '5vh' }} />
       <Banner />
+      <div style={{ height: '10vh' }} />
     </div>
   );
 };
