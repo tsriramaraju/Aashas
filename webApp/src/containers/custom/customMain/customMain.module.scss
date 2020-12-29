@@ -1,0 +1,47 @@
+@use '../../../sass/config';
+
+.custom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading {
+  font-size: 2em;
+  color: config.$primary-color;
+  font-weight: 400;
+  height: 70px;
+  line-height: 70px;
+  vertical-align: middle;
+}
+
+.benefits {
+  font-size: 1.2em;
+  color: config.$secondary-color;
+  font-weight: 200;
+  width: 80%;
+  height: 35px;
+  line-height: 35px;
+  vertical-align: middle;
+  text-align: start;
+}
+
+.text {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  font-size: 1em;
+  color: config.$text-color;
+  font-weight: 100;
+  width: 60%;
+  align-self: flex-start;
+  text-align: start;
+}
+
+.svg {
+  position: fixed;
+  top: 50vh;
+  right: 0px;
+  transform: rotate(90deg) translate(0, -95%);
+}

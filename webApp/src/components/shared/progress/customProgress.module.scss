@@ -1,0 +1,139 @@
+@use '../../../sass/config';
+.progress {
+  height: 22%;
+  width: 90%;
+}
+
+.progressCircles {
+  padding-top: 2.5vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.outerCircle {
+  width: 50px;
+  height: 50px;
+  overflow: visible;
+  border-radius: 25px;
+  border: 1px solid config.$primary-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.innerCircle {
+  width: 40px;
+  height: 40px;
+  overflow: visible;
+  border-radius: 25px;
+  background-color: config.$primary-color;
+}
+
+.outerLine {
+  width: 80px;
+  height: 3px;
+  overflow: visible;
+  background-color: rgba(179, 179, 179, 0.295);
+  border-radius: 15px;
+}
+.innerLine {
+  width: 50%;
+  border-radius: 15px;
+  height: 3px;
+  overflow: visible;
+  background-color: config.$primary-color;
+}
+
+.progressInfo {
+  padding-top: 1vh;
+  display: flex;
+  justify-content: space-between;
+}
+.textContainer {
+  height: 100%;
+}
+.text1 {
+  font-size: 0.75em;
+  height: 1.5em;
+  font-weight: 800;
+  text-align: left;
+  color: config.$text-color;
+  opacity: 0.45;
+}
+.text2 {
+  font-size: 1em;
+  font-weight: 400;
+  text-align: left;
+  height: 1.5em;
+  color: config.$secondary-color;
+}
+.text3 {
+  font-size: 0.65em;
+  font-weight: 400;
+  text-align: center;
+  width: 80px;
+  height: 100%;
+  border-radius: 10px;
+  background-color: config.$primary-color;
+  padding: 5px;
+  color: config.$white-color;
+}
+
+.outerCircleDisabled {
+  width: 50px;
+  height: 50px;
+  overflow: visible;
+  border-radius: 25px;
+  border: 1px solid config.$text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.25;
+}
+.innerCircleDisabled {
+  width: 40px;
+  height: 40px;
+  overflow: visible;
+  border-radius: 25px;
+  background-color: config.$text-color;
+  opacity: 0.25;
+}
+
+.outerLineDisabled {
+  width: 80px;
+  height: 3px;
+  overflow: visible;
+  background-color: config.$text-color;
+  border-radius: 15px;
+  opacity: 0.25;
+}
+.innerLineDisabled {
+  width: 50%;
+  border-radius: 15px;
+  height: 3px;
+  overflow: visible;
+  background-color: config.$primary-color;
+  visibility: hidden;
+}
+
+.text2Disabled {
+  font-size: 1em;
+  font-weight: 400;
+  text-align: left;
+  height: 1.5em;
+  color: config.$text-color;
+  opacity: 0.25;
+}
+.text3Disabled {
+  font-size: 0.65em;
+  font-weight: 400;
+  text-align: center;
+  width: 80px;
+  height: 100%;
+  border-radius: 10px;
+  background-color: config.$text-color;
+  padding: 5px;
+  color: config.$white-color;
+  opacity: 0.25;
+}

@@ -12,3 +12,4 @@ export * from './logo/logo';
 
 //patterns
 export * from './patterns/home';
+export * from './patterns/custom';
