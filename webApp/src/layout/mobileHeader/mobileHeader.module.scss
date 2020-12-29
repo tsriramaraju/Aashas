@@ -1,17 +1,16 @@
 @use '../../sass/config';
 
 .header {
-  box-sizing: border-box;
   width: 100vw;
   height: 7vh;
   background-color: config.$white-color;
-  overflow: hidden;
+
   box-shadow: 0px 1px 2px 0px rgba(255, 250, 250, 0.37);
   border-radius: 0px 0px 15px 15px;
   border-bottom: 2px solid config.$primary-bg-color;
-  position: fixed;
+  position: sticky;
   top: 0;
-  z-index: 100;
+  // z-index: 100;
   padding: 5px;
 }
 

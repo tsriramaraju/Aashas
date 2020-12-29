@@ -11,6 +11,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <main>
       <MobileHeader />
+
       {children}
 
       <MobileNav />

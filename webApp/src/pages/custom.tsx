@@ -1,12 +1,7 @@
 import React from 'react';
-import ProductPage from '../template/productPage/productPage';
 
 const Custom = () => {
-  return (
-    <section>
-      <ProductPage />
-    </section>
-  );
+  return <p style={{ height: '86vh' }}>User</p>;
 };
 
 export default Custom;

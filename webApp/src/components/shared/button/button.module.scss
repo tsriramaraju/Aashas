@@ -1,7 +1,7 @@
 @use '../../../sass/config';
 .primary {
   background-color: config.$accent-primary-color;
-  border-radius: 24px;
+
   border: none;
   color: config.$white-color;
   font-family: config.$primary-font, sans-serif;
@@ -9,7 +9,7 @@
 
 .secondary {
   background-color: config.$accent-secondary-color;
-  border-radius: 24px;
+
   border: none;
   color: config.$white-color;
   font-family: config.$primary-font, sans-serif;

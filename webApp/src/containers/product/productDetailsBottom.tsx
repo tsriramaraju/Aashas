@@ -10,7 +10,7 @@ const ProductDetailsBottom = () => {
     <div className={style.box}>
       <h3 className={style.heading}>Composition</h3>
       <p className={style.text}>100% pure cotton</p>
-      <div style={{ height: '25px' }} />
+      <div style={{ height: '10px' }} />
       <h3 className={style.heading}>Care</h3>
       <p className={style.text}>
         Lorem ipsum dolor sit amet, et mei ipsum molestie, cu illud minim
@@ -26,7 +26,7 @@ const ProductDetailsBottom = () => {
     <div className={style.box}>
       <h3 className={style.heading}>Estimated shipping days</h3>
       <p className={style.text}>100% pure cotton</p>
-      <div style={{ height: '25px' }} />
+      <div style={{ height: '10px' }} />
       <h3 className={style.heading}>Instructions</h3>
       <p className={style.text}>
         Lorem ipsum dolor sit amet, et mei ipsum molestie, cu illud minim

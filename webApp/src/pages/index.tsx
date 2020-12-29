@@ -23,7 +23,6 @@ const IndexPage = () => {
       <ProductsList />
       <div style={{ height: '5vh' }} />
       <Banner />
-      <div style={{ height: '10vh' }} />
     </section>
   );
 };

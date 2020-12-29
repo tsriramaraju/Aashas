@@ -24,7 +24,6 @@ const ShopPage = () => {
             <Filter />
             <ProductsListShop />
             <SearchIcon onClick={toggleSearch} />
-            <div style={{ height: '11vh' }} />
           </>
         )}
       </section>

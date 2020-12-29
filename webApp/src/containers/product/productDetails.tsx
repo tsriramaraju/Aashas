@@ -9,7 +9,7 @@ const ProductDetails = () => {
   return (
     <motion.div
       drag="y"
-      dragConstraints={{ bottom: 0, top: -450 }}
+      dragConstraints={{ bottom: 0, top: -400 }}
       dragElastic={0.2}
       className={style.drag}
     >

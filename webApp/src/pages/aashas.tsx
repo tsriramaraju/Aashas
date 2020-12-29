@@ -1,6 +1,7 @@
 import React from 'react';
 import { AashasContact } from '../containers';
 import AashasProfile from '../containers/aashas/aashasProfile';
+
 import styles from '../sass/aashas.module.scss';
 const Aashas = () => {
   return (
@@ -29,7 +30,6 @@ const Aashas = () => {
       <div className={styles.blog} style={{ backgroundColor: '#E63946' }}>
         How to select wedding dress
       </div>
-      <div style={{ height: '15vh' }}></div>
     </section>
   );
 };

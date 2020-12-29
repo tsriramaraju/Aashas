@@ -9,6 +9,7 @@ type props = {
   height?: string;
   width?: string;
   fontSize?: string;
+  radius?: string;
 };
 
 const Button = ({
@@ -18,10 +19,11 @@ const Button = ({
   height = '50px',
   width = '250px',
   fontSize = '1em',
+  radius = '24px',
 }: props) => {
   return (
     <button
-      style={{ height, width, fontSize }}
+      style={{ height, width, fontSize, borderRadius: radius }}
       className={color === 'primary' ? styles.primary : styles.secondary}
       onClick={onclick}
     >
